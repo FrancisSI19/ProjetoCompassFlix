@@ -10,9 +10,7 @@ const App = () => {
     <NavigationContainer>
       <Routes /> 
     </NavigationContainer>
-
   );
 };
 
 export default App;
-
