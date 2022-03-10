@@ -1,11 +1,9 @@
 import React from 'react';
-import {  } from 'react-native';
+import { View } from 'react-native';
 
 const App = () => {
   return (
-    <>
-      
-    </>
+    <View></View>
   );
 };
 
