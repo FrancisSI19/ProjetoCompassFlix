@@ -1,7 +1,5 @@
 import React from 'react';
-import {  } from 'react-native';
-
-import Login from './src/screens/Login';
+import {} from 'react-native';
 
 const App = () => {
   return (
