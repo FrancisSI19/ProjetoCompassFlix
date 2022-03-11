@@ -1,0 +1,45 @@
+import React, { useEffect, useState } from "react";
+import { View, FlatList } from "react-native";
+import ListMovies from "../ListMovies";
+
+
+function FlatMovies() {
+    const [movies, setMovies] = useState([]);
+
+    useEffect(() => {
+        async function getStorage() {
+            api.get("")
+                .then(response => {
+                const data = response.data
+                setMovies(data)
+                })
+                .catch(error => console.log(error))
+            }
+            getStorage()
+    }, [])
+
+    function renderItem({ item }) {
+   
+        return (
+            <TouchableOpacity onPress={ListView}>
+                <ListMovies {...item} />
+            </TouchableOpacity>
+        );
+      }
+    
+
+    const columns = 5;
+    return (
+        
+        <View>
+            <FlatList
+                numColumns={columns} 
+                data={movies}
+                keyExtractor={ item => item.id.toString()}
+                renderItem={renderItem}
+            />
+      </View>  
+
+    );
+}
+export default FlatMovies;
