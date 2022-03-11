@@ -40,6 +40,14 @@ function FlatMovies() {
                 data={movies}
                 keyExtractor={ item => item.id.toString()}
                 renderItem={renderItem}
+
+                // url para consumir as imagens da API (Para usar o Component Image)
+                
+                // source={{
+                //     uri: `https://image.tmdb.org/t/p/w342/${item.poster_path}`
+                //   }}
+
+                
             />
       </View>  
 
