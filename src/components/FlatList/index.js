@@ -3,6 +3,7 @@ import { View, FlatList } from "react-native";
 import { getPopular } from "../../constants/urls";
 import ListMovies from "../ListMovies";
 
+import api from '../../services/api';
 
 function FlatMovies() {
     const [movies, setMovies] = useState([]);
@@ -11,6 +12,7 @@ function FlatMovies() {
         async function getStorage() {
             api.get(`/${getPopular}`)
                 .then(response => {
+                    
                 const data = response.data
                 setMovies(data)
                 })
