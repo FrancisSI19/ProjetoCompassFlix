@@ -1,9 +1,9 @@
-import { NavigationContainer } from '@react-navigation/native';
+import {NavigationContainer} from '@react-navigation/native';
 import React from 'react';
 
 import Routes from './src/routes';
 
-import Login from './src/screens/Login';
+import MovieDetails from './src/screens/MovieDetails';
 
 const App = () => {
   return (
