@@ -1,9 +1,10 @@
 import React from 'react';
 import { View } from 'react-native';
+import ListMovies from './src/components/ListMovies';
 
 const App = () => {
   return (
-    <View></View>
+    <View><ListMovies /></View>
   );
 };
 
