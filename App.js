@@ -6,7 +6,7 @@ import Routes from './src/routes';
 
 import MovieDetails from './src/screens/MovieDetails';
 
-import Login from './src/screens/Login';
+import MovieDetails from './src/screens/MovieDetails';
 
 const App = () => {
   return (
