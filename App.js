@@ -1,12 +1,16 @@
 import React from 'react';
-import {} from 'react-native';
+import { StatusBar } from 'react-native';
 
-import Login from './src/screens/Login';
+import MovieDetails from './src/screens/MovieDetails';
 
 const App = () => {
   return (
     <>
-      <Login />
+      <StatusBar 
+        barStyle='dark-content' 
+        backgroundColor='#fff' 
+      />
+      <MovieDetails />
     </>
   );
 };

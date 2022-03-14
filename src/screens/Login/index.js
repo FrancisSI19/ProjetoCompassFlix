@@ -19,7 +19,6 @@ const Login = () => {
   const [keyboardShown, setKeyboardShown] = useState(false);
 
   useEffect(() => {
-    console.log('useEffect')
     const showSubscription = Keyboard.addListener("keyboardDidShow", () => {
       setKeyboardShown(true);
     });
@@ -35,11 +34,6 @@ const Login = () => {
 
   return (
     <SafeAreaView style={styles.rootContainer}>
-      <StatusBar 
-        barStyle='dark-content' 
-        backgroundColor='#fff' 
-      />
-
       {
         !keyboardShown && (
           <View style={{ alignItems: 'center' }}>
