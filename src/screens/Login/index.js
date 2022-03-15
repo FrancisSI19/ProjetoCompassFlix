@@ -53,7 +53,7 @@ const Login = () => {
       </Text>
 
       <Input placeholder='e-mail' iconName='md-person-circle-outline' setLoginInfo={setUsername} />
-      <Input placeholder='senha' iconName='lock-closed-outline' secureTextEntry setLoginInfo={setPassword} />
+      <Input secureTextEntry placeholder='senha' iconName='lock-closed-outline' setLoginInfo={setPassword} />
 
       <TouchableOpacity style={styles.enterBtn}>
         <Text style={styles.enterTxt}>
