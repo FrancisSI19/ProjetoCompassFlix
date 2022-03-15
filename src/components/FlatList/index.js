@@ -21,14 +21,6 @@ function FlatMovies() {
             getStorage()
     }, [])
     
-    // function renderItem({ item }) {
-   
-    //     return (
-    //         <TouchableOpacity onPress={ListView}>
-    //             <ListMovies {...item} />
-    //         </TouchableOpacity>
-    //     );
-    //   }
     
 
     return (
