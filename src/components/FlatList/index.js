@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { View, FlatList, Image, Text } from "react-native";
 import { getPopular } from "../../constants/urls";
-import ListMovies from "../ListMovies";
+import AntDesing from "react-native-vector-icons/AntDesign";
+
 
 import api from '../../services/api';
 import StyledListMovies from "../ListMovies/styles";
@@ -10,7 +11,7 @@ function FlatMovies() {
     const [movies, setMovies] = useState([]);
 
     useEffect(() => {
-        async function getStorage() {
+        function getStorage() {
             api.get(`/${getPopular}`)
                 .then(response => {
                 const data = (response.data.results)
@@ -37,7 +38,12 @@ function FlatMovies() {
                                 style={StyledListMovies.image}
                                 source={{ uri: `https://image.tmdb.org/t/p/w342/${item.poster_path}` }}>
                             </Image>
-                            <Text style={StyledListMovies.subtitle}>{item.vote_average}</Text>
+                            
+                            <View style={StyledListMovies.view_vote}>
+                                <AntDesing name="staro" style={StyledListMovies.icon} />
+                                <Text style={StyledListMovies.vote}>{item.vote_average}/10</Text>
+                            </View>
+                            
                         </View>
                     )
                 }}/>
