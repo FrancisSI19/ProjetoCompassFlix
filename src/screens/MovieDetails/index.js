@@ -21,10 +21,11 @@ export default function MovieDetails({ route }) {
     fetchCredits(movie.id).then((data) => {
       setCredits(data.credits);
       setDirector(data.director);
-      setActor(data.actores)
+      setActor(data.actores);
       setLoading(false);
     });
-  }, []);
+
+  }, [])
 
  return (
    <View>
@@ -33,7 +34,7 @@ export default function MovieDetails({ route }) {
           source={{
             uri: `https://image.tmdb.org/t/p/w780${movie?.poster_path}`,
                 }}
-     ></Image>
+      />
 
       <Text>Direção por: {director?.name}</Text>
 
