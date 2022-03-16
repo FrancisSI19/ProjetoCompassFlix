@@ -3,9 +3,12 @@ import React, { useEffect, useState } from 'react';
 import {StyleSheet, FlatList, Image, View, Text, TouchableOpacity } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 
-import {fetchMovies} from "../../services/api";
-import Loading from '../../components/Loading';
+import AntDesing from "react-native-vector-icons/AntDesign";
 
+import StyledListMovies from '../../components/ListMovies/styles';
+
+import { fetchMovies } from "../../services/api";
+import Loading from '../../components/Loading';
 
 export default function MovieList() {
 
@@ -27,24 +30,10 @@ export default function MovieList() {
 
     }, [])
 
-
-
     return loading ? (
       <Loading />
     ) : (
-      <View style={styles.container}>
-        <View>
-          <Image
-            style={styles.banner}
-            source={{
-              uri: `http://image.tmdb.org/t/p/w780${movies[0]?.backdrop_path}`,
-            }}
-            
-          />
-        </View>
-  
-        <View>
-          <View style={styles.movieListCard}>
+      <View>
             <FlatList
               data={movies}
               numColumns={4}
@@ -54,36 +43,24 @@ export default function MovieList() {
                   <View>
                     <TouchableOpacity
                       onPress={() => {
-
                         navigation.navigate('MovieDetails', { movie: item });
                       }}>
                       <Image
+                        style={StyledListMovies.image}
                         source={{
                           uri: `https://image.tmdb.org/t/p/w780${item.poster_path}`,
                         }}
-                        style={{ width: 80, height: 100, marginHorizontal: 8, marginVertical: 15 }}
                       />
                     </TouchableOpacity>
+                    <View style={StyledListMovies.view_vote}>
+                        <AntDesing name="staro" style={StyledListMovies.icon} />
+                        <Text style={StyledListMovies.vote}>{item.vote_average}/10</Text>
+                    </View>
                   </View>
                 );
               }}
             />
-          </View>
-        </View>
       </View>
     );
   };
   
-  const styles = StyleSheet.create({
-
-    banner:{
-      marginHorizontal: 30,
-    },
-    container: {
-      flex: 1,
-      backgroundColor: '#000',
-      justifyContent: 'center',
-      alignItems: 'center'
-    },
-
-  });

@@ -22,7 +22,7 @@ export const fetchMovies = async () => {
     const actores = response.data.cast.map((name) => {
       return {
         orinalName: name.original_name,
-        // characterName: name.character
+        characterName: name.character
       }
     })
     
@@ -32,10 +32,3 @@ export const fetchMovies = async () => {
       return { director: director, credits: credits, actores: actores };
   };
 
-import { baseURL } from "../constants/constants";
-
-const api = axios.create({
-    baseURL: baseURL,
-    })
-
-export default api;

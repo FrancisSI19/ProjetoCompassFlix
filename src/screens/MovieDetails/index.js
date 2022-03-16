@@ -29,10 +29,10 @@ export default function MovieDetails({ route }) {
  return (
    <View>
      <Image
+          style={{ width: 80, height: 100 }}
           source={{
             uri: `https://image.tmdb.org/t/p/w780${movie?.poster_path}`,
                 }}
-      style={{ width: 80, height: 100 }}
      ></Image>
 
       <Text>Direção por: {director?.name}</Text>
