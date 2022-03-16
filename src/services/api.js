@@ -31,3 +31,11 @@ export const fetchMovies = async () => {
     const credits = response.data;
       return { director: director, credits: credits, actores: actores };
   };
+
+import { baseURL } from "../constants/constants";
+
+const api = axios.create({
+    baseURL: baseURL,
+    })
+
+export default api;

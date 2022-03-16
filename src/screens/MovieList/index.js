@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 import React, { useEffect, useState } from 'react';
 import {StyleSheet, FlatList, Image, View, Text, TouchableOpacity } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
@@ -23,7 +24,8 @@ export default function MovieList() {
   
         setLoading(false);
       }).catch(error => error)
-    }, []);
+
+    }, [])
 
 
 
