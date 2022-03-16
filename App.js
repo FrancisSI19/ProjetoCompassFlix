@@ -1,10 +1,15 @@
+
+import { NavigationContainer } from '@react-navigation/native';
 import React from 'react';
-import { View } from 'react-native';
+import Routes from './src/routes';
 
 const App = () => {
   return (
-    <View></View>
+    <NavigationContainer>
+      <Routes /> 
+    </NavigationContainer>
   );
 };
+
 
 export default App;
