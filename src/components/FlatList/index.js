@@ -5,8 +5,7 @@ import AntDesing from "react-native-vector-icons/AntDesign";
 
 
 import api from '../../services/api';
-import StyledListMovies from "../ListMovies/styles";
-
+import StyledListMovies from "../ListMovies/styles"
 function FlatMovies() {
     const [movies, setMovies] = useState([]);
 
