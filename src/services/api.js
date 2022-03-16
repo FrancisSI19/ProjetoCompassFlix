@@ -8,7 +8,7 @@ export const fetchMovies = async () => {
     //  Requições de informações do filme escolhido
   export const fetchDetails = async (id) => {
       const response = await axios.get(
-      `${URL}movie/${id}?api_key=${API_KEY}&${LANGUAGE}&${LANGUAGE}`)
+      `${URL}movie/${id}?api_key=${API_KEY}&${LANGUAGE}`)
   };
    //  Requições de informações da direção / elenco
   export const fetchCredits = async (id) => {
