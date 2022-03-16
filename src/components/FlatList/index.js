@@ -2,16 +2,13 @@ import React, { useEffect, useState } from "react";
 import {
     View,
     FlatList,
-    Image,
-    Text,
     ActivityIndicator,
     TouchableOpacity
 } from "react-native";
-import { getPopular } from "../../constants/urls";
 import AntDesing from "react-native-vector-icons/AntDesign";
 import api from '../../services/api';
-import StyledListMovies from "../ListMovies/styles";
 import { API_KEY } from "../../constants/constants";
+import { ContainerVote, Vote, Image, Icon } from "../ListMovies/styles";
 
 function FlatMovies() {
     const [movies, setMovies] = useState([]);
@@ -32,20 +29,24 @@ function FlatMovies() {
             getStorage()
     }, [PAGE_NUMBER])
     
+
     function renderItem({ item }) {
    
         return (
             <TouchableOpacity>
                <View>
                     <Image
-                        style={StyledListMovies.image}
                         source={{ uri: `https://image.tmdb.org/t/p/w342/${item.poster_path}` }}>
                     </Image>
                             
-                <View style={StyledListMovies.view_vote}>
-                    <AntDesing name="staro" style={StyledListMovies.icon} />
-                    <Text style={StyledListMovies.vote}>{item.vote_average}/10</Text>
-                </View>
+                    <ContainerVote>
+                        <Icon>
+                        <AntDesing name="star" color="#EC2626"/>
+                        </Icon>
+                        
+                        
+                    <Vote>{item.vote_average}/10</Vote>
+                </ContainerVote>
                             
             </View>
             </TouchableOpacity>

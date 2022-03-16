@@ -1,11 +1,11 @@
+import { NavigationContainer } from '@react-navigation/native';
 import React from 'react';
-import { View } from 'react-native';
-import ListMovies from './src/components/ListMovies';
+import Routes from './src/components/Routes';
 
-const App = () => {
-  return (
-    <View><ListMovies /></View>
-  );
-};
-
-export default App;
+export default function App(){
+  return( 
+  <NavigationContainer>
+     <Routes/>
+  </NavigationContainer>
+  )
+}

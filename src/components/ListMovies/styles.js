@@ -1,54 +1,52 @@
-import { StyleSheet } from 'react-native';
+import styled from 'styled-components/native';
 
-const StyledListMovies = StyleSheet.create({
-  information: {
-    flex: 1,
-        padding: 12,
-        backgroundColor: '#000000',
-      
-    },
-    image: {
-        marginTop: 15,
-      
-        width: 75,
-        height: 95,
-        borderRadius: 10,
-        marginHorizontal: 8,
-        marginVertical: 8
-    },
-    title: {
-        marginTop: 10,
-        fontSize: 18,
-        color: '#f8f8ff'
-    },
-    subtitle: {
-            marginTop: 10,
-            fontSize: 12,
-            color: '#f8f8ff'
-    },
-    titleList: {
-        marginTop: 14,
-        fontSize: 20,
-        color: '#f8f8ff'
-    },
-    vote: {
-        marginLeft: 8,
-        fontSize: 8,
-        color: '#f8f8ff',
-        
-    },
-    icon: {
-        fontSize: 8,
-        color: 'red',
-        marginTop: 2
-    },
-    view_vote: {
-        flexDirection: 'row',
-        marginLeft: 12,
-        
-    }
-    
-           
- });
+export const Container = styled.View`
+    flex: 1;
+    padding: 12px;
+    background-color: #000000;
+`;
 
-export default StyledListMovies;
+export const Title = styled.Text`
+    margin-top: 10px;
+    font-size: 18px;
+    color: #f8f8ff;
+`;
+
+export const SubTitle = styled.Text`
+    margin-top: 10px;
+    font-size: 12px;
+    color: #f8f8ff;
+`;
+
+export const TitleList = styled.Text`
+    margin-top: 14px;
+    font-size: 20px;
+    color: #f8f8ff;
+`;
+
+export const Vote = styled.Text`
+    margin-left: 8px;
+    font-size: 8px;
+    color: #f8f8ff;
+`;
+
+export const ContainerVote = styled.View`
+    flex-direction: row;
+    margin-left: 12px;
+
+`;
+
+export const Image = styled.Image`
+    margin-top: 15;
+    width: 75;
+    height: 95;
+    border-radius: 10;
+    margin-horizontal: 8;
+    margin-vertical: 8;
+`;
+
+export const Icon = styled.View`
+    margin-top: 1px;
+    font-size: 8px;
+   
+`;
