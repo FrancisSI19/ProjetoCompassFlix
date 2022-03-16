@@ -1,6 +1,6 @@
 import React from 'react';
 import {Modal} from 'react-native';
-import FlatMovies from '../FlatList';
+import MovieList from '../../screens/MovieList';
 import { Container, Title, SubTitle, TitleList } from './styles';
 
 
@@ -12,8 +12,8 @@ function ListMovies() {
             <Title>Olá, Compasses</Title>
                 <SubTitle>Reveja ou acompanhe os filmes que você assistiu...</SubTitle>
                   <TitleList>Filmes populares este mês</TitleList>
-                  
-                  <FlatMovies />
+          
+                  <MovieList/>
               </Container>
               
       </Modal>
