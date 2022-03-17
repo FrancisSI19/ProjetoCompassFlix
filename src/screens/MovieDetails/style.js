@@ -4,8 +4,9 @@ const styles = StyleSheet.create({
   rootContainer: {
     backgroundColor: '#000'
   },
-  movieBackground: {
-    width: '100%'
+  movieBackdrop: {
+    width: '100%',
+    height: 160
   },
   backBtn: {
     alignItems: 'center',
@@ -27,31 +28,34 @@ const styles = StyleSheet.create({
     position: 'relative',
     top: -58
   },
-  movieCover: {
+  moviePoster: {
+    width: 116, 
+    height: 182, 
     borderRadius: 6
   },
   movieInfo: {
     flex: 1,
-    marginBottom: 10,
+    flexWrap: 'wrap',
     marginLeft: 20,
-  },
-  movieTitle: {
-    fontSize: 22,
-    fontFamily: 'OpenSans-Bold',
-    color: '#fff'
   },
   mainInfo: {
     flexDirection: 'row', 
     alignItems: 'baseline',
-    justifyContent: 'space-between'
+    flexWrap: 'wrap'
+  },
+  movieTitle: {
+    marginRight: 10,
+    fontSize: 22,
+    fontFamily: 'OpenSans-Bold',
+    color: '#fff',
   },
   movieYear: {
-    marginLeft: -20,
     fontSize: 12, 
     fontFamily: 'OpenSans-Regular', 
     color: '#fff'
   },
   movieDuration: {
+    marginLeft: 20,
     fontSize: 10, 
     fontFamily: 'OpenSans-Regular' ,
     color: '#fff'
@@ -74,6 +78,7 @@ const styles = StyleSheet.create({
     color: '#E9A6A6'
   },
   voteCountContainer: {
+    alignItems: 'center',
     marginLeft: 50
   },
   voteCount: {
@@ -82,7 +87,7 @@ const styles = StyleSheet.create({
     color: '#fff'
   },
   overview: {
-    marginTop: -24, 
+    marginTop: -22, 
     fontFamily: 'OpenSans-Regular',
     color: '#fff'
   },
@@ -107,25 +112,25 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     borderColor: '#9C4A8B'
   },
-  actorContainer: {
+  castContainer: {
     flexDirection: 'row', 
     alignItems: 'center', 
     marginTop: 20
   },
-  actorPic: {
+  castPic: {
     width: 46, 
     height: 46,
     borderRadius: 30,
   },
-  actorInfo: {
+  castInfo: {
     marginLeft: 14
   },
-  actorName: {
+  castName: {
     fontSize: 16, 
     fontFamily: 'OpenSans-Bold',
     color: '#fff'
   },
-  actorCharacter: {
+  castCharacter: {
     fontSize: 10, 
     fontFamily: 'OpenSans-Regular',
     color: '#fff',

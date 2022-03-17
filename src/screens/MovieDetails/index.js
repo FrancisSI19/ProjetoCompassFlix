@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import { 
   Image, 
+  FlatList,
   SafeAreaView, 
   ScrollView,
   Text, 
@@ -9,62 +10,78 @@ import {
 } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
 
-import {fetchCredits} from '../../services/api';
+import {fetchCredits, fetchDetails} from '../../services/api';
 
 import styles from './style';
+import Loading from '../../components/Loading';
 
-const MovieDetails = ({ route }) => {
+const MovieDetails = ({ navigation, route }) => {
   const [credits, setCredits] = useState(null);
   const [loading, setLoading] = useState(true);
   const [director, setDirector] = useState('');
-  const [actor, setActor] = useState([]);
 
-  const {movie} = route.params;
+  const [backdrop, setBackdrop] = useState('');
+  const [poster, setPoster] = useState('');
+  const [title, setTitle] = useState('');
+  const [releaseYear, setReleaseYear] = useState('');
+  const [runtime, setRuntime] = useState('');
+  const [voteAverage, setVoteAverage] = useState('');
+  const [voteCount, setVoteCount] = useState('');
+  const [overview, setOverview] = useState('');
+  const [cast, setCast] = useState([]);
+
+  const {movieId} = route.params;
+  console.log('Movie ID:', movieId);
 
   useEffect(() => {
     setLoading(true);
 
-    fetchCredits(movie.id).then((data) => {
+    fetchDetails(movieId).then((data) => {
+      setBackdrop(data.backdrop);
+      setPoster(data.poster);
+      setTitle(data.title);
+      setReleaseYear(new Date(data.releaseDate).getFullYear());
+      setRuntime(data.runtime);
+      setVoteAverage(data.voteAverage);
+      setVoteCount(data.voteCount);
+      setOverview(data.overview);
+    })
+
+    fetchCredits(movieId).then((data) => {
       setCredits(data.credits);
       setDirector(data.director);
-      setActor(data.actores);
-      setLoading(false);
+      setCast(data.cast);
     });
 
+    setLoading(false);
   }, []);
 
-  const cast = [
-    { name: 'Robert Pattinson', character: 'Bruce Wayne / The Batman', img: require('../../assets/img/image48.png') },
-    { name: 'Zoë Kravitz', character: 'Selina Kyle / Catwoman', img: require('../../assets/img/image49.png') },
-    { name: 'Paul Dano', character: 'Edward Nashton / The Riddler', img: require('../../assets/img/image50.png') },
-    { name: 'Jeffrey Wright', character: 'Lt. James Gordon', img: require('../../assets/img/image51.png') },
-    { name: 'John Turturro', character: 'Carmine Falcone', img: require('../../assets/img/image52.png') },
-  ]
-
-  return (
+  return loading ? <Loading /> : (
     <SafeAreaView style={styles.rootContainer}>
-      <ScrollView>
+      {/* <ScrollView> */}
         <Image 
-          style={[styles.movieBackground, ]}
-          source={require('../../assets/img/the_batman_background.png')}
+          style={[styles.movieBackdrop]}
+          source={{ uri: `https://image.tmdb.org/t/p/w780${backdrop}` }}
         />
 
-        <TouchableOpacity style={styles.backBtn}>
+        <TouchableOpacity style={styles.backBtn} onPress={() => navigation.navigate('MovieList')}>
           <Icon name='arrow-back' size={24} color='#000' />
         </TouchableOpacity>
 
         <View style={styles.mainContent}>
           <View style={styles.movieSection}>
             <Image 
-              style={styles.movieCover}
-              source={{ uri: `https://image.tmdb.org/t/p/w780${movie?.poster_path}` }} 
+              style={styles.moviePoster}
+              source={{ uri: `https://image.tmdb.org/t/p/w780${poster}` }} 
             />
 
             <View style={styles.movieInfo}>
               <View style={styles.mainInfo}>
-                <Text style={styles.movieTitle}>{movie?.original_title}</Text>
-                <Text style={styles.movieYear}>2022</Text>
-                <Text style={styles.movieDuration}>176 min</Text>
+                <Text style={styles.movieTitle}>{title}</Text>
+                <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                  <Text style={styles.movieYear}>{releaseYear}</Text>
+                  <Text style={styles.movieDuration}>{runtime} min</Text>
+                </View>
               </View>
 
               <Text style={styles.direction}>
@@ -73,18 +90,18 @@ const MovieDetails = ({ route }) => {
               </Text>
 
               <View style={styles.ratingContainer}>
-                <Text style={styles.voteAverage}>{movie?.vote_average}/10</Text>
+                <Text style={styles.voteAverage}>{voteAverage}/10</Text>
 
                 <View style={styles.voteCountContainer}>
                   <Icon name='heart' size={24} color='#EC2626' />
-                  <Text style={styles.voteCount}>30k</Text>
+                  <Text style={styles.voteCount}>{voteCount >= 1000 ? `${(voteCount/1000).toFixed(0)}k` : voteCount}</Text>
                 </View>
               </View>
             </View>
           </View>
 
           <Text style={styles.overview}>
-            {movie?.overview}
+            {overview}
           </Text>
           
           <View style={styles.castTag}>
@@ -92,26 +109,47 @@ const MovieDetails = ({ route }) => {
             <View style={styles.castBorder} />
           </View>
           
-          <View>
+          <FlatList
+            data={cast}
+            keyExtractor={(item) => item.id}
+            renderItem={({ item, index }) => {
+              return (
+                <View style={styles.castContainer} key={index}>
+                    <Image 
+                      style={styles.castPic}
+                      source={{ uri: `https://image.tmdb.org/t/p/w780${item.profilePath}` }} 
+                    />
+                    <View style={styles.castInfo}>
+                      <Text style={styles.castName}>{item.originalName}</Text>
+                      <Text style={styles.castCharacter}>{item.characterName}</Text>
+                    </View>
+                  </View>
+              );
+            }}
+          >
+
+          </FlatList>
+
+          {/* <View>
             {
               cast.map((item, index) => {
                 return (
-                  <View style={styles.actorContainer} key={index}>
+                  <View style={styles.castContainer} key={index}>
                     <Image 
-                      style={styles.actorPic}
-                      source={item.img} 
+                      style={styles.castPic}
+                      source={{ uri: `https://image.tmdb.org/t/p/w780${item.profilePath}` }} 
                     />
-                    <View style={styles.actorInfo}>
-                      <Text style={styles.actorName}>{item.name}</Text>
-                      <Text style={styles.actorCharacter}>{item.character}</Text>
+                    <View style={styles.castInfo}>
+                      <Text style={styles.castName}>{item.originalName}</Text>
+                      <Text style={styles.castCharacter}>{item.characterName}</Text>
                     </View>
                   </View>
                 );
               })
             }
-          </View>
+          </View> */}
         </View>
-      </ScrollView>
+      {/* </ScrollView> */}
     </SafeAreaView>
   );
 };

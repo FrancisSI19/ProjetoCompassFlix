@@ -38,7 +38,7 @@ function MovieList() {
       <Loading />
     ) : (
         
-         
+
             <FlatList
               data={movies}
               numColumns={4}
@@ -51,7 +51,7 @@ function MovieList() {
                       
                       <TouchableOpacity
                         onPress={() => {
-                          navigation.navigate('MovieDetails', { movie: item });
+                          navigation.navigate('MovieDetails', { movieId: item.id });
                         }}>
                         <Image
                           source={{

@@ -7,7 +7,7 @@ import { Container, Title, SubTitle, TitleList } from './styles';
 function ListMovies() {
   return (
     <>
-      <Modal animationType="slide">
+      
         <Container>
             <Title>Olá, Compasses</Title>
                 <SubTitle>Reveja ou acompanhe os filmes que você assistiu...</SubTitle>
@@ -16,7 +16,7 @@ function ListMovies() {
                   <MovieList/>
               </Container>
               
-      </Modal>
+      
       
     </>
   );
