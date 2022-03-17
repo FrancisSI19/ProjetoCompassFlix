@@ -7,7 +7,7 @@ const Stack = createNativeStackNavigator();
 
 function AppRoutes() {
   return (
- <Stack.Navigator initialRouteName="ListMovies">
+ <Stack.Navigator screenOptions={{ headerShown: false }}>
    {/* <Stack.Screen 
         options={{headerShown: true}}
         name="Login"
