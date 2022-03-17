@@ -7,7 +7,7 @@ import ListMovies from '../components/ListMovies';
 
 const Stack = createNativeStackNavigator();
 
-export default function AppRoutes() {
+function AppRoutes() {
   return (
     <Stack.Navigator initialRouteName="MovieList">
       <Stack.Screen
@@ -37,3 +37,4 @@ export default function AppRoutes() {
     </Stack.Navigator>
   );
 }
+export default AppRoutes;

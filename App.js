@@ -1,12 +1,13 @@
 import { NavigationContainer } from '@react-navigation/native';
 import React from 'react';
+import AppRoutes from './src/routes/app.routes';
 
-import Routes from './src/routes';
+
 
 const App = () => {
   return (
     <NavigationContainer>
-      <Routes /> 
+        <AppRoutes />
     </NavigationContainer>
 
   );

@@ -1,12 +1,12 @@
 /* eslint-disable prettier/prettier */
 import axios from 'axios';
-import {URL, API_KEY, LANGUAGE, PAGE_NUMBER} from '../constants/constants';
+import {URL, API_KEY, LANGUAGE} from '../constants/constants';
 //  Requições de todos os filmes
-export const fetchMovies = async () => {
+export const fetchMovies = async (pageNumber) => {
   const response = await axios.get(
-    `${URL}movie/popular?api_key=${API_KEY}&${LANGUAGE}page=&${PAGE_NUMBER}`,
+    `${URL}movie/popular?api_key=${API_KEY}&${LANGUAGE}&page=${pageNumber}`,
   );
-  return [...response.data.results];
+  return [response.data.results];
 };
 //  Requições de informações do filme escolhido
 export const fetchDetails = async id => {

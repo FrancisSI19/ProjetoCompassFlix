@@ -21,7 +21,7 @@ export const SubTitle = styled.Text`
 
 export const TitleList = styled.Text`
     margin-top: 14px;
-    font-size: 20px;
+    font-size: 18px;
     color: #f8f8ff;
 `;
 
