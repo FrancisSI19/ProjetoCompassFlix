@@ -21,7 +21,7 @@ export default function MovieDetails({ route }) {
     fetchCredits(movie.id).then((data) => {
       setCredits(data.credits);
       setDirector(data.director);
-      setActor(data.actores);
+      setActor(data.cast);
       setLoading(false);
     });
 
@@ -37,13 +37,10 @@ export default function MovieDetails({ route }) {
       />
 
       <Text>Direção por: {director?.name}</Text>
-
       <Text>{movie?.original_title}</Text>
       <Text>{movie?.overview}</Text>
       <Text>{movie?.vote_average}/10</Text>
       <Text>{}</Text>
-
-
 
    </View>
   );

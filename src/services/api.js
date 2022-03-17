@@ -20,21 +20,24 @@ export const fetchCredits = async id => {
     `${URL}movie/${id}/credits?api_key=${API_KEY}&${LANGUAGE}`,
   );
 
-  // Buscando o diretor
+  // Buscando o diretor do filne
   const director = response.data.crew.find(
     dir => dir.known_for_department === 'Directing',
   );
 
-  // Buscando atores/personagens do filme
-  const actores = response.data.cast.map(name => {
+  // Buscando elenco do filme
+  const cast = response.data.cast.map(name => {
     return {
       orinalName: name.original_name,
       characterName: name.character,
     };
   });
 
-  console.log(actores);
+  console.log(cast);
 
   const credits = response.data;
-  return {director: director, credits: credits, actores: actores};
+  return {
+    director: director, 
+    credits: credits, 
+    cast: cast};
 };

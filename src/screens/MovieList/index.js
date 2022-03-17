@@ -1,20 +1,20 @@
 /* eslint-disable prettier/prettier */
 import React, { useEffect, useState } from 'react';
-import {StyleSheet, FlatList, Image, View, Text, TouchableOpacity } from 'react-native';
+import {FlatList, Image, View, Text, TouchableOpacity } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 
-import AntDesing from "react-native-vector-icons/AntDesign";
+import AntDesing from 'react-native-vector-icons/AntDesign';
 
 import StyledListMovies from '../../components/ListMovies/styles';
 
-import { fetchMovies } from "../../services/api";
+import { fetchMovies } from '../../services/api';
 import Loading from '../../components/Loading';
 
 export default function MovieList() {
 
-    const navigation = useNavigation()
+    const navigation = useNavigation();
 
-    const [movies, setMovies] = useState([]);
+    const [movies, setMovies] = useState([]);s;
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
@@ -22,13 +22,13 @@ export default function MovieList() {
 
       fetchMovies(movies)
         .then((data) => {
-        
-          setMovies(data);
-  
-        setLoading(false);
-      }).catch(error => error)
 
-    }, [])
+          setMovies(data);
+
+        setLoading(false);
+      }).catch(error => error);
+
+    }, []);
 
     return loading ? (
       <Loading />
@@ -62,5 +62,5 @@ export default function MovieList() {
             />
       </View>
     );
-  };
-  
+  }
+
