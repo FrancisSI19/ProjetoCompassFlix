@@ -8,6 +8,13 @@ import {
   View
 } from 'react-native';
 
+import api from '../../services/api';
+import {
+  createRequestToken,
+  validateTokenWithLogin,
+  createSession
+} from '../../constants/urls';
+
 import styles from './styles';
 import Input from './components/Input';
 
@@ -30,6 +37,41 @@ const Login = () => {
       hideSubscription.remove();
     };
   }, []);
+
+  const SignIn = async () => {
+    console.log(username);
+    console.log(password);
+
+    let requestToken = '';
+
+    try {
+      const {data} = await api.get(createRequestToken);
+      requestToken = data.request_token;
+      console.log(requestToken);
+
+      try {
+        const {data} = await api.post(validateTokenWithLogin, {
+          username: username,
+          password: password,
+          request_token: requestToken
+        });
+        console.log(data);
+
+        try {
+          const {data} = await api.post(createSession, {request_token: requestToken});
+          console.log(data);
+        } catch (error) {
+          console.log(error);
+        }
+
+      } catch (error) {
+        console.log(error);
+      }
+
+    } catch (error) {
+      console.log(error);
+    }
+  }
 
   return (
     <SafeAreaView style={styles.rootContainer}>
@@ -55,7 +97,7 @@ const Login = () => {
       <Input placeholder='e-mail' iconName='md-person-circle-outline' setLoginInfo={setUsername} />
       <Input secureTextEntry placeholder='senha' iconName='lock-closed-outline' setLoginInfo={setPassword} />
 
-      <TouchableOpacity style={styles.enterBtn}>
+      <TouchableOpacity style={styles.enterBtn} onPress={SignIn}>
         <Text style={styles.enterTxt}>
           Entrar
         </Text>
