@@ -1,12 +1,12 @@
 import { NavigationContainer } from '@react-navigation/native';
 import React from 'react';
+import Login from './src/screens/Login';
+import Routes from './src/routes/index'
 
-import Routes from './src/routes';
-
-const App = () => {
+function App() {
   return (
     <NavigationContainer>
-      <Routes /> 
+      < Routes/> 
     </NavigationContainer>
 
   );

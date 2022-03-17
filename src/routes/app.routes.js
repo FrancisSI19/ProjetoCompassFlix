@@ -4,12 +4,18 @@ import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import MovieList from '../screens/MovieList';
 import MovieDetails from '../screens/MovieDetails';
 import ListMovies from '../components/ListMovies';
+import Login from '../screens/Login';
 
 const Stack = createNativeStackNavigator();
 
 export default function AppRoutes() {
   return (
-    <Stack.Navigator initialRouteName="MovieList">
+ <Stack.Navigator initialRouteName="ListMovies">
+   {/* <Stack.Screen 
+        options={{headerShown: true}}
+        name="Login"
+        component={Login}
+      /> */}
       <Stack.Screen
         name="MovieList"
         component={ListMovies}
