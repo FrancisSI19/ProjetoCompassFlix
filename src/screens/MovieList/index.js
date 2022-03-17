@@ -11,7 +11,6 @@ import { ContainerVote, Vote, Image, Container } from './styles';
 function MovieList() {
 
     const navigation = useNavigation()
-
     const [movies, setMovies] = useState([]);
     const [loading, setLoading] = useState(true);
     const [pageNumber, setPageNumber] = useState(1);
@@ -43,6 +42,7 @@ function MovieList() {
               keyExtractor={item => item.id}
               onEndReached={loadMoreItem}
               onEndReachedThreshold={0}
+              showsVerticalScrollIndicator={false}      
               renderItem={({ item, index }) => {
                   return (
                     <Container>

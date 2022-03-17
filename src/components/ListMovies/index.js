@@ -7,17 +7,14 @@ import { Container, Title, SubTitle, TitleList } from './styles';
 function ListMovies() {
   return (
     <>
-      <Modal animationType="slide">
-        <Container>
+      
+      <Container>
             <Title>Olá, Compasses</Title>
                 <SubTitle>Reveja ou acompanhe os filmes que você assistiu...</SubTitle>
                   <TitleList>Filmes populares este mês</TitleList>
           
                   <MovieList/>
               </Container>
-              
-      </Modal>
-      
     </>
   );
 }
