@@ -7,7 +7,7 @@ import {
   navigation
 } from 'react-native';
 import {Button,Entrar, Container, ImageLogo,Login1, LoginDescri } from './styles';
-import Input from './components/Input';
+import Input from './Input';
 
 const Login = () => {
   const [username, setUsername] = useState('');

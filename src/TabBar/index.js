@@ -18,4 +18,4 @@ function tabBar() {
     </Tab.Navigator>
     </NavigationContainer>
   )}
-export default tabBar
+export default tabBar;

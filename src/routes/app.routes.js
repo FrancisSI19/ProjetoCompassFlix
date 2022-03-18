@@ -1,16 +1,13 @@
 import React from 'react';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
-
-import MovieList from '../screens/MovieList';
 import MovieDetails from '../screens/MovieDetails';
 import ListMovies from '../components/ListMovies';
-import Login from '../screens/Login';
 
 const Stack = createNativeStackNavigator();
 
-export default function AppRoutes() {
+function AppRoutes() {
   return (
- <Stack.Navigator initialRouteName="ListMovies">
+ <Stack.Navigator screenOptions={{ headerShown: false }}>
    {/* <Stack.Screen 
         options={{headerShown: true}}
         name="Login"
@@ -20,6 +17,7 @@ export default function AppRoutes() {
         name="MovieList"
         component={ListMovies}
         options={{
+          headerShown: false,
           title: 'MovieList',
           headerTintColor: '#f0f0f0',
           headerStyle: {
@@ -32,6 +30,7 @@ export default function AppRoutes() {
         name="MovieDetails"
         component={MovieDetails}
         options={{
+          headerShown: false,
           title: 'MovieDetails',
           headerTintColor: '#f0f0f0',
           headerStyle: {
@@ -43,3 +42,4 @@ export default function AppRoutes() {
     </Stack.Navigator>
   );
 }
+export default AppRoutes;

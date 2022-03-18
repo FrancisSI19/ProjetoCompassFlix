@@ -11,26 +11,23 @@ import { ContainerVote, Vote, Image, Container } from './styles';
 function MovieList() {
 
     const navigation = useNavigation()
-
     const [movies, setMovies] = useState([]);
     const [loading, setLoading] = useState(true);
-    const [PAGE_NUMBER, setPAGE_NUMBER] = useState(1);
+    const [pageNumber, setPageNumber] = useState(1);
   
     useEffect(() => {
       setLoading(true);
-
-      fetchMovies(movies)
+      fetchMovies(pageNumber)
         .then((data) => {
-        
-          setMovies(data);
-  
+        setMovies([...movies, ...data]);
         setLoading(false);
+      
       }).catch(error => error)
 
-    }, [PAGE_NUMBER])
+    }, [pageNumber])
 
     const loadMoreItem = () => {
-      setPAGE_NUMBER(PAGE_NUMBER + 1);
+      setPageNumber(pageNumber + 1);
   }
 
   
@@ -38,20 +35,20 @@ function MovieList() {
       <Loading />
     ) : (
         
-         
-            <FlatList
+          <FlatList
               data={movies}
               numColumns={4}
-              keyExtractor={item => item.id.toString()}
+              keyExtractor={item => item.id}
               onEndReached={loadMoreItem}
               onEndReachedThreshold={0}
-              renderItem={({ item, index }) => {
+              showsVerticalScrollIndicator={false}      
+              renderItem={({ item}) => {
                   return (
                     <Container>
                       
                       <TouchableOpacity
                         onPress={() => {
-                          navigation.navigate('MovieDetails', { movie: item });
+                          navigation.navigate('MovieDetails', { movieId: item.id });
                         }}>
                         <Image
                           source={{
