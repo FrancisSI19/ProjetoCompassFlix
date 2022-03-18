@@ -1,50 +1,132 @@
-/* eslint-disable prettier/prettier */
-import React from 'react';
-import { View, Image, Text } from 'react-native';
-import { useEffect, useState } from 'react';
+import React, {useEffect, useState} from 'react';
+import { FlatList} from 'react-native';
+import Icon from 'react-native-vector-icons/Ionicons';
+import {fetchCredits, fetchDetails} from '../../services/api';
+import Loading from '../../components/Loading';
+import {
+  Container, ContainerDetails, IconBack, MovieBackground, MovieSection,
+  Image, MovieInformationContainer, MovieInformation, Title,
+  ContainerText, MovieYear, MovieDuration, Direction,
+  ContainerRating, VoteAverage, ContainerVote, VoteCount,
+  Overview, CastTag, Cast, Border, CastContainer, CastImage,
+  ContainerCastInfo, NameCast, NameCharacter, Director
+} from './styles';
 
-import { fetchCredits } from '../../services/api';
-
-export default function MovieDetails({ route }) {
-
+  const MovieDetails = ({ navigation, route }) => {
   const [credits, setCredits] = useState(null);
   const [loading, setLoading] = useState(true);
   const [director, setDirector] = useState('');
-  const [actor, setActor] = useState([]);
 
-  const { movie } = route.params;
+  const [backdrop, setBackdrop] = useState('');
+  const [poster, setPoster] = useState('');
+  const [title, setTitle] = useState('');
+  const [releaseYear, setReleaseYear] = useState('');
+  const [runtime, setRuntime] = useState('');
+  const [voteAverage, setVoteAverage] = useState('');
+  const [voteCount, setVoteCount] = useState('');
+  const [overview, setOverview] = useState('');
+  const [cast, setCast] = useState([]);
+
+  const {movieId} = route.params;
+  
 
   useEffect(() => {
-
     setLoading(true);
 
-    fetchCredits(movie.id).then((data) => {
+    fetchDetails(movieId).then((data) => {
+      setBackdrop(data.backdrop);
+      setPoster(data.poster);
+      setTitle(data.title);
+      setReleaseYear(new Date(data.releaseDate).getFullYear());
+      setRuntime(data.runtime);
+      setVoteAverage(data.voteAverage);
+      setVoteCount(data.voteCount);
+      setOverview(data.overview);
+    })
+
+    fetchCredits(movieId).then((data) => {
       setCredits(data.credits);
       setDirector(data.director);
-      setActor(data.actores);
-      setLoading(false);
+      setCast(data.cast);
     });
 
-  }, [])
+    setLoading(false);
+  }, []);
 
- return (
-   <View>
-     <Image
-          style={{ width: 80, height: 100 }}
-          source={{
-            uri: `https://image.tmdb.org/t/p/w780${movie?.poster_path}`,
-                }}
-      />
+  return loading ? <Loading /> : (
+    <Container>
+     
+        <MovieBackground
+          source={{ uri: `https://image.tmdb.org/t/p/w780${backdrop}` }}
+        />
 
-      <Text>Direção por: {director?.name}</Text>
+        <IconBack onPress={() => navigation.navigate('MovieList')}>
+          <Icon name='arrow-back' size={24} color='#000' />
+        </IconBack>
 
-      <Text>{movie?.original_title}</Text>
-      <Text>{movie?.overview}</Text>
-      <Text>{movie?.vote_average}/10</Text>
-      <Text>{}</Text>
+        <ContainerDetails>
+          <MovieSection>
+            <Image
+              source={{ uri: `https://image.tmdb.org/t/p/w780${poster}` }} 
+            />
 
+            <MovieInformationContainer>
+              <MovieInformation>
+                <Title>{title}</Title>
+                <ContainerText>
+                  <MovieYear>{releaseYear}</MovieYear>
+                  <MovieDuration>{runtime} min</MovieDuration>
+                </ContainerText>
+              </MovieInformation>
 
+              <Direction>
+                Direção por 
+                <Director> {director?.name}</Director>
+              </Direction>
 
-   </View>
+              <ContainerRating>
+                <VoteAverage>{voteAverage}/10</VoteAverage>
+
+                <ContainerVote>
+                  <Icon name='heart' size={24} color='#EC2626' />
+                  <VoteCount>{voteCount >= 1000 ? `${(voteCount/1000).toFixed(0)}k` : voteCount}</VoteCount>
+                </ContainerVote>
+              </ContainerRating>
+            </MovieInformationContainer>
+          </MovieSection>
+
+          <Overview>
+            {overview}
+          </Overview>
+          
+          <CastTag>
+            <Cast>Elenco</Cast>
+            <Border/>
+          </CastTag>
+          
+          <FlatList
+            data={cast}
+            keyExtractor={(item) => item.id}
+            renderItem={({ item, index }) => {
+              return (
+                <CastContainer key={index}>
+                    <CastImage
+                      source={{ uri: `https://image.tmdb.org/t/p/w780${item.profilePath}` }} 
+                    />
+                    <ContainerCastInfo>
+                      <NameCast>{item.originalName}</NameCast>
+                      <NameCharacter>{item.characterName}</NameCharacter>
+                    </ContainerCastInfo>
+                  </CastContainer>
+              );
+            }}
+          />
+
+      
+        </ContainerDetails>
+    
+    </Container>
   );
-}
+};
+
+export default MovieDetails;

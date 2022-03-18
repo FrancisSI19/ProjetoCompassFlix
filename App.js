@@ -1,8 +1,6 @@
-import { NavigationContainer } from '@react-navigation/native';
+import {NavigationContainer} from '@react-navigation/native';
 import React from 'react';
 import AppRoutes from './src/routes/app.routes';
-
-
 
 const App = () => {
   return (
@@ -14,4 +12,3 @@ const App = () => {
 };
 
 export default App;
-

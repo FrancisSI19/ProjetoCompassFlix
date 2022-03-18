@@ -17,6 +17,7 @@ function AppRoutes() {
         name="MovieList"
         component={ListMovies}
         options={{
+          headerShown: false,
           title: 'MovieList',
           headerTintColor: '#f0f0f0',
           headerStyle: {
@@ -29,6 +30,7 @@ function AppRoutes() {
         name="MovieDetails"
         component={MovieDetails}
         options={{
+          headerShown: false,
           title: 'MovieDetails',
           headerTintColor: '#f0f0f0',
           headerStyle: {

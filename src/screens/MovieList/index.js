@@ -17,7 +17,6 @@ function MovieList() {
   
     useEffect(() => {
       setLoading(true);
-
       fetchMovies(pageNumber)
         .then((data) => {
         setMovies([...movies, ...data]);
@@ -35,33 +34,32 @@ function MovieList() {
     return loading ? (
       <Loading />
     ) : (
-            
-            <FlatList
+        
+          <FlatList
               data={movies}
               numColumns={4}
               keyExtractor={item => item.id}
               onEndReached={loadMoreItem}
               onEndReachedThreshold={0}
               showsVerticalScrollIndicator={false}      
-              renderItem={({ item, index }) => {
+              renderItem={({ item}) => {
                   return (
                     <Container>
                       
-                        <TouchableOpacity
-                          onPress={() => {
-                            navigation.navigate('MovieDetails', { movie: item });
-                          }}>
-                          <Image
-                            source={{
-                              uri: `https://image.tmdb.org/t/p/w780${item.poster_path}`,
-                            }}
-                          />
-                        </TouchableOpacity>
-                        <ContainerVote>
-                            <AntDesing name="star" color="#EC2626"/>
-                            <Vote>{item.vote_average}/10</Vote>
-                        </ContainerVote>
-                      
+                      <TouchableOpacity
+                        onPress={() => {
+                          navigation.navigate('MovieDetails', { movieId: item.id });
+                        }}>
+                        <Image
+                          source={{
+                            uri: `https://image.tmdb.org/t/p/w780${item.poster_path}`,
+                          }}
+                        />
+                      </TouchableOpacity>
+                      <ContainerVote>
+                          <AntDesing name="star" color="#EC2626"/>
+                          <Vote>{item.vote_average}/10</Vote>
+                      </ContainerVote>
                     </Container>
                   );
                 }}
