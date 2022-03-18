@@ -58,7 +58,7 @@ const MovieDetails = ({ navigation, route }) => {
 
   return loading ? <Loading /> : (
     <SafeAreaView style={styles.rootContainer}>
-      {/* <ScrollView> */}
+      <ScrollView>
         <Image 
           style={[styles.movieBackdrop]}
           source={{ uri: `https://image.tmdb.org/t/p/w780${backdrop}` }}
@@ -109,7 +109,7 @@ const MovieDetails = ({ navigation, route }) => {
             <View style={styles.castBorder} />
           </View>
           
-          <FlatList
+          {/* <FlatList
             data={cast}
             keyExtractor={(item) => item.id}
             renderItem={({ item, index }) => {
@@ -128,9 +128,9 @@ const MovieDetails = ({ navigation, route }) => {
             }}
           >
 
-          </FlatList>
+          </FlatList> */}
 
-          {/* <View>
+          <View>
             {
               cast.map((item, index) => {
                 return (
@@ -147,9 +147,9 @@ const MovieDetails = ({ navigation, route }) => {
                 );
               })
             }
-          </View> */}
+          </View>
         </View>
-      {/* </ScrollView> */}
+      </ScrollView>
     </SafeAreaView>
   );
 };
