@@ -8,7 +8,7 @@ export const Container = styled.View`
 
 export const Vote = styled.Text`
     margin-left: 8px;
-    font-size: 8px;
+    font-size: 11px;
     color: #f8f8ff;
 `;
 

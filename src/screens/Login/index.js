@@ -4,12 +4,13 @@ import {
   Keyboard,
   StatusBar, 
   View,
-  navigation
 } from 'react-native';
 import {Button,Entrar, Container, ImageLogo,Login1, LoginDescri } from './styles';
-import Input from './Input';
+import Input from './Input'
+import TabBar from '../../TabBar';
+import MovieList from '../MovieList';
 
-const Login = () => {
+const Login = ({navigation}) => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
 
@@ -59,7 +60,7 @@ const Login = () => {
       <Input placeholder='e-mail' iconName='md-person-circle-outline' setLoginInfo={setUsername} />
       <Input placeholder='senha' iconName='lock-closed-outline' secureTextEntry setLoginInfo={setPassword} />
 
-      <Button onPress={() => navigation.navigate('ListMovies')}>
+      <Button onPress={() => navigation.navigate('TabBar')}>
         <Entrar>
           Entrar
         </Entrar>

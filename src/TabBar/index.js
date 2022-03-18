@@ -1,21 +1,26 @@
 import React from 'react';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
-import ListMovies from '../ListMovies';
+import MovieList from '../screens/MovieList';
 import Icone from 'react-native-vector-icons/Entypo';
-import { NavigationContainer } from '@react-navigation/native';
+import MovieDetails from '../screens/MovieDetails';
+import Routes2 from '../routes/Routes2';
 const Tab = createBottomTabNavigator();
-function tabBar() {
+function TabBar() {
     return(
-      <NavigationContainer>
-        <Tab.Navigator screenOptions={{tabBarShowLabel: false, headerShown: false}}>
+        <Tab.Navigator screenOptions={{tabBarShowLabel: false, headerShown: false, style: {color: '#454545'} }}>
+
         <Tab.Screen
-        options={{
-          tabBarIcon: () => <Icone name="list" color={'gray'} size={24} />,
+        tabBarOptions = {{
+          style:{
+            backgroundColor: '#454545'
+          }
+        }} 
+        options={{ 
+          tabBarIcon: () => <Icone name="list" color={'red'} size={24} />,
         }}
-        name="ListMovies"
-        component={ListMovies}
+        name="Routes2"
+        component={Routes2}
         />
     </Tab.Navigator>
-    </NavigationContainer>
   )}
-export default tabBar;
+export default TabBar;

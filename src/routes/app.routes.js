@@ -1,44 +1,25 @@
 import React from 'react';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import MovieDetails from '../screens/MovieDetails';
-import ListMovies from '../components/ListMovies';
-
+import Login from '../screens/Login';
+import TabBar from '../TabBar';
 const Stack = createNativeStackNavigator();
 
 function AppRoutes() {
   return (
  <Stack.Navigator screenOptions={{ headerShown: false }}>
-   {/* <Stack.Screen 
-        options={{headerShown: true}}
+   <Stack.Screen 
+        options={{headerShown: false}}
         name="Login"
         component={Login}
-      /> */}
-      <Stack.Screen
-        name="MovieList"
-        component={ListMovies}
-        options={{
-          headerShown: false,
-          title: 'MovieList',
-          headerTintColor: '#f0f0f0',
-          headerStyle: {
-            backgroundColor: '#1c1c1c',
-          },
-        }}
       />
 
       <Stack.Screen
-        name="MovieDetails"
-        component={MovieDetails}
-        options={{
-          headerShown: false,
-          title: 'MovieDetails',
-          headerTintColor: '#f0f0f0',
-          headerStyle: {
-            backgroundColor: '#1c1c1c',
-            height: 300,
-          },
-        }}
+        name="TabBar"
+        component={TabBar}
       />
+
+      
     </Stack.Navigator>
   );
 }

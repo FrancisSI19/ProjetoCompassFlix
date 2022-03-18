@@ -1,6 +1,6 @@
 /* eslint-disable prettier/prettier */
 import React, { useEffect, useState } from 'react';
-import { FlatList, TouchableOpacity } from 'react-native';
+import { FlatList, TouchableOpacity,Text } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import AntDesing from "react-native-vector-icons/AntDesign";
 import { fetchMovies } from "../../services/api";

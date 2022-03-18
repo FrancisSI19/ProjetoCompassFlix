@@ -60,7 +60,7 @@ import {
           source={{ uri: `https://image.tmdb.org/t/p/w780${backdrop}` }}
         />
 
-        <IconBack onPress={() => navigation.navigate('MovieList')}>
+        <IconBack onPress={() => navigation.navigate('ListMovies')}>
           <Icon name='arrow-back' size={24} color='#000' />
         </IconBack>
 
