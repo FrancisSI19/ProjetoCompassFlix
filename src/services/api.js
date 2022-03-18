@@ -2,6 +2,7 @@
 import axios from 'axios';
 
 import {URL, API_KEY, LANGUAGE} from '../constants/constants';
+import { MovieSection } from '../screens/MovieDetails/styles';
 export default axios.create({
 
   baseURL: URL
@@ -12,7 +13,9 @@ export const fetchMovies = async (pageNumber) => {
   const response = await axios.get(
     `${URL}movie/popular?api_key=${API_KEY}&${LANGUAGE}&page=${pageNumber}`,
   );
-  return [...response.data.results];
+  console.log(pageNumber, "pageNumber")
+  return response.data.results;
+  
 };
 //  Requições de informações do filme escolhido
 export const fetchDetails = async id => {

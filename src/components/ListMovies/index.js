@@ -28,7 +28,7 @@ function ListMovies({ navigation }) {
 
   return (
     <>
-      <Button title='sair' onPress={removeData} />
+      {/*<Button title='sair' onPress={removeData} />*/}
         <Container>
             <Title>
               Olá, <Name>{name === null ? username : name}</Name>!

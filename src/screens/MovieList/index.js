@@ -19,7 +19,8 @@ function MovieList() {
       setLoading(true);
       fetchMovies(pageNumber)
         .then((data) => {
-        setMovies([...movies, ...data]);
+          setMovies([...movies, ...data]);
+          console.log([...movies, ...data].map(x=>x.id))
         setLoading(false);
       
       }).catch(error => error)
@@ -28,6 +29,7 @@ function MovieList() {
 
     const loadMoreItem = () => {
       setPageNumber(pageNumber + 1);
+      console.log(pageNumber + 1, "tteste")
   }
 
   
@@ -40,7 +42,7 @@ function MovieList() {
               numColumns={4}
               keyExtractor={item => item.id}
               onEndReached={loadMoreItem}
-              onEndReachedThreshold={0}
+              onEndReachedThreshold={0.5}
               showsVerticalScrollIndicator={false}      
               renderItem={({ item}) => {
                   return (
