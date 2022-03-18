@@ -1,6 +1,12 @@
 /* eslint-disable prettier/prettier */
 import axios from 'axios';
+
 import {URL, API_KEY, LANGUAGE} from '../constants/constants';
+export default axios.create({
+
+  baseURL: URL
+
+});
 //  Requições de todos os filmes
 export const fetchMovies = async (pageNumber) => {
   const response = await axios.get(

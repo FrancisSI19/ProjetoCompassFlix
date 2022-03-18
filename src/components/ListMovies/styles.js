@@ -25,3 +25,8 @@ export const TitleList = styled.Text`
     color: #f8f8ff;
 `;
 
+export const Name = styled.Text`
+
+    color: #E9A6A6;
+
+`;
