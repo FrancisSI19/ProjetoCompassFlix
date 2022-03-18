@@ -7,11 +7,12 @@ const Stack = createNativeStackNavigator();
 
 function Routes2() {
 return (
-    <Stack.Navigator screenOptions={{ headerShown: false, color:'#454545' }}>
+    <Stack.Navigator screenOptions={{ headerShown: false, backgroundColor:'#454545' }}>
       <Stack.Screen 
            options={{headerShown:false}}
            name="ListMovies"
            component={ListMovies}
+           TabBarcolor='#454545'
          />
    
    <Stack.Screen
