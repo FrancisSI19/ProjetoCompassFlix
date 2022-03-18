@@ -55,7 +55,7 @@ const Login = () => {
       <LoginDescri>
         Entre na sua conta para continuar.
       </LoginDescri>
-
+     
       <Input placeholder='e-mail' iconName='md-person-circle-outline' setLoginInfo={setUsername} />
       <Input placeholder='senha' iconName='lock-closed-outline' secureTextEntry setLoginInfo={setPassword} />
 
