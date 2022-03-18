@@ -40,7 +40,7 @@ function MovieList() {
               numColumns={4}
               keyExtractor={item => item.id}
               onEndReached={loadMoreItem}
-              onEndReachedThreshold={0}
+              onEndReachedThreshold={0.5}
               showsVerticalScrollIndicator={false}      
               renderItem={({ item}) => {
                   return (
