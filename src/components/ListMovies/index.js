@@ -1,15 +1,39 @@
-import React from 'react';
-import {Modal} from 'react-native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import React, { useEffect, useState } from 'react';
+import {Button} from 'react-native';
 import MovieList from '../../screens/MovieList';
-import { Container, Title, SubTitle, TitleList } from './styles';
+import { Container, Title, SubTitle, TitleList, Name } from './styles';
 
 
-function ListMovies() {
+function ListMovies({ navigation }) {
+  const [name, setName] = useState('');
+  const [username, setUsername] = useState('');
+
+  useEffect(() => {
+    try {
+      AsyncStorage.getItem('username').then(value => setUsername(value));
+      AsyncStorage.getItem('name').then(value => setName(value));
+    } catch (error) {
+      console.log(error)
+    }
+  }, []);
+
+  const removeData = async () => {
+    try {
+      await AsyncStorage.clear();
+      navigation.navigate('Login');
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
   return (
     <>
-      
+      <Button title='sair' onPress={removeData} />
         <Container>
-            <Title>Olá, Compasses</Title>
+            <Title>
+              Olá, <Name>{name === null ? username : name}</Name>!
+            </Title>
                 <SubTitle>Reveja ou acompanhe os filmes que você assistiu...</SubTitle>
                   <TitleList>Filmes populares este mês</TitleList>
           

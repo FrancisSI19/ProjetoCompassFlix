@@ -9,7 +9,6 @@ import { ContainerVote, Vote, Image, Container } from './styles';
 
 
 function MovieList() {
-
     const navigation = useNavigation()
 
     const [movies, setMovies] = useState([]);
@@ -37,8 +36,6 @@ function MovieList() {
     return loading ? (
       <Loading />
     ) : (
-        
-
             <FlatList
               data={movies}
               numColumns={4}
