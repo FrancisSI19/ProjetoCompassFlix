@@ -1,15 +1,14 @@
 /* eslint-disable prettier/prettier */
-import React, { useEffect, useState } from 'react';
-import { FlatList, TouchableOpacity,Text } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
+import React, {useEffect, useState} from 'react';
+import {FlatList, TouchableOpacity} from 'react-native';
+import {useNavigation} from '@react-navigation/native';
 import AntDesing from "react-native-vector-icons/AntDesign";
-import { fetchMovies } from "../../services/api";
-import Loading from '../../components/Loading';
-import { ContainerVote, Vote, Image, Container } from './styles';
 
+import {ContainerVote, Vote, Image, Container} from './styles';
+import {fetchMovies} from "../../services/api";
+import Loading from '../../components/Loading';
 
 function MovieList() {
-
     const navigation = useNavigation()
     const [movies, setMovies] = useState([]);
     const [loading, setLoading] = useState(true);

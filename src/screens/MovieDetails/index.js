@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import { FlatList} from 'react-native';
+import {FlatList} from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
 import {fetchCredits, fetchDetails} from '../../services/api';
 import Loading from '../../components/Loading';
@@ -11,6 +11,7 @@ import {
   Overview, CastTag, Cast, Border, CastContainer, CastImage,
   ContainerCastInfo, NameCast, NameCharacter, Director
 } from './styles';
+import { ScrollView } from 'react-native';
 
   const MovieDetails = ({ navigation, route }) => {
   const [credits, setCredits] = useState(null);
@@ -55,7 +56,7 @@ import {
 
   return loading ? <Loading /> : (
     <Container>
-     
+      <ScrollView>
         <MovieBackground
           source={{ uri: `https://image.tmdb.org/t/p/w780${backdrop}` }}
         />
@@ -104,27 +105,23 @@ import {
             <Border/>
           </CastTag>
           
-          <FlatList
-            data={cast}
-            keyExtractor={(item) => item.id}
-            renderItem={({ item, index }) => {
+          {
+            cast.map(item => {
               return (
-                <CastContainer key={index}>
-                    <CastImage
-                      source={{ uri: `https://image.tmdb.org/t/p/w780${item.profilePath}` }} 
-                    />
-                    <ContainerCastInfo>
-                      <NameCast>{item.originalName}</NameCast>
-                      <NameCharacter>{item.characterName}</NameCharacter>
-                    </ContainerCastInfo>
-                  </CastContainer>
+                <CastContainer key={item.id}>
+                  <CastImage
+                    source={{ uri: `https://image.tmdb.org/t/p/w780${item.profilePath}` }} 
+                  />
+                  <ContainerCastInfo>
+                    <NameCast>{item.originalName}</NameCast>
+                    <NameCharacter>{item.characterName}</NameCharacter>
+                  </ContainerCastInfo>
+                </CastContainer>
               );
-            }}
-          />
-
-      
-        </ContainerDetails>
-    
+            })
+          }
+          </ContainerDetails>
+        </ScrollView>
     </Container>
   );
 };
