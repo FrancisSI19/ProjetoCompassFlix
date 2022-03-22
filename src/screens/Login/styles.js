@@ -21,13 +21,12 @@ const styles = StyleSheet.create({
     fontSize: 13,
     color: '#fff'
   },
-  enterBtn: {
+  signInBtn: {
     fontFamily: 'OpenSans-SemiBold',
     alignItems: 'center',
     justifyContent: 'center',
     width: 120,
     height: 40,
-    marginTop: 40,
     borderRadius: 30,
     backgroundColor: '#E9A6A6'
   },

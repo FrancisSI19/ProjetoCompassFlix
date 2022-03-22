@@ -11,14 +11,13 @@ const styles = StyleSheet.create({
     width: '100%',
     height: 45,
     paddingLeft: 40,
-    marginTop: 20,
+    marginTop: 16,
     borderRadius: 30,
     backgroundColor: 'rgba(196, 196, 196, 0.35)',
-    color: 'rgba(255, 255, 255, 0.5)'
   },
   icon: {
     position: 'absolute',
-    top: 32,
+    top: 28,
     left: 14
   }
 });
