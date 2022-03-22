@@ -94,6 +94,7 @@ const Login = ({ navigation }) => {
               console.log('avatar',data.avatar.tmdb.avatar_path);
               await AsyncStorage.setItem('name', data.name);
               await AsyncStorage.setItem('username', data.username);
+              await AsyncStorage.setItem('avatar', data.avatar.tmdb.avatar_path === null ? '' : data.avatar.tmdb.avatar_path);
 
               setInvalidLogin(false);
               setUsername('');
