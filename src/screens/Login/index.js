@@ -72,7 +72,7 @@ const Login = ({ navigation }) => {
         const {data} = await api.get(createRequestToken);
 
         requestToken = data.request_token;
-        console.log(requestToken);
+        console.log('requestToken:', requestToken);
 
         try {
           const {data} = await api.post(validateTokenWithLogin, {
@@ -89,12 +89,18 @@ const Login = ({ navigation }) => {
               setLoading(true);
               const {data} = await api.get(`${getAccountDetails}${sessionId}`);
 
-              console.log('name:',data.name);
-              console.log('username:',data.username);
-              console.log('avatar',data.avatar.tmdb.avatar_path);
+              await AsyncStorage.setItem('sessionId', sessionId);
+              await AsyncStorage.setItem('accountId', (data.id).toString());
               await AsyncStorage.setItem('name', data.name);
               await AsyncStorage.setItem('username', data.username);
-              await AsyncStorage.setItem('avatar', data.avatar.tmdb.avatar_path === null ? '' : data.avatar.tmdb.avatar_path);
+              const avatarPath = data.avatar.tmdb.avatar_path === null ? '' : data.avatar.tmdb.avatar_path;
+              await AsyncStorage.setItem('avatar', avatarPath);
+
+              console.log('sessionId:', sessionId);
+              console.log('accountId:', data.id);
+              console.log('name:', data.name);
+              console.log('username:', data.username);
+              console.log('avatar:', avatarPath);
 
               setInvalidLogin(false);
               setUsername('');
