@@ -5,19 +5,20 @@ import { Container, Image } from './styles';
 import { fetchFavorites } from "../../services/api";
 
 
-function MoviesFavorites({ navigation }) {
+function MoviesFavorites() {
     const navigation = useNavigation()
-    const [favorites, setFavorites] = useState(null);
+    const [favorites_id, setFavorites_id] = useState();
+
     useEffect(() => {
         setLoading(true);
-        fetchFavorites(favorites)
+        fetchFavorites(favorites_id)
           .then((data) => {
-            setFavorites([...favorites, ...data]);
+            setFavorites_id([...favorites_id, ...data]);
             setLoading(false);
-    
+              
           }).catch(error => error)
-    
-      }, [ACCOUNT_ID])
+          console.log(data);
+      }, [favorites_id])
     return (
         <FlatList
             data={favorites}

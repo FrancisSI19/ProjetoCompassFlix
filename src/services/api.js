@@ -32,8 +32,9 @@ export const fetchDetails = async id => {
 
 export const fetchFavorites = async (ACCOUNT_ID) => {
   const response = await axios.get(
-    `${URL}/account/${ACCOUNT_ID}/favorite/movies?api_key=${API_KEY}&session_id=SESSION_ID"`,
+    `${URL}/account/${ACCOUNT_ID}/favorite/movies?api_key=${API_KEY}&session_id=${SESSION_ID}"`,
   );
+  console.log(response);
   return [...response.data.results];
 };
 
@@ -58,7 +59,7 @@ export const fetchCredits = async id => {
     };
   });
 
-  console.log(cast);
+  //console.log(cast);
 
   const credits = response.data;
   return {
