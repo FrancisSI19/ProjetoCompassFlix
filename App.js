@@ -2,7 +2,7 @@ import {NavigationContainer} from '@react-navigation/native';
 import React from 'react';
 import { StatusBar } from 'react-native';
 import AppRoutes from './src/routes/app.routes';
-
+import Perfil from './src/screens/Perfil';
 const App = () => {
   return (
     <>
