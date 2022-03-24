@@ -6,6 +6,7 @@ import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import Login from '../screens/Login';
 import ListMovies from '../components/ListMovies';
 import MovieDetails from '../screens/MovieDetails';
+import TVShowsList from '../screens/TVShowsList';
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -13,35 +14,49 @@ const Tab = createBottomTabNavigator();
 export default function AppRoutes() {
   return (
     <Stack.Navigator screenOptions={{ headerShown: false }}>
-      <Stack.Screen 
+
+      <Stack.Screen
         name="Login"
         component={Login}
       />
-      
+
       <Stack.Screen
         name="TabBar"
         component={Tabs}
       />
+
+      <Stack.Screen
+        name="TVShowsList"
+        component={TVShowsList}
+      />
     </Stack.Navigator>
+
   );
 }
 
 function Tabs() {
   return (
-    <Tab.Navigator 
+    <Tab.Navigator
       screenOptions={{
-        tabBarShowLabel: false, 
-        headerShown: false, 
-        tabBarActiveBackgroundColor: '#454545' 
+        tabBarShowLabel: false,
+        headerShown: false,
+        // tabBarActiveBackgroundColor: '#454545',
+        // tabBarActiveTintColor: '#454545'
+        tabBarStyle:{
+          backgroundColor: '#454545'
+        }
       }}
-    > 
-      <Tab.Screen 
-        options={{ 
+    >
+
+      <Tab.Screen
+        name="TVShowsList"
+        component={TVShowsList}
+        options={{
           tabBarIcon: () =>  {
             return (
-              <View style={{ 
-                  padding: 10, 
-                  borderRadius: 30,
+              <View style={{
+                  padding: 10,
+                  borderRadius: 50,
                   backgroundColor: '#E9A6A6'
                 }}
               >
@@ -50,14 +65,37 @@ function Tabs() {
                     height: 25,
                     backgroundColor: '#E9A6A6'
                   }}
-                  source={require('../assets/img/movies.png')} 
+                  source={require('../assets/img/series.png')}
                 />
               </View>
             );
           }
         }}
+      />
+
+      <Tab.Screen
         name="HomeStack"
         component={HomeStack}
+        options={{
+          tabBarIcon: () =>  {
+            return (
+              <View style={{
+                  padding: 10,
+                  borderRadius: 50,
+                  backgroundColor: '#E9A6A6'
+                }}
+              >
+                <Image style={{
+                    width: 25,
+                    height: 25,
+                    backgroundColor: '#E9A6A6'
+                  }}
+                  source={require('../assets/img/movies.png')}
+                />
+              </View>
+            );
+          }
+        }}
       />
     </Tab.Navigator>
   );
@@ -66,12 +104,12 @@ function Tabs() {
 function HomeStack() {
   return (
     <Stack.Navigator screenOptions={{ headerShown: false }}>
-      <Stack.Screen 
+      <Stack.Screen
         name="ListMovies"
         component={ListMovies}
-        TabBarcolor='#454545'
+        // TabBarcolor='#454545'
       />
-   
+
       <Stack.Screen
         name="MovieDetails"
         component={MovieDetails}
@@ -79,11 +117,18 @@ function HomeStack() {
           title: 'MovieDetails',
           headerTintColor: '#f0f0f0',
           headerStyle: {
-            backgroundColor: '#1c1c1c',
-            height: 300
+          backgroundColor: '#1c1c1c',
+          height: 300
           }
         }}
       />
+
+      <Stack.Screen
+        name="TVShowsList"
+        component={TVShowsList}
+        // TabBarcolor='#454545'
+      />
+
     </Stack.Navigator>
   );
 }

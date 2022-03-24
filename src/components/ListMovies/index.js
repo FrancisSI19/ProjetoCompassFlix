@@ -23,40 +23,42 @@ function ListMovies({ navigation }) {
   const removeAccountData = async () => {
     try {
       await AsyncStorage.clear();
-      navigation.navigate('Login');
+        navigation.navigate('Login');
+
     } catch (error) {
-      console.log(error);
     }
   }
 
   return (
     <>
       <Button title='sair' onPress={removeAccountData} />
+
+
       <Container>
-      <Image style = {Perfil.imagem}
-                source={{
+      <Image
+        style = {Perfil.imagem}
+        source={{
                   uri: `https://image.tmdb.org/t/p/w300/${avatar}`,
-                }}
-              />
+                }}/>
+
         <Title>
           Olá, <Name>{name === null ? username : name}</Name>!
         </Title>
         <SubTitle>Reveja ou acompanhe os filmes que você assistiu...</SubTitle>
         <TitleList>Filmes populares este mês</TitleList>
-
         <MovieList />
       </Container>
     </>
   );
 }
 const Perfil = StyleSheet.create({
-imagem: {
-width: 44,
-height: 44,
-top: 18,
-left:312,
-borderRadius:40
-  },
+  imagem: {
+  width: 44,
+  height: 44,
+  top: 18,
+  left:312,
+  borderRadius:40
+    },
 })
 
 export default ListMovies;
