@@ -5,7 +5,7 @@ import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import Login from '../screens/Login';
 import ListMovies from '../components/ListMovies';
 import MovieDetails from '../screens/MovieDetails';
-import Perfil from '../screens/Perfil';
+import Perfil from '../screens/Perfil'
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
 
@@ -77,7 +77,7 @@ function Tabs() {
                 <Image style={{
                     width: 25,
                     height: 25,
-                    backgroundColor: ''
+                  
                   }}
                   source={require('../assets/img/perfil.png')} 
                 />
