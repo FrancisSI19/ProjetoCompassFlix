@@ -33,7 +33,7 @@ export default function MovieList() {
     <FlatList
       data={movies}
       numColumns={4}
-      keyExtractor={item => item.id}
+      keyExtractor={( item, index) => String(index)}
       onEndReached={loadMoreItem}
       onEndReachedThreshold={0.5}
       showsVerticalScrollIndicator={false}
