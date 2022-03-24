@@ -6,6 +6,7 @@ import ListMovies from '../components/ListMovies';
 import MovieDetails from '../screens/MovieDetails';
 import FavoriteMovies from '../components/FavoriteMovies';
 import TabBarIcon from '../components/TabBarIcon';
+import TVShowsList from '../screens/TVShowsList';
 
 import Perfil from '../screens/Perfil'
 const Stack = createNativeStackNavigator();
@@ -23,7 +24,13 @@ export default function AppRoutes() {
         name="TabBar"
         component={Tabs}
       />
+
+      <Stack.Screen
+        name="TVShowsList"
+        component={TVShowsList}
+      />
     </Stack.Navigator>
+
   );
 }
 
@@ -59,6 +66,26 @@ function Tabs() {
       <Tab.Screen
         name="HomeStack"
         component={HomeStack}
+        options={{
+          tabBarIcon: () =>  {
+            return (
+              <View style={{
+                  padding: 10,
+                  borderRadius: 50,
+                  backgroundColor: '#E9A6A6'
+                }}
+              >
+                <Image style={{
+                    width: 25,
+                    height: 25,
+                    backgroundColor: '#E9A6A6'
+                  }}
+                  source={require('../assets/img/movies.png')}
+                />
+              </View>
+            );
+          }
+        }}
       />
       <Tab.Screen
         name="Profile"
@@ -84,6 +111,13 @@ function HomeStack() {
         name="FavoriteMovies"
         component={FavoriteMovies}
       />
+
+      <Stack.Screen
+        name="TVShowsList"
+        component={TVShowsList}
+        // TabBarcolor='#454545'
+      />
+
     </Stack.Navigator>
   );
 }

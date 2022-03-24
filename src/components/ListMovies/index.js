@@ -21,18 +21,8 @@ function ListMovies({navigation}) {
     }
   }, []);
 
-  // const removeAccountData = async () => {
-  //   try {
-  //     await AsyncStorage.clear();
-  //     navigation.navigate('Login');
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  // };
-
   return (
     <>
-      {/* <Button title="sair" onPress={removeAccountData} /> */}
       <Container>
         <TouchableOpacity  onPress={() => navigation.navigate('Profile')}>
           <Image
@@ -47,7 +37,6 @@ function ListMovies({navigation}) {
         </Title>
         <SubTitle>Reveja ou acompanhe os filmes que você assistiu...</SubTitle>
         <TitleList>Filmes populares este mês</TitleList>
-
         <MovieList />
       </Container>
     </>
