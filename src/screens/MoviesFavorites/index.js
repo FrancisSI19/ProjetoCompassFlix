@@ -2,11 +2,12 @@ import React, { useEffect, useState } from 'react';
 import { FlatList, TouchableOpacity } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Container, Image } from './styles';
-import { fetchFavorites } from '../../services/api';
+import { useNavigation } from '@react-navigation/native';
 import api from '../../services/api';
 import { API_KEY } from '../../constants/constants';
 
 function MoviesFavorites() {
+    const navigation = useNavigation()
     const [favoriteMovies, setFavoriteMovies] = useState([]);
 
     const getFavoriteMovies = async () => {
@@ -15,9 +16,8 @@ function MoviesFavorites() {
             const sessionId = await AsyncStorage.getItem('sessionId');
             const accountId = await AsyncStorage.getItem('accountId');
             
-            const { data } = await api.get(`account/${accountId}/favorite/movies?api_key=${API_KEY}&session_id=${sessionId}&language=pt-BR&sort_by=created_at.desc`)
-            console.log(data);
-
+            const { data } = await api.get
+                (`account/${accountId}/favorite/movies?api_key=${API_KEY}&session_id=${sessionId}&language=pt-BR&sort_by=created_at.desc`)
             setFavoriteMovies(data.results);
 
         } catch (error) {

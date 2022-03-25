@@ -7,12 +7,14 @@ export const Container = styled.View`
 `;
 
 export const Image = styled.Image`
-    margin-top: 15px;
+    margin-top: 20px;
     width: 75px;
     height: 95px;
     border-radius: 10px;
     margin-horizontal: 8px;
     margin-vertical: 8px;
+    
+
 `;
 
 export const Icon = styled.View`
