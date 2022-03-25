@@ -80,6 +80,7 @@ const Login = ({ navigation }) => {
             password: password,
             request_token: requestToken
           });
+          console.log('validateToken:', data);
 
           try {
             const {data} = await api.post(createSession, {request_token: requestToken});

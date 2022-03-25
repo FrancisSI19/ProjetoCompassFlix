@@ -51,8 +51,6 @@ export const fetchCredits = async id => {
     };
   });
 
-  console.log(cast);
-
   const credits = response.data;
   return {
     director: director,

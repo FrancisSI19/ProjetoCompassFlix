@@ -34,12 +34,23 @@ const styles = StyleSheet.create({
     padding: 20
   },
   poster: {
-    width: 116,
-    height: 182,
     position: 'absolute',
     top: -40,
-    left: 20,
-    borderRadius: 6
+    left: 20
+  },
+  rateBtn: {
+    alignItems: 'center',
+    marginTop: -4,
+    padding: 4,
+    borderBottomLeftRadius: 5,
+    borderBottomRightRadius: 5,
+    backgroundColor: '#E9A6A6'
+  },
+  rateText: {
+    textTransform: 'uppercase',
+    fontSize: 10,
+    fontFamily: 'OpenSans-Bold',
+    color: '#000'
   },
   mediaInfoEnvelope: {
     width: '64%',
