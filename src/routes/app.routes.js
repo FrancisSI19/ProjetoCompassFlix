@@ -6,6 +6,7 @@ import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import Login from '../screens/Login';
 import ListMovies from '../components/ListMovies';
 import MovieDetails from '../screens/MovieDetails';
+import FavoriteMovies from '../components/FavoriteMovies';
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -83,6 +84,11 @@ function HomeStack() {
             height: 300
           }
         }}
+      />
+      <Stack.Screen 
+        name="FavoriteMovies"
+        component={FavoriteMovies}
+        TabBarcolor='#454545'
       />
     </Stack.Navigator>
   );

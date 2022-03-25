@@ -5,14 +5,16 @@ import FavoriteMovies from './src/components/FavoriteMovies';
 
 import AppRoutes from './src/routes/app.routes';
 import MoviesFavorites from './src/screens/MoviesFavorites';
+import SeriesFavorites from './src/screens/SeriesFavorites';
 
 const App = () => {
   return (
     <>
       <StatusBar barStyle='dark-content' backgroundColor='#fff' />
       <NavigationContainer>
-        {/*<AppRoutes/>*/}
-       <FavoriteMovies/>
+        
+        <AppRoutes/>
+       {/*<FavoriteMovies/>*, <SeriesFavorites/>*/}
       </NavigationContainer>
     </>
   );

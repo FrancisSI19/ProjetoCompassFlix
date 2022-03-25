@@ -2,10 +2,10 @@ import React, { useEffect, useState } from 'react';
 import { Container, Name, IconBack, Title, ContainerFavorite} from './styles';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import Ionicons from 'react-native-vector-icons/Ionicons';
-import MoviesFavorites from '../../screens/MoviesFavorites';
+import SeriesFavorites from '../../screens/SeriesFavorites';
 
 //{ route: {params} , navigation } inserir na função da tela do usuário quando tiver a tela do retorno.
-function FavoriteMovies({navigation}) {
+function FavoriteSeries({navigation}) {
 
   const [name, setName] = useState('');
   const [username, setUsername] = useState('');
@@ -29,14 +29,14 @@ function FavoriteMovies({navigation}) {
       </IconBack>
 
       <Title>
-        Filmes favoritos de <Name>{name === null ? username : name}</Name>!
+        Séries favoritas de <Name>{name === null ? username : name}</Name>!
       </Title>
       <ContainerFavorite>
-      <MoviesFavorites />
+      <SeriesFavorites/>
       </ContainerFavorite>
     </Container>
 
   );
 }
 
-export default FavoriteMovies;
+export default FavoriteSeries;
