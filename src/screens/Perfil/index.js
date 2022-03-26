@@ -29,7 +29,7 @@ function Perfil({ navigation }) {
         },
         {
           text: 'SIM',
-          onPress: () => removeAccountData
+          onPress: () => removeAccountData()
           
         }
       ]
@@ -45,7 +45,6 @@ function Perfil({ navigation }) {
     }
   };
 
-  console.log(optionAlert)
   return (
     <Container>
 
