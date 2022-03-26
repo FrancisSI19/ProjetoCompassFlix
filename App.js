@@ -7,6 +7,7 @@ import AppRoutes from './src/routes/app.routes';
 import MoviesFavorites from './src/screens/MoviesFavorites';
 import SeriesFavorites from './src/screens/SeriesFavorites';
 
+import Perfil from './src/screens/Perfil';
 const App = () => {
   return (
     <>
