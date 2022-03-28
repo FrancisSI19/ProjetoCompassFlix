@@ -72,13 +72,13 @@ const Login = ({ navigation }) => {
       setLoading(true);
 
       try {
-        const {data} = await api.get(createRequestToken);
+        const { data } = await api.get(createRequestToken);
 
         requestToken = data.request_token;
         console.log('requestToken:', requestToken);
 
         try {
-          const {data} = await api.post(validateTokenWithLogin, {
+          const { data } = await api.post(validateTokenWithLogin, {
             username: username,
             password: password,
             request_token: requestToken
@@ -86,7 +86,7 @@ const Login = ({ navigation }) => {
           console.log('validateToken:', data);
 
           try {
-            const {data} = await api.post(createSession, {request_token: requestToken});
+            const { data } = await api.post(createSession, { request_token: requestToken });
             sessionId = data.session_id;
 
             try {
@@ -149,7 +149,7 @@ const Login = ({ navigation }) => {
         )
       }
 
-      <Text style={[styles.loginText, {marginTop: keyboardShown ? 40 : -20}]}>
+      <Text style={[styles.loginText, { marginTop: keyboardShown ? 40 : -20 }]}>
         Login
       </Text>
 
@@ -162,12 +162,12 @@ const Login = ({ navigation }) => {
 
       {
         invalidLogin &&
-          <Text style={{ color: '#EC2626', fontSize: 12, fontFamily: 'OpenSans-Regular', marginTop: 16 }}>
-            Usuário ou senha inválidos
-          </Text>
+        <Text style={{ color: '#EC2626', fontSize: 12, fontFamily: 'OpenSans-Regular', marginTop: 16 }}>
+          Usuário ou senha inválidos
+        </Text>
       }
 
-      <TouchableOpacity style={[styles.signInBtn, {marginTop: invalidLogin ? 16 : 48}]} onPress={SignIn}>
+      <TouchableOpacity style={[styles.signInBtn, { marginTop: invalidLogin ? 16 : 48 }]} onPress={SignIn}>
         <Text style={styles.enterTxt}>
           Entrar
         </Text>

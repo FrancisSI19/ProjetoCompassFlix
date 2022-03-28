@@ -2,11 +2,12 @@ import React from 'react';
 import {Image, View} from 'react-native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
-
 import Login from '../screens/Login';
 import ListMovies from '../components/ListMovies';
 import MovieDetails from '../screens/MovieDetails';
+import FavoriteMovies from '../components/FavoriteMovies';
 
+import Perfil from '../screens/Perfil'
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
 
@@ -21,6 +22,11 @@ export default function AppRoutes() {
       <Stack.Screen
         name="TabBar"
         component={Tabs}
+      />
+
+<Stack.Screen
+        name="Perfil"
+        component={Perfil}
       />
     </Stack.Navigator>
   );
@@ -43,6 +49,7 @@ function Tabs() {
                   padding: 10, 
                   borderRadius: 30,
                   backgroundColor: '#E9A6A6'
+
                 }}
               >
                 <Image style={{
@@ -58,6 +65,30 @@ function Tabs() {
         }}
         name="HomeStack"
         component={HomeStack}
+      />
+      <Tab.Screen 
+        options={{ 
+          tabBarIcon: () =>  {
+            return (
+              <View style={{ 
+                  padding: 10, 
+                  borderRadius: 30,
+                  backgroundColor: '#E9A6A6'
+                }}
+              >
+                <Image style={{
+                    width: 25,
+                    height: 25,
+                  
+                  }}
+                  source={require('../assets/img/perfil.png')} 
+                />
+              </View>
+            );
+          }
+        }}
+        name="Perfil"
+        component={Perfil}
       />
     </Tab.Navigator>
   );
@@ -83,6 +114,11 @@ function HomeStack() {
             height: 300
           }
         }}
+      />
+      <Stack.Screen 
+        name="FavoriteMovies"
+        component={FavoriteMovies}
+        TabBarcolor='#454545'
       />
     </Stack.Navigator>
   );
