@@ -1,9 +1,9 @@
 import React, {useEffect, useState} from 'react';
-import {useNavigation} from '@react-navigation/native';
 import {FlatList, TouchableOpacity} from 'react-native';
+import {useNavigation} from '@react-navigation/native';
 
 import {ContainerVote, Vote, Image, Container} from '../styles';
-import { fetchTVShow } from "../../services/api";
+import {fetchTVShow} from "../../services/api";
 import Loading from '../../components/Loading';
 import IconStar from '../../components/IconStar';
 import VoteAverage from '../../components/VoteAverage';
@@ -38,18 +38,15 @@ export default function TVShowsList() {
       renderItem={({ item }) => {
         return (
           <Container>
-
             <TouchableOpacity onPress={ () => navigation.navigate('', {tvshowId: item.id})}>
               <Image source={{uri: `https://image.tmdb.org/t/p/w780${item.poster_path}`}}/>
             </TouchableOpacity>
-
             <ContainerVote>
               <IconStar/>
               <Vote>
                 {item.vote_average}<VoteAverage/>
               </Vote>
             </ContainerVote>
-
           </Container>
         );
       }}

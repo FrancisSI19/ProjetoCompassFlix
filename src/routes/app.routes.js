@@ -6,7 +6,7 @@ import ListMovies from '../components/ListMovies';
 import MovieDetails from '../screens/MovieDetails';
 import FavoriteMovies from '../components/FavoriteMovies';
 import TabBarIcon from '../components/TabBarIcon';
-import TVShowsList from '../screens/TVShowsList';
+import ListTVShows from '../components/ListTVShows';
 
 import Perfil from '../screens/Perfil'
 const Stack = createNativeStackNavigator();
@@ -23,11 +23,6 @@ export default function AppRoutes() {
       <Stack.Screen
         name="TabBar"
         component={Tabs}
-      />
-
-      <Stack.Screen
-        name="TVShowsList"
-        component={TVShowsList}
       />
     </Stack.Navigator>
 
@@ -91,6 +86,10 @@ function Tabs() {
         name="Profile"
         component={Perfil}
       />
+      <Tab.Screen
+        name="TVShowsList"
+        component={ListTVShows}
+      />
     </Tab.Navigator>
   );
 }
@@ -107,17 +106,6 @@ function HomeStack() {
         name="MovieDetails"
         component={MovieDetails}
       />
-      <Stack.Screen
-        name="FavoriteMovies"
-        component={FavoriteMovies}
-      />
-
-      <Stack.Screen
-        name="TVShowsList"
-        component={TVShowsList}
-        // TabBarcolor='#454545'
-      />
-
     </Stack.Navigator>
   );
 }

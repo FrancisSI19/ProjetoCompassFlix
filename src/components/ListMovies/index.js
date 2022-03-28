@@ -1,8 +1,9 @@
 import React, {useEffect, useState} from 'react';
+import {Image, StyleSheet, TouchableOpacity} from 'react-native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
 import MovieList from '../../screens/MovieList';
 import {Container, Title, SubTitle, TitleList, Name} from '../styles';
-import {Button, Image, StyleSheet, TouchableOpacity} from 'react-native';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 
 function ListMovies({navigation}) {
   const [name, setName] = useState('');
@@ -15,8 +16,7 @@ function ListMovies({navigation}) {
       AsyncStorage.getItem('name').then(value => setName(value));
       AsyncStorage.getItem('avatar').then(value => setAvatar(value));
     } catch (error) {
-      console.log(error);
-    }
+      console.log(error)}
   }, []);
 
   return (
