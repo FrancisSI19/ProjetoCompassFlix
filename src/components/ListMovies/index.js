@@ -1,10 +1,8 @@
 import React, {useEffect, useState} from 'react';
 import MovieList from '../../screens/MovieList';
-import {Container, Title, SubTitle, TitleList, Name} from './styles';
-import {Button, Image, TouchableOpacity} from 'react-native';
+import {Container, Title, SubTitle, TitleList, Name} from '../styles';
+import {Button, Image, StyleSheet, TouchableOpacity} from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import {StyleSheet} from 'react-native';
-
 
 function ListMovies({navigation}) {
   const [name, setName] = useState('');

@@ -1,5 +1,5 @@
 import React from 'react';
-import {Vote} from '../../screens/MovieList/styles';
+import {Vote} from '../../screens/styles';
 
 //  /10 das screens MovieList e TVShowsList
 export default function VoteAverage() {
