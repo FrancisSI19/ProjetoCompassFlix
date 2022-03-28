@@ -4,7 +4,7 @@ import { FlatList, TouchableOpacity } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 
 import { ContainerVote, Vote, Image, Container } from '../styles';
-import { fetchMovies } from "../../services/api";
+import {fetchMovies} from "../../services/api";
 import Loading from '../../components/Loading';
 import IconStar from '../../components/IconStar';
 import VoteAverage from '../../components/VoteAverage';
@@ -39,21 +39,18 @@ export default function MovieList() {
       renderItem={({ item }) => {
         return (
           <Container>
-
             <TouchableOpacity onPress={ () => navigation.navigate('MovieDetails', {movieId: item.id})}>
               <Image source={{uri: `https://image.tmdb.org/t/p/w780${item.poster_path}`}}/>
             </TouchableOpacity>
-
             <ContainerVote>
               <IconStar/>
               <Vote>
                 {item.vote_average}<VoteAverage/>
               </Vote>
             </ContainerVote>
-
           </Container>
         );
       }}
     />
   );
-};
+}

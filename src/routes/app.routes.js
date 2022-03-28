@@ -5,6 +5,7 @@ import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 
 import Login from '../screens/Login';
 import ListMovies from '../components/ListMovies';
+import ListTVShows from '../components/ListTVShows';
 import MovieDetails from '../screens/MovieDetails';
 import TVShowsList from '../screens/TVShowsList';
 
@@ -25,85 +26,12 @@ export default function AppRoutes() {
         component={Tabs}
       />
 
-      <Stack.Screen
-        name="TVShowsList"
-        component={TVShowsList}
-      />
-    </Stack.Navigator>
-
-  );
-}
-
-function Tabs() {
-  return (
-    <Tab.Navigator
-      screenOptions={{
-        tabBarShowLabel: false,
-        headerShown: false,
-        // tabBarActiveBackgroundColor: '#454545',
-        // tabBarActiveTintColor: '#454545'
-        tabBarStyle:{
-          backgroundColor: '#454545'
-        }
-      }}
-    >
-
-      <Tab.Screen
-        name="TVShowsList"
-        component={TVShowsList}
-        options={{
-          tabBarIcon: () =>  {
-            return (
-              <View style={{
-                  padding: 10,
-                  borderRadius: 50,
-                  backgroundColor: '#E9A6A6'
-                }}
-              >
-                <Image style={{
-                    width: 25,
-                    height: 25,
-                    backgroundColor: '#E9A6A6'
-                  }}
-                  source={require('../assets/img/series.png')}
-                />
-              </View>
-            );
-          }
-        }}
+    <Stack.Screen
+        name="ListTVShows"
+        component={ListTVShows}
+        // TabBarcolor='#454545'
       />
 
-      <Tab.Screen
-        name="HomeStack"
-        component={HomeStack}
-        options={{
-          tabBarIcon: () =>  {
-            return (
-              <View style={{
-                  padding: 10,
-                  borderRadius: 50,
-                  backgroundColor: '#E9A6A6'
-                }}
-              >
-                <Image style={{
-                    width: 25,
-                    height: 25,
-                    backgroundColor: '#E9A6A6'
-                  }}
-                  source={require('../assets/img/movies.png')}
-                />
-              </View>
-            );
-          }
-        }}
-      />
-    </Tab.Navigator>
-  );
-}
-
-function HomeStack() {
-  return (
-    <Stack.Navigator screenOptions={{ headerShown: false }}>
       <Stack.Screen
         name="ListMovies"
         component={ListMovies}
@@ -122,13 +50,70 @@ function HomeStack() {
           }
         }}
       />
+    </Stack.Navigator>
+  );
+}
 
-      <Stack.Screen
-        name="TVShowsList"
-        component={TVShowsList}
-        // TabBarcolor='#454545'
+function Tabs() {
+  return (
+    <Tab.Navigator
+      screenOptions={{
+        tabBarShowLabel: false,
+        headerShown: false,
+        tabBarActiveBackgroundColor: '#454545',
+        tabBarActiveTintColor: '#454545',
+        tabBarStyle:{
+          backgroundColor: '#454545'
+        }
+      }}>
+      <Tab.Screen
+        name="ListTVShows"
+        component={ListTVShows}
+        options={{
+          tabBarIcon: () => {
+            return (
+              <View style={{
+                  padding: 10,
+                  borderRadius: 50,
+                  backgroundColor: '#E9A6A6'
+                }}>
+                <Image style={{
+                    width: 25,
+                    height: 25,
+                    backgroundColor: '#E9A6A6'
+                  }}
+                  source={require('../assets/img/series.png')}
+                />
+              </View>
+            );
+          }
+        }}
       />
 
-    </Stack.Navigator>
+      <Tab.Screen
+        name="ListMovies"
+        component={ListMovies}
+        options={{
+          tabBarIcon: () => {
+            return (
+              <View style={{
+                padding: 10,
+                borderRadius: 50,
+                backgroundColor: '#E9A6A6'
+              }}
+              >
+                <Image style={{
+                    width: 25,
+                    height: 25,
+                    backgroundColor: '#E9A6A6'
+                  }}
+                  source={require('../assets/img/movies.png')}
+                />
+              </View>
+            );
+          }
+        }}
+      />
+    </Tab.Navigator>
   );
 }
