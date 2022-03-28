@@ -3,14 +3,15 @@ import React, { useEffect, useState } from 'react';
 import { FlatList, TouchableOpacity } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 
-import { ContainerVote, Vote, Image, Container } from './styles';
+import { ContainerVote, Vote, Image, Container } from '../styles';
 import { fetchMovies } from "../../services/api";
 import Loading from '../../components/Loading';
 import IconStar from '../../components/IconStar';
 import VoteAverage from '../../components/VoteAverage';
 
 export default function MovieList() {
-  const navigation = useNavigation()
+  const navigation = useNavigation();
+
   const [movies, setMovies] = useState([]);
   const [loading, setLoading] = useState(true);
   const [pageNumber, setPageNumber] = useState(1);
@@ -27,9 +28,7 @@ export default function MovieList() {
 
   const loadMoreItem = () => setPageNumber(pageNumber + 1);
 
-  return loading ? (
-    <Loading />
-  ) : (
+  return loading ? (<Loading />) : (
     <FlatList
       data={movies}
       numColumns={4}
@@ -40,7 +39,8 @@ export default function MovieList() {
       renderItem={({ item }) => {
         return (
           <Container>
-            <TouchableOpacity onPress={ () => navigation.navigate('MovieDetails', { movieId: item.id })}>
+
+            <TouchableOpacity onPress={ () => navigation.navigate('MovieDetails', {movieId: item.id})}>
               <Image source={{uri: `https://image.tmdb.org/t/p/w780${item.poster_path}`}}/>
             </TouchableOpacity>
 
@@ -50,6 +50,7 @@ export default function MovieList() {
                 {item.vote_average}<VoteAverage/>
               </Vote>
             </ContainerVote>
+
           </Container>
         );
       }}

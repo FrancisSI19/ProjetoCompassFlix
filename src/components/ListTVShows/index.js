@@ -1,10 +1,10 @@
-import React, {useEffect, useState} from 'react';
-import MovieList from '../../screens/MovieList';
-import {Container, Title, SubTitle, TitleList, Name} from '../styles';
+import React, { useEffect, useState } from 'react';
+import TVShowsList from '../../screens/TVShowsList';
+import { Container, Title, SubTitle, TitleList, Name } from '../styles';
 import {Button, Image, StyleSheet} from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-function ListMovies({ navigation }) {
+function ListTVShows({ navigation }) {
   const [name, setName] = useState('');
   const [username, setUsername] = useState('');
   const [avatar, setAvatar] = useState('');
@@ -22,7 +22,7 @@ function ListMovies({ navigation }) {
   const removeAccountData = async () => {
     try {
       await AsyncStorage.clear();
-        navigation.navigate('Login');
+      navigation.navigate('Login');
 
     } catch (error) {
     }
@@ -40,9 +40,9 @@ function ListMovies({ navigation }) {
         <Title>
           Olá, <Name>{name === null ? username : name}</Name>!
         </Title>
-        <SubTitle>Reveja ou acompanhe os filmes que você assistiu...</SubTitle>
-        <TitleList>Filmes populares este mês</TitleList>
-        <MovieList />
+        <SubTitle>Reveja ou acompanhe os séries que você assistiu...</SubTitle>
+        <TitleList>Séries populares este mês</TitleList>
+        <TVShowsList />
       </Container>
     </>
   );
@@ -57,4 +57,4 @@ const Perfil = StyleSheet.create({
     },
 })
 
-export default ListMovies;
+export default ListTVShows;
