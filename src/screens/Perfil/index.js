@@ -29,7 +29,7 @@ function Perfil({ navigation }) {
         },
         {
           text: 'SIM',
-          onPress: () => removeAccountData
+          onPress: () => removeAccountData()
           
         }
       ]

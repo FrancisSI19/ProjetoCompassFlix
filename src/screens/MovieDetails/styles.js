@@ -33,13 +33,51 @@ const styles = StyleSheet.create({
   mainSection: {
     padding: 20
   },
-  poster: {
-    width: 116,
-    height: 182,
+  posterEnvelope: {
     position: 'absolute',
     top: -40,
-    left: 20,
+    left: 20
+  },
+  poster: {
+    width: 116,
+    height: 178,
     borderRadius: 6
+  },
+  btnRate: {
+    alignItems: 'center',
+    marginTop: -4,
+    padding: 4,
+    borderBottomLeftRadius: 5,
+    borderBottomRightRadius: 5,
+    backgroundColor: '#E9A6A6'
+  },
+  txtRate: {
+    textTransform: 'uppercase',
+    fontSize: 10,
+    fontFamily: 'OpenSans-Bold',
+    color: '#000'
+  },
+  btnRated: {
+    alignItems: 'center',
+    marginTop: -4,
+    padding: 4,
+    borderBottomLeftRadius: 5,
+    borderBottomRightRadius: 5,
+    backgroundColor: '#8BE0EC'
+  },
+  txtRated: {
+    textTransform: 'capitalize',
+    fontSize: 10,
+    fontFamily: 'OpenSans-Bold',
+    color: '#000'
+  },
+  icon: {
+    position: 'absolute',
+    top: -4,
+    right: -4,
+    padding: 1,
+    borderRadius: 30,
+    backgroundColor: '#C4C4C4'
   },
   mediaInfoEnvelope: {
     width: '64%',

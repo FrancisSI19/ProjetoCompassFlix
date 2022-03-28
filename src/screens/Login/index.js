@@ -31,14 +31,14 @@ const Login = ({ navigation }) => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    getAccountData();
-
     const showSubscription = Keyboard.addListener("keyboardDidShow", () => {
       setKeyboardShown(true);
     });
     const hideSubscription = Keyboard.addListener("keyboardDidHide", () => {
       setKeyboardShown(false);
     });
+
+    getAccountData();
 
     return () => {
       showSubscription.remove();
@@ -47,15 +47,16 @@ const Login = ({ navigation }) => {
   }, []);
 
   const getAccountData = () => {
+    setLoading(true);
     try {
       AsyncStorage.getItem('username')
         .then(value => {
-          setLoading(false);
           if (value !== null) navigation.navigate('TabBar');
         });
     } catch (error) {
       console.log(error);
     }
+    setLoading(false);
   }
 
   const SignIn = async () => {
@@ -68,9 +69,10 @@ const Login = ({ navigation }) => {
     if (username === '' || password === '') {
       Alert.alert('Login inválido', 'Ops! Você esqueceu de inserir seus dados.');
     } else {
+      setLoading(true);
+
       try {
         const { data } = await api.get(createRequestToken);
-
         requestToken = data.request_token;
         console.log('requestToken:', requestToken);
 
@@ -80,15 +82,14 @@ const Login = ({ navigation }) => {
             password: password,
             request_token: requestToken
           });
+          console.log('validateToken:', data);
 
           try {
             const { data } = await api.post(createSession, { request_token: requestToken });
             sessionId = data.session_id;
 
             try {
-              setLoading(true);
-              const { data } = await api.get(`${getAccountDetails}${sessionId}`);
-
+              const {data} = await api.get(`${getAccountDetails}${sessionId}`);
               await AsyncStorage.setItem('sessionId', sessionId);
               await AsyncStorage.setItem('accountId', (data.id).toString());
               await AsyncStorage.setItem('name', data.name);
@@ -106,10 +107,8 @@ const Login = ({ navigation }) => {
               setUsername('');
               setPassword('');
 
-              setLoading(false);
               navigation.navigate('TabBar');
             } catch (error) {
-              setLoading(false);
               console.log(error);
             }
 
@@ -125,8 +124,12 @@ const Login = ({ navigation }) => {
       } catch (error) {
         console.log(error);
       }
+
+      setLoading(false);
     }
   }
+
+  console.log(loading)
 
   return loading ? <Loading size={60} /> : (
     <SafeAreaView style={styles.rootContainer}>
