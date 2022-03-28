@@ -1,17 +1,18 @@
-import React, {useEffect, useState} from 'react';
+import React, { useEffect, useState } from 'react';
 import { Image, ScrollView, Text, TouchableOpacity, View } from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
+import EvilIcons from 'react-native-vector-icons/EvilIcons';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import styles from './styles';
-
 import { API_KEY } from '../../constants/constants';
 import api from '../../services/api';
-import {fetchCredits, fetchDetails} from '../../services/api';
+import { fetchCredits, fetchDetails } from '../../services/api';
 import Loading from '../../components/Loading';
+import RatingModal from './RatingModal';
 
-  const MovieDetails = ({ navigation, route }) => {
+const MovieDetails = ({ navigation, route }) => {
   const [credits, setCredits] = useState(null);
   const [loading, setLoading] = useState(true);
   const [director, setDirector] = useState('');
@@ -26,13 +27,15 @@ import Loading from '../../components/Loading';
   const [overview, setOverview] = useState('');
   const [cast, setCast] = useState([]);
 
-  const {movieId} = route.params;
+  const { movieId } = route.params;
 
   const [favorite, setFavorite] = useState(false);
+  const [modalVisible, setModalVisible] = useState(false);
+  const [rated, setRated] = useState(false);
+  const [rating, setRating] = useState(0);
 
   useEffect(() => {
     fetchDetails(movieId).then((data) => {
-
       setBackdrop(data.backdrop);
       setPoster(data.poster);
       setTitle(data.title);
@@ -41,46 +44,36 @@ import Loading from '../../components/Loading';
       setVoteAverage(data.voteAverage);
       setVoteCount(data.voteCount);
       setOverview(data.overview);
-
-
     });
 
     fetchCredits(movieId).then((data) => {
-
-
       setCredits(data.credits);
       setDirector(data.director);
       setCast(data.cast);
-
-
     });
 
     isFavorite();
-
+    isRated();
   }, []);
 
   const isFavorite = async () => {
-    setLoading(true);
     try {
       const sessionId = await AsyncStorage.getItem('sessionId');
       const accountId = await AsyncStorage.getItem('accountId');
 
       const queryString = `account/${accountId}/favorite/movies?api_key=${API_KEY}&session_id=${sessionId}&language=pt-BR&sort_by=created_at.desc`;
       try {
-        const {data} = await api.get(queryString);
+        const { data } = await api.get(queryString);
 
         data.results.find(movie => movie.id === movieId)
-        ? setFavorite(true)
-        : setFavorite(false);
+          ? setFavorite(true)
+          : setFavorite(false);
 
-        setLoading(false);
       } catch (error) {
         console.log(error);
-        setLoading(false);
       }
     } catch (error) {
       console.log(error);
-      setLoading(false);
     }
   }
 
@@ -90,19 +83,48 @@ import Loading from '../../components/Loading';
       const accountId = await AsyncStorage.getItem('accountId');
 
       const queryString = `account/${accountId}/favorite?api_key=${API_KEY}&session_id=${sessionId}`;
-      setFavorite(!favorite);
       try {
-        const {data} = await api.post(queryString, {
+        setFavorite(!favorite);
+        const { data } = await api.post(queryString, {
           media_type: 'movie',
           media_id: movieId,
           favorite: (!favorite)
         });
       } catch (error) {
+        setFavorite(!favorite);
         console.log(error);
       }
     } catch (error) {
       console.log(error);
     }
+  }
+
+  const isRated = async () => {
+    setLoading(true);
+    try {
+      const sessionId = await AsyncStorage.getItem('sessionId');
+      const accountId = await AsyncStorage.getItem('accountId');
+
+      try {
+        const queryString = `account/${accountId}/rated/movies?api_key=${API_KEY}&language=pt-BR&session_id=${sessionId}&sort_by=created_at.desc`;
+
+        const { data } = await api.get(queryString);
+        const movie = data.results.find(movie => movie.id === movieId);
+
+        if (movie) {
+          setRated(true);
+          setRating(movie.rating);
+        } else {
+          setRated(false);
+        }
+      } catch (error) {
+        console.log(error);
+      }
+
+    } catch (error) {
+      console.log(error);
+    }
+    setLoading(false);
   }
 
   return loading ? <Loading size={60} /> : (
@@ -126,24 +148,58 @@ import Loading from '../../components/Loading';
         >
           {
             favorite
-            ? <MaterialIcons name='star' size={26} color='#EC2626' />
-            : <MaterialIcons name='star-border' size={26} color='#000' />
+              ? <MaterialIcons name='star' size={26} color='#EC2626' />
+              : <MaterialIcons name='star-border' size={26} color='#000' />
           }
         </TouchableOpacity>
 
         <View style={styles.mainSection}>
-          <View style={styles.poster}>
+          <View style={styles.posterEnvelope}>
             <Image
-              style={{ width: 116, height: 178, borderRadius: 6}}
+              style={styles.poster}
               source={{ uri: `https://image.tmdb.org/t/p/w780${poster}` }}
             />
 
-            <TouchableOpacity
-              style={styles.rateBtn}
-            >
-              <Text style={styles.rateText}>Avalie agora</Text>
-            </TouchableOpacity>
+            {
+              rated
+                ? (
+                  <TouchableOpacity
+                    style={styles.btnRated}
+                    onPress={() => {
+                      setModalVisible(true)
+                    }}
+                  >
+                    <Text style={styles.txtRated}>Sua nota: {rating}/10</Text>
+
+                    <View style={styles.icon}>
+                      <EvilIcons
+                        name='pencil'
+                        size={10}
+                      />
+                    </View>
+                  </TouchableOpacity>
+                )
+                : (
+                  <TouchableOpacity
+                    style={styles.btnRate}
+                    onPress={() => {
+                      setModalVisible(true)
+                    }}
+                  >
+                    <Text style={styles.txtRate}>Avalie agora</Text>
+                  </TouchableOpacity>
+                )
+            }
+
           </View>
+
+          <RatingModal
+            visible={modalVisible}
+            setModalVisible={setModalVisible}
+            movieId={movieId}
+            setCurrentRating={setRating}
+            setRated={setRated}
+          />
 
           <View style={[styles.mediaInfoEnvelope]}>
             <Text style={styles.title}>
@@ -169,8 +225,8 @@ import Loading from '../../components/Loading';
                 <Text style={styles.voteCount}>
                   {
                     voteCount >= 1000
-                    ? `${(voteCount/1000).toFixed(0)}k`
-                    : voteCount
+                      ? `${(voteCount / 1000).toFixed(0)}k`
+                      : voteCount
                   }
                 </Text>
               </View>
