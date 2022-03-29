@@ -44,6 +44,7 @@ export const fetchFavorites = async (accountId, sessionId) => {
   );
   console.log(response);
   return response.data.results;
+  
 };
 
 //  Requições de informações da direção / elenco
