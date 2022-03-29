@@ -5,9 +5,11 @@ import Login from '../screens/Login';
 import ListMovies from '../components/ListMovies';
 import MovieDetails from '../screens/MovieDetails';
 import FavoriteMovies from '../components/FavoriteMovies';
-import TabBarIcon from '../components/TabBarIcon';
-
 import Perfil from '../screens/Perfil'
+import FavoriteSeries from '../components/FavoritesSeries';
+import RatedMovies from '../components/ListRatedMovies';
+
+
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
 
@@ -84,6 +86,17 @@ function HomeStack() {
         name="FavoriteMovies"
         component={FavoriteMovies}
       />
+        <Stack.Screen 
+        name="FavoriteSeries"
+        component={FavoriteSeries}
+        TabBarcolor='#454545'
+      />
+      <Stack.Screen 
+        name="FilmesAvaliados"
+        component={RatedMovies}
+        TabBarcolor='#454545'
+      />
+       
     </Stack.Navigator>
   );
 }

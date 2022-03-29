@@ -1,13 +1,24 @@
 import React, { useEffect, useState } from 'react';
-import { Button, Image, View, Text, Alert } from 'react-native';
+import { Alert} from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { Container, Name, Imagem, Icon1, Icon2, Linha1, Linha2, Meio, Botão, TxtBotão, Sair } from './styles1';
-import MoviesFavorites from '../MoviesFavorites';
-import RatedSeries from '../../components/ListRatedSeries';
+import {
+  Container,
+  Name,
+  Imagem,
+  Icon1, Icon2,
+  Linha1, Linha2, Meio,
+  Botão, TxtBotão, Sair,
+ } from './styles1';
+import api from '../../services/api';
+import { API_KEY } from '../../constants/constants';
+
+
+
 function Perfil({ navigation }) {
   const [name, setName] = useState('');
   const [username, setUsername] = useState('');
   const [avatar, setAvatar] = useState('');
+  const [favoriteMovies, setFavoriteMovies] = useState([]);
 
   useEffect(() => {
     try {
@@ -17,6 +28,7 @@ function Perfil({ navigation }) {
     } catch (error) {
       console.log(error);
     }
+    getFavoriteMovies()
   }, []);
 
   const optionAlert = () => {
@@ -45,6 +57,27 @@ function Perfil({ navigation }) {
       console.log(error);
     }
   };
+  async function getFavoriteMovies(){
+    try {
+      const sessionId = await AsyncStorage.getItem('sessionId');
+      const accountId = await AsyncStorage.getItem('accountId');
+      console.log(sessionId,accountId)
+      try {
+        const queryString = 
+      `account/${accountId}/favorite/movies?api_key=${API_KEY}&session_id=${sessionId}&language=pt-BR&sort_by=created_at.desc`
+      const {data} = await api.get(queryString)
+      setFavoriteMovies(data.results)
+
+      } catch (error) {
+        console.log(error)
+        
+      }
+      
+    } catch (error) {
+      console.log(error)
+    }
+   
+  }
 
   return (
     <Container>
