@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Button, Image, View, Text, Alert } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Container, Name, Imagem, Icon1, Icon2, Linha1, Linha2, Meio, Botão, TxtBotão, Sair } from './styles1';
-import FavoriteMovies from '../../components/FavoriteMovies';
+
 function Perfil({ navigation }) {
   const [name, setName] = useState('');
   const [username, setUsername] = useState('');
@@ -80,7 +80,7 @@ function Perfil({ navigation }) {
         />
          
       </>
-      <FavoriteMovies/>
+      
     </Container>)
 }
 
