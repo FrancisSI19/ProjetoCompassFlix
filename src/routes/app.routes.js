@@ -9,7 +9,7 @@ import FavoriteMovies from '../components/FavoriteMovies';
 import Perfil from '../screens/Perfil'
 import FavoriteSeries from '../components/FavoritesSeries';
 import RatedMovies from '../components/ListRatedMovies';
-import MoviesUser from '../components/MoviesUser';
+
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();

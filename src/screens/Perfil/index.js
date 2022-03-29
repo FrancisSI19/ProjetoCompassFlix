@@ -1,12 +1,32 @@
 import React, { useEffect, useState } from 'react';
-import { Button, Image, View, Text, Alert } from 'react-native';
+import { Button, Image, View, Text, Alert, ColorPropType, Touchable } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { Container, Name, Imagem, Icon1, Icon2, Linha1, Linha2, Meio, Botão, TxtBotão, Sair } from './styles1';
+import { NativeRouter as Router, Route, Link, Routes } from 'react-router-native';
+import {
+  Container,
+  Name,
+  Imagem,
+  Icon1, Icon2,
+  Linha1, Linha2, Meio,
+  Botão, TxtBotão, Sair,
+  ImagemSeriesFilmes,
+  ViewImagensSeriesFilmes,
+  SeriesFilmesUsuario,
+  Vermais,
+  TxtVertudo
+} from './styles1';
+import api from '../../services/api';
+import { API_KEY } from '../../constants/constants';
+import RatedMovieList from '../MoviesRate';
+import FavoriteSeries from '../../components/FavoritesSeries';
+import FavoriteMovies from '../../components/FavoriteMovies';
+
 
 function Perfil({ navigation }) {
   const [name, setName] = useState('');
   const [username, setUsername] = useState('');
   const [avatar, setAvatar] = useState('');
+  const [favoriteMovies, setFavoriteMovies] = useState([]);
 
   useEffect(() => {
     try {
@@ -16,6 +36,7 @@ function Perfil({ navigation }) {
     } catch (error) {
       console.log(error);
     }
+    getFavoriteMovies()
   }, []);
 
   const optionAlert = () => {
@@ -44,6 +65,27 @@ function Perfil({ navigation }) {
       console.log(error);
     }
   };
+  async function getFavoriteMovies(){
+    try {
+      const sessionId = await AsyncStorage.getItem('sessionId');
+      const accountId = await AsyncStorage.getItem('accountId');
+      console.log(sessionId,accountId)
+      try {
+        const queryString = 
+      `account/${accountId}/favorite/movies?api_key=${API_KEY}&session_id=${sessionId}&language=pt-BR&sort_by=created_at.desc`
+      const {data} = await api.get(queryString)
+      setFavoriteMovies(data.results)
+
+      } catch (error) {
+        console.log(error)
+        
+      }
+      
+    } catch (error) {
+      console.log(error)
+    }
+   
+  }
 
   return (
     <Container>
@@ -78,7 +120,42 @@ function Perfil({ navigation }) {
             uri: `https://image.tmdb.org/t/p/w400/${avatar}`,
           }}
         />
-         
+        <Router>
+        <ViewImagensSeriesFilmes>
+            <View>
+
+              <Link to="/FavoriteSeries"><TxtVertudo>Ver tudo</TxtVertudo></Link>
+              <Routes><Route path="/FavoriteSeries" element={<FavoriteSeries/>} /></Routes>
+            </View>
+            
+            
+      
+        {/* <SeriesFilmesUsuario> Filmes favoritos de </SeriesFilmesUsuario>
+        <Vermais   onPress={() => {
+                navigation.navigate('MoviesFavorites');
+              }}>
+                <TxtVertudo>Ver tudo</TxtVertudo>
+        </Vermais>
+        {
+           favoriteMovies.map((movie,index) => {
+            if (index < 4)
+              return(
+            
+                <ImagemSeriesFilmes key={movie.id}
+              style={{flexDirection:'row'}}
+              source={{ uri: `https://image.tmdb.org/t/p/w780${movie.poster_path}` }}
+            />
+            
+              )
+           } )
+         } */}
+          </ViewImagensSeriesFilmes>
+          </Router>
+        
+        {/* <ViewImagensSeriesFilmes>
+        <SeriesFilmesUsuario> Filmes avaliados de </SeriesFilmesUsuario>
+          <RatedMovieList />
+        </ViewImagensSeriesFilmes> */}
       </>
       
     </Container>)
