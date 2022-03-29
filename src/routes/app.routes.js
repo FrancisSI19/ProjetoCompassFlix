@@ -54,7 +54,7 @@ function Tabs() {
             bgColor = '#454545';
           }
 
-          return <TabBarIcon tabName={tabName} bgColor={bgColor} />
+          // return <TabBarIcon tabName={tabName} bgColor={bgColor} />
         }
       })}
     >

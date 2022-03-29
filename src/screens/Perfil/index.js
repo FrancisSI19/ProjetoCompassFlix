@@ -12,8 +12,6 @@ import {
 import api from '../../services/api';
 import { API_KEY } from '../../constants/constants';
 
-
-
 function Perfil({ navigation }) {
   const [name, setName] = useState('');
   const [username, setUsername] = useState('');
@@ -112,9 +110,9 @@ function Perfil({ navigation }) {
             uri: `https://image.tmdb.org/t/p/w400/${avatar}`,
           }}
         />
-         <RatedSeries/>
-      </>
       
+      </>
+     
     </Container>)
 }
 
