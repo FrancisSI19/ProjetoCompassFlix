@@ -61,26 +61,6 @@ function Tabs() {
       <Tab.Screen
         name="HomeStack"
         component={HomeStack}
-        options={{
-          tabBarIcon: () =>  {
-            return (
-              <View style={{
-                  padding: 10,
-                  borderRadius: 50,
-                  backgroundColor: '#E9A6A6'
-                }}
-              >
-                <Image style={{
-                    width: 25,
-                    height: 25,
-                    backgroundColor: '#E9A6A6'
-                  }}
-                  source={require('../assets/img/movies.png')}
-                />
-              </View>
-            );
-          }
-        }}
       />
       <Tab.Screen
         name="Profile"
@@ -107,5 +87,5 @@ function HomeStack() {
         component={MovieDetails}
       />
     </Stack.Navigator>
-  );
+  )
 }
