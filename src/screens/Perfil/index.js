@@ -3,6 +3,7 @@ import { Button, Image, View, Text, Alert } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Container, Name, Imagem, Icon1, Icon2, Linha1, Linha2, Meio, Botão, TxtBotão, Sair } from './styles1';
 import MoviesFavorites from '../MoviesFavorites';
+import RatedSeries from '../../components/ListRatedSeries';
 function Perfil({ navigation }) {
   const [name, setName] = useState('');
   const [username, setUsername] = useState('');
@@ -78,7 +79,7 @@ function Perfil({ navigation }) {
             uri: `https://image.tmdb.org/t/p/w400/${avatar}`,
           }}
         />
-         
+         <RatedSeries/>
       </>
       
     </Container>)
