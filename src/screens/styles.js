@@ -9,28 +9,23 @@ export const Container = styled.View`
 `;
 
 export const Vote = styled.Text`
-  margin-left: 6px;
-  font-size: 11px;
+  margin-left: 5px;
+  font-size: 10px;
   color: #f8f8ff;
 `;
 
 export const ContainerVote = styled.View`
   flex-direction: row;
-  justify-content: flex-start;
-  /* align-items: center; */
+  margin-top: 2px;
 `;
 
 export const Image = styled.Image`
-  /* margin-top: 5px; */
-  width: 75px;
-  height: 95px;
+  width: 76px;
+  height: 96px;
   border-radius: 10px;
-
 `;
 
 export const Icon = styled.View`
   margin-top: 1px;
-  font-size: 8px;
+  font-size: 7px;
 `;
-
-

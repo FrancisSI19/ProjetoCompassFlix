@@ -21,20 +21,18 @@ export default function ListTVShows({navigation}) {
   }, []);
 
   return (
-    <>
-      <Container>
-        <Image
-          style={Profile.image}
-          source={{uri: `https://image.tmdb.org/t/p/w300/${avatar}`}}/>
+    <Container>
+      <Image
+        style={Profile.image}
+        source={{uri: `https://image.tmdb.org/t/p/w300/${avatar}`}}/>
 
-        <Title>
-          Olá, <Name>{name === null ? username : name}</Name>!
-        </Title>
-        <SubTitle>Reveja ou acompanhe as séries que você assistiu...</SubTitle>
-        <TitleList>Séries populares este mês</TitleList>
-        <TVShowsList />
-      </Container>
-    </>
+      <Title>
+        Olá, <Name>{name === null ? username : name}</Name>!
+      </Title>
+      <SubTitle>Reveja ou acompanhe as séries que você assistiu...</SubTitle>
+      <TitleList>Séries populares este mês</TitleList>
+      <TVShowsList />
+    </Container>
   );
 }
 const Profile = StyleSheet.create({

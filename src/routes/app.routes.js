@@ -91,8 +91,8 @@ function Tabs() {
       />
 
       <Tab.Screen
-        name="ListMovies"
-        component={ListMovies}
+        name="HomeStack"
+        component={HomeStack}
         options={{
           tabBarIcon: () => {
             return (
@@ -115,5 +115,35 @@ function Tabs() {
         }}
       />
     </Tab.Navigator>
+  );
+}
+
+function HomeStack() {
+  return (
+    <Stack.Navigator screenOptions={{headerShown: false}}>
+      <Stack.Screen
+        name="ListMovies"
+        component={ListMovies}
+        TabBarcolor='#454545'
+      />
+
+      <Stack.Screen
+        name="MovieDetails"
+        component={MovieDetails}
+        options={{
+          title: 'MovieDetails',
+          headerTintColor: '#f0f0f0',
+          headerStyle: {
+            backgroundColor: '#1c1c1c',
+            height: 300
+          }
+        }}
+      />
+      <Stack.Screen
+        name="ListTVShows"
+        component={ListTVShows}
+        TabBarcolor='#454545'
+      />
+    </Stack.Navigator>
   );
 }
