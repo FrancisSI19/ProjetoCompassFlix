@@ -34,7 +34,7 @@ function ListMovies({navigation}) {
     <>
       {/* <Button title="sair" onPress={removeAccountData} /> */}
       <Container>
-        <TouchableOpacity  onPress={() => navigation.navigate('Perfil')}>
+        <TouchableOpacity  onPress={() => navigation.navigate('Profile')}>
           <Image
             style={Perfil.imagem}
             source={{
