@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {Button, Image, StyleSheet} from 'react-native';
+import {Button, Image, StyleSheet, TouchableOpacity} from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import TVShowsList from '../../screens/TVShowsList';
@@ -22,9 +22,12 @@ export default function ListTVShows({navigation}) {
 
   return (
     <Container>
-      <Image
-        style={Profile.image}
-        source={{uri: `https://image.tmdb.org/t/p/w300/${avatar}`}}/>
+      <TouchableOpacity onPress={() => navigation.navigate('Profile')}>
+        <Image
+          style={Profile.image}
+          source={{uri: `https://image.tmdb.org/t/p/w300/${avatar}`}}
+        />
+      </TouchableOpacity>
 
       <Title>
         Olá, <Name>{name === null ? username : name}</Name>!
