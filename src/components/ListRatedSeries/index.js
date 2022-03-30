@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react';
-import { Container, Name, IconBack, Title, ContainerRated} from './styles';
+import { Container, Name, IconBack, Title, ContainerRated } from './styles';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import Ionicons from 'react-native-vector-icons/Ionicons';
-import RatedMovieList from '../../screens/MoviesRate';
 import { useNavigation } from '@react-navigation/native';
+import RatedSeriesList from '../../screens/SeriesRate';
 
-//{ route: {params} , navigation } inserir na função da tela do usuário quando tiver a tela do retorno.
-function RatedMovies() {
+
+function RatedSeries() {
   const navigation = useNavigation();
   const [name, setName] = useState('');
   const [username, setUsername] = useState('');
@@ -30,14 +30,14 @@ function RatedMovies() {
       </IconBack>
 
       <Title>
-        Avaliações de filmes recentes de <Name>{name === null ? username : name}</Name>!
+        Avaliações de séries recentes de <Name>{name === null ? username : name}</Name>!
       </Title>
       <ContainerRated>
-      <RatedMovieList/>
+      <RatedSeriesList/>
       </ContainerRated>
     </Container>
 
   );
 }
 
-export default RatedMovies;
+export default RatedSeries;
