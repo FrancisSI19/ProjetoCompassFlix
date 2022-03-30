@@ -120,11 +120,18 @@ left: 307px;
 top: 46px;
 
 `
-export const ImagemSeriesFilmes = styled.Image`
+export const ImagemFavoritos = styled.Image`
 width: 67px;
 height: 80px;
 left: 2px;
 top: 410px;
+border-radius: 7px;
+`
+export const ImagemAvaliados = styled.Image`
+width: 67px;
+height: 80px;
+left: 2px;
+top: 450px;
 border-radius: 7px;
 `
 
@@ -156,6 +163,13 @@ width: 38px;
 height: 12px;
 left: 317px;
 top: 385px;
+`
+export const VerTudo = styled.TouchableOpacity`
+position: absolute;
+width: 38px;
+height: 12px;
+left: 325px;
+top: 520px
 `
 export const TxtVertudo = styled.Text`
 font-family: 'Open Sans';
