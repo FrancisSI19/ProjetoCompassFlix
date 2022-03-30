@@ -17,7 +17,6 @@ const App = () => {
       <NavigationContainer>
         
       <AppRoutes/>
-       {/*<FavoriteMovies/>,   <RatedMovies/>*/}
       </NavigationContainer>
     </>
   );

@@ -21,18 +21,9 @@ function ListMovies({navigation}) {
     }
   }, []);
 
-  // const removeAccountData = async () => {
-  //   try {
-  //     await AsyncStorage.clear();
-  //     navigation.navigate('Login');
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  // };
-
   return (
     <>
-      {/* <Button title="sair" onPress={removeAccountData} /> */}
+
       <Container>
         <TouchableOpacity  onPress={() => navigation.navigate('Perfil')}>
           <Image

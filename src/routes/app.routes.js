@@ -9,6 +9,7 @@ import FavoriteMovies from '../components/FavoriteMovies';
 import Perfil from '../screens/Perfil'
 import FavoriteSeries from '../components/FavoritesSeries';
 import RatedMovies from '../components/ListRatedMovies';
+import RatedSeries from '../components/ListRatedSeries';
 
 
 const Stack = createNativeStackNavigator();
@@ -129,8 +130,14 @@ function HomeStack() {
         TabBarcolor='#454545'
       />
       <Stack.Screen 
-        name="FilmesAvaliados"
+        name="RatedMovies"
         component={RatedMovies}
+        TabBarcolor='#454545'
+      />
+
+      <Stack.Screen 
+        name="SeriesRated"
+        component={RatedSeries}
         TabBarcolor='#454545'
       />
        
