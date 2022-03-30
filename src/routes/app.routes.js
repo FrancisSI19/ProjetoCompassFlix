@@ -3,6 +3,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Login from '../screens/Login';
 import ListMovies from '../components/ListMovies';
+import ListTVShows from '../components/ListTVShows';
 import MovieDetails from '../screens/MovieDetails';
 import FavoriteMovies from '../components/FavoriteMovies';
 import Perfil from '../screens/Perfil'
@@ -24,6 +25,31 @@ export default function AppRoutes() {
       <Stack.Screen
         name="TabBar"
         component={Tabs}
+      />
+
+    <Stack.Screen
+        name="ListTVShows"
+        component={ListTVShows}
+        // TabBarcolor='#454545'
+      />
+
+      <Stack.Screen
+        name="ListMovies"
+        component={ListMovies}
+        // TabBarcolor='#454545'
+      />
+
+      <Stack.Screen
+        name="MovieDetails"
+        component={MovieDetails}
+        options={{
+          title: 'MovieDetails',
+          headerTintColor: '#f0f0f0',
+          headerStyle: {
+          backgroundColor: '#1c1c1c',
+          height: 300
+          }
+        }}
       />
     </Stack.Navigator>
   );
@@ -61,6 +87,26 @@ function Tabs() {
       <Tab.Screen
         name="HomeStack"
         component={HomeStack}
+        options={{
+          tabBarIcon: () => {
+            return (
+              <View style={{
+                padding: 10,
+                borderRadius: 50,
+                backgroundColor: '#E9A6A6'
+              }}
+              >
+                <Image style={{
+                    width: 25,
+                    height: 25,
+                    backgroundColor: '#E9A6A6'
+                  }}
+                  source={require('../assets/img/movies.png')}
+                />
+              </View>
+            );
+          }
+        }}
       />
       <Tab.Screen
         name="Profile"

@@ -17,22 +17,12 @@ function ListMovies({navigation}) {
       AsyncStorage.getItem('name').then(value => setName(value));
       AsyncStorage.getItem('avatar').then(value => setAvatar(value));
     } catch (error) {
-      console.log(error);
-    }
+      console.log(error)}
   }, []);
-
-  // const removeAccountData = async () => {
-  //   try {
-  //     await AsyncStorage.clear();
-  //     navigation.navigate('Login');
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  // };
 
   return (
     <>
-      {/* <Button title="sair" onPress={removeAccountData} /> */}
+     
       <Container>
         <TouchableOpacity  onPress={() => navigation.navigate('Profile')}>
           <Image
@@ -47,7 +37,6 @@ function ListMovies({navigation}) {
         </Title>
         <SubTitle>Reveja ou acompanhe os filmes que você assistiu...</SubTitle>
         <TitleList>Filmes populares este mês</TitleList>
-
         <MovieList />
       </Container>
     </>
