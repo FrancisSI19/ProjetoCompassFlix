@@ -30,7 +30,8 @@ import {API_URL} from '../../constants/constants'
 import RatedMovieList from '../MoviesRate';
 import RatedMovies from '../../components/ListRatedMovies';
 import {Vote} from './styles';
-function Perfil({navigation}) {
+
+function Perfil({ navigation }) {
   const [name, setName] = useState('');
   const [username, setUsername] = useState('');
   const [avatar, setAvatar] = useState('');
