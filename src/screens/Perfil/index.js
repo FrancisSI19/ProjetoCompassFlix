@@ -1,6 +1,12 @@
 import React, {useEffect, useState} from 'react';
 import {
+  Button,
+  Image,
+  View,
+  Text,
   Alert,
+  ColorPropType,
+  Touchable,
 } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {
@@ -15,6 +21,7 @@ import {
   Botão,
   TxtBotão,
   Sair,
+  ImagemSeriesFilmes,
   ViewImagensSeriesFilmes,
   SeriesFilmesUsuario,
   Vermais,
@@ -23,6 +30,7 @@ import {
   ImagemFavoritos,
   VerTudo,
 } from './styles1';
+import MoviesFavorites from '../MoviesFavorites';
 import api from '../../services/api';
 import {API_KEY} from '../../constants/constants';
 import {TouchableOpacity} from 'react-native-gesture-handler';

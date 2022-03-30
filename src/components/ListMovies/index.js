@@ -25,7 +25,7 @@ function ListMovies({navigation}) {
     <>
 
       <Container>
-        <TouchableOpacity  onPress={() => navigation.navigate('Profile')}>
+        <TouchableOpacity  onPress={() => navigation.navigate('Perfil')}>
           <Image
             style={Perfil.imagem}
             source={{
