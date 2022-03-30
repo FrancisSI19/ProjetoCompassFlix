@@ -32,6 +32,7 @@ export default function AppRoutes() {
 function Tabs() {
   return (
     <Tab.Navigator
+      initialRouteName='HomeStack'
       screenOptions={({ route }) => ({
         tabBarShowLabel: false,
         headerShown: false,
@@ -42,7 +43,10 @@ function Tabs() {
           let tabName;
           let bgColor;
 
-          if (route.name === 'HomeStack') {
+          if (route.name === 'TVShowsList') {
+            tabName = 'tvShowsList'
+          }
+          else if (route.name === 'HomeStack') {
             tabName = 'home';
           } else if (route.name === 'Profile') {
             tabName = 'profile';
@@ -59,16 +63,16 @@ function Tabs() {
       })}
     >
       <Tab.Screen
+        name="TVShowsList"
+        component={ListTVShows}
+      />
+      <Tab.Screen
         name="HomeStack"
         component={HomeStack}
       />
       <Tab.Screen
         name="Profile"
         component={Perfil}
-      />
-      <Tab.Screen
-        name="TVShowsList"
-        component={ListTVShows}
       />
     </Tab.Navigator>
   );
