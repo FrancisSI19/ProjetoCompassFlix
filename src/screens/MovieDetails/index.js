@@ -27,7 +27,7 @@ const MovieDetails = ({ navigation, route }) => {
   const [overview, setOverview] = useState('');
   const [cast, setCast] = useState([]);
 
-  const { movieId } = route.params;
+  const { movieId, requestScreen } = route.params;
 
   const [favorite, setFavorite] = useState(false);
   const [modalVisible, setModalVisible] = useState(false);
@@ -137,7 +137,7 @@ const MovieDetails = ({ navigation, route }) => {
 
         <TouchableOpacity
           style={styles.btnBack}
-          onPress={() => navigation.navigate('ListMovies')}
+          onPress={() => navigation.navigate(requestScreen)}
         >
           <Ionicons name='arrow-back' size={26} color='#000' />
         </TouchableOpacity>
