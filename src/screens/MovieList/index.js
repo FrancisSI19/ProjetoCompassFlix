@@ -39,7 +39,7 @@ export default function MovieList() {
       renderItem={({ item }) => {
         return (
           <Container>
-            <TouchableOpacity onPress={ () => navigation.navigate('MovieDetails', {movieId: item.id})}>
+            <TouchableOpacity onPress={ () => navigation.navigate('MovieDetails', {movieId: item.id, requestScreen: 'ListMovies'})}>
               <Image source={{uri: `https://image.tmdb.org/t/p/w780${item.poster_path}`}}/>
             </TouchableOpacity>
             <ContainerVote>

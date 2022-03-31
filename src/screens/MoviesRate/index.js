@@ -14,22 +14,22 @@ function RatedMovieList() {
 
     const getRatedMovies = async () => {
         try {
-            
+
             const sessionId = await AsyncStorage.getItem('sessionId');
             const accountId = await AsyncStorage.getItem('accountId');
-            
+
             const { data } = await api.get
                 (`account/${accountId}/rated/movies?api_key=${API_KEY}&session_id=${sessionId}&language=pt-BR&sort_by=created_at.desc`)
             setRatedMovies(data.results);
 
         } catch (error) {
-            
+
             console.log(error);
         }
 
     }
     useEffect(() => {
-        
+
         getRatedMovies()
 
     }, [])
@@ -47,7 +47,7 @@ function RatedMovieList() {
 
             <TouchableOpacity
               onPress={() => {
-                navigation.navigate('MovieDetails', { movieId: item.id });
+                navigation.navigate('MovieDetails', { movieId: item.id, requestScreen: 'RatedMovies' });
               }}>
               <Image
                 source={{
@@ -63,7 +63,7 @@ function RatedMovieList() {
         );
       }}
     />
-    
+
     </>
 };
 
