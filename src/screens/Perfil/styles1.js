@@ -48,14 +48,14 @@ position: absolute;
 width: 25.76px;
 height: 25.76px;
 left: 84px;
-top: 310px;`
+top: 300px;`
 
 export const Icon2 = styled.Image`
 position: absolute;
 width: 30px;
 height: 30px;
 left: 266px;
-top: 310px;`
+top: 300px;`
 
 export const Linha1 = styled.View`
 position: absolute;
@@ -165,7 +165,7 @@ position: absolute;
 width: 38px;
 height: 12px;
 left: 325px;
-top: 520px
+top: 430px
 `
 export const TxtVertudo = styled.Text`
 font-family: 'Open Sans';

@@ -9,7 +9,15 @@ export default axios.create({
 //  Requições de todos os filmes
 export const fetchMovies = async (pageNumber) => {
   const response = await axios.get(
-    `${URL}movie/popular?api_key=${API_KEY}&${LANGUAGE}&page=${pageNumber}`,
+    `${URL}movie/popular?api_key=${API_KEY}&${LANGUAGE}&page=${pageNumber}`
+  );
+  return response.data.results;
+};
+
+//  Requições de todos os series
+export const fetchTVShow = async (pageNumber) => {
+  const response = await axios.get(
+    `${URL}tv/popular?api_key=${API_KEY}&${LANGUAGE}&page=${pageNumber}`
   );
   return [...response.data.results];
 };

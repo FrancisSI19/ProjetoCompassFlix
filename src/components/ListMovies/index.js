@@ -1,10 +1,8 @@
 import React, {useEffect, useState} from 'react';
-import MovieList from '../../screens/MovieList';
-import {Container, Title, SubTitle, TitleList, Name} from './styles';
-import {Image, TouchableOpacity} from 'react-native';
+import {Image, TouchableOpacity, StyleSheet} from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import {StyleSheet} from 'react-native';
-
+import {Container, Title, SubTitle, TitleList, Name} from '../styles';
+import MovieList from '../../screens/MovieList';
 
 function ListMovies({navigation}) {
   const [name, setName] = useState('');
@@ -17,13 +15,11 @@ function ListMovies({navigation}) {
       AsyncStorage.getItem('name').then(value => setName(value));
       AsyncStorage.getItem('avatar').then(value => setAvatar(value));
     } catch (error) {
-      console.log(error);
-    }
+      console.log(error)}
   }, []);
 
   return (
     <>
-
       <Container>
         <TouchableOpacity  onPress={() => navigation.navigate('Perfil')}>
           <Image
@@ -38,8 +34,7 @@ function ListMovies({navigation}) {
         </Title>
         <SubTitle>Reveja ou acompanhe os filmes que você assistiu...</SubTitle>
         <TitleList>Filmes populares este mês</TitleList>
-
-        <MovieList />
+        <MovieList/>
       </Container>
     </>
   );

@@ -41,7 +41,7 @@ function Perfil({navigation}) {
   const [ratedMovies, setRatedMovies] = useState([]);
   const [favoritesTvShows, setFavoriteTvShows] = useState([]);
   const [ratedSeries, setRatedSeries] = useState([]);
-  const [icon1, setIcon1] = useState(false);
+  const [icon1, setIcon1] = useState(true);
   const [icon2, setIcon2] = useState(true);
   const [favLista, setFavLista] = useState ()
   const [avaLista, setAvaLista] = useState()
@@ -207,8 +207,8 @@ function Perfil({navigation}) {
       
         <ViewImagensSeriesFilmes>
           <SeriesFilmesUsuario>
-            {' '}
-            Filmes favoritas de {username}{' '}
+            
+           {username}
           </SeriesFilmesUsuario>
           <Vermais
             onPress={() => {
@@ -254,25 +254,28 @@ function Perfil({navigation}) {
 
           
         </ViewImagensSeriesFilmes> */}
-        <VerTudo
-          onPress={() => {
-            navigation.navigate('MoviesRate');
-          }}>
-          <TxtVertudo>Ver tudo</TxtVertudo>
-        </VerTudo>
+        
 
         <ViewImagensSeriesFilmes>
           {avaLista && avaLista.map((movie, index) => {
             if (index < 4)
               return (
+                
                 <ImagemAvaliados
                   key={movie.id}
                   source={{
                     uri: `https://image.tmdb.org/t/p/w780${movie.poster_path}`,
                   }}
                 />
+                
               );
           })}
+          <VerTudo
+          onPress={() => {
+            navigation.navigate('MoviesRate');
+          }}>
+          <TxtVertudo>Ver tudo</TxtVertudo>
+        </VerTudo>
         </ViewImagensSeriesFilmes>
     
     </Container>
