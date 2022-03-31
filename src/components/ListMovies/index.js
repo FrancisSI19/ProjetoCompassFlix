@@ -4,6 +4,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import MovieList from '../../screens/MovieList';
 import {Container, Title, SubTitle, TitleList, Name} from '../styles';
+import Loading from '../Loading';
 
 function ListMovies({navigation}) {
   const [name, setName] = useState('');
