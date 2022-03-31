@@ -1,10 +1,9 @@
 import React, {useEffect, useState} from 'react';
-import {FlatList, TouchableOpacity} from 'react-native';
+import {FlatList, TouchableOpacity, View, ActivityIndicator} from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 
 import {ContainerVote, Vote, Image, Container} from '../styles';
 import {fetchTVShow} from "../../services/api";
-import Loading from '../../components/Loading';
 import IconStar from '../../components/IconStar';
 import VoteAverage from '../../components/VoteAverage';
 
@@ -26,14 +25,22 @@ export default function TVShowsList() {
   }, [pageNumber])
 
   const loadMoreItem = () => setPageNumber(pageNumber + 1);
-
-  return loading ? (<Loading />) : (
+  function FooterList({load}){
+    if(!load) return null;
+    return(
+      <View style = {{padding: 10,}}>
+        <ActivityIndicator size={25} color = '#E9A6A6'/>
+      </View>
+    )
+  }
+  return (
     <FlatList
       data={tvshows}
       numColumns={4}
       keyExtractor={( item, index) => String(index)}
       onEndReached={loadMoreItem}
-      onEndReachedThreshold={0.5}
+      onEndReachedThreshold={0.1}
+      ListFooterComponent = { <FooterList load={loading} />}
       showsVerticalScrollIndicator={false}
       renderItem={({ item }) => {
         return (

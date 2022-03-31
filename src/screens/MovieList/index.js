@@ -1,14 +1,11 @@
 /* eslint-disable prettier/prettier */
 import React, {useEffect, useState} from 'react';
-import {ActivityIndicator, FlatList, TouchableOpacity} from 'react-native';
+import {ActivityIndicator, FlatList, TouchableOpacity, View} from 'react-native';
 import {useNavigation} from '@react-navigation/native';
-import { View } from 'react-native';
 import {ContainerVote, Vote, Image, Container} from '../styles';
 import {fetchMovies} from '../../services/api';
-import Loading from '../../components/Loading';
 import IconStar from '../../components/IconStar';
 import VoteAverage from '../../components/VoteAverage';
-import { TextInput } from 'react-native-gesture-handler';
 
 export default function MovieList() {
   const navigation = useNavigation();
@@ -28,7 +25,8 @@ export default function MovieList() {
   }, [pageNumber]);
 
   const loadMoreItem = () => setPageNumber(pageNumber + 1);
-  function FooterList({load}){
+  
+  function FooterList({ load }) {
     if(!load) return null;
     return(
       <View style = {{padding: 10,}}>
