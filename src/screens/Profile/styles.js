@@ -3,16 +3,15 @@ import { StyleSheet } from 'react-native';
 const styles = StyleSheet.create({
   root: {
     flex: 1,
-    alignItems: 'center',
-    padding: 20,
+
     backgroundColor: '#000'
   },
   btnLeave: {
     flexDirection: 'row',
     alignItems: 'center',
     position: 'absolute',
-    right: 20,
-    top: 20,
+    right: 28,
+    top: 28,
     paddingHorizontal: 10,
     paddingVertical: 2,
     borderRadius: 5,
@@ -25,9 +24,10 @@ const styles = StyleSheet.create({
     color: '#000'
   },
   profilePic: {
+    alignItems: 'center',
     width: 78,
     height: 78,
-    marginTop: 30,
+    marginTop: 60,
     borderRadius: 50
   },
   username: {

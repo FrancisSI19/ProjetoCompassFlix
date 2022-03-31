@@ -7,7 +7,7 @@ import RatedMovies from './src/components/ListRatedMovies';
 import AppRoutes from './src/routes/app.routes';
 import MoviesFavorites from './src/screens/MoviesFavorites';
 import RatedMovieList from './src/screens/MoviesRate';
-
+import Profile from './src/screens/Profile';
 
 import Perfil from './src/screens/Perfil';
 const App = () => {
@@ -15,10 +15,9 @@ const App = () => {
     <>
       <StatusBar barStyle='dark-content' backgroundColor='#fff' />
       <NavigationContainer>
-        
-      <AppRoutes/>
-       {/*<FavoriteMovies/>,   <RatedMovies/>*/}
+        <AppRoutes/>
       </NavigationContainer>
+      {/* <Profile /> */}
     </>
   );
 };

@@ -7,26 +7,27 @@ import ListMovies from '../components/ListMovies';
 import MovieDetails from '../screens/MovieDetails';
 import FavoriteMovies from '../components/FavoriteMovies';
 
-import Perfil from '../screens/Perfil'
+import Perfil from '../screens/Perfil';
+import Profile from '../screens/Profile';
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
 
 export default function AppRoutes() {
   return (
     <Stack.Navigator screenOptions={{ headerShown: false }}>
-      <Stack.Screen 
+      <Stack.Screen
         name="Login"
         component={Login}
       />
-      
+
       <Stack.Screen
         name="TabBar"
         component={Tabs}
       />
 
-<Stack.Screen
+      <Stack.Screen
         name="Perfil"
-        component={Perfil}
+        component={Profile}
       />
     </Stack.Navigator>
   );
@@ -34,19 +35,19 @@ export default function AppRoutes() {
 
 function Tabs() {
   return (
-    <Tab.Navigator 
+    <Tab.Navigator
       screenOptions={{
-        tabBarShowLabel: false, 
-        headerShown: false, 
-        tabBarActiveBackgroundColor: '#454545' 
+        tabBarShowLabel: false,
+        headerShown: false,
+        tabBarActiveBackgroundColor: '#454545'
       }}
-    > 
-      <Tab.Screen 
-        options={{ 
+    >
+      <Tab.Screen
+        options={{
           tabBarIcon: () =>  {
             return (
-              <View style={{ 
-                  padding: 10, 
+              <View style={{
+                  padding: 10,
                   borderRadius: 30,
                   backgroundColor: '#E9A6A6'
 
@@ -57,7 +58,7 @@ function Tabs() {
                     height: 25,
                     backgroundColor: '#E9A6A6'
                   }}
-                  source={require('../assets/img/movies.png')} 
+                  source={require('../assets/img/movies.png')}
                 />
               </View>
             );
@@ -66,12 +67,12 @@ function Tabs() {
         name="HomeStack"
         component={HomeStack}
       />
-      <Tab.Screen 
-        options={{ 
+      <Tab.Screen
+        options={{
           tabBarIcon: () =>  {
             return (
-              <View style={{ 
-                  padding: 10, 
+              <View style={{
+                  padding: 10,
                   borderRadius: 30,
                   backgroundColor: '#E9A6A6'
                 }}
@@ -79,16 +80,16 @@ function Tabs() {
                 <Image style={{
                     width: 25,
                     height: 25,
-                  
+
                   }}
-                  source={require('../assets/img/perfil.png')} 
+                  source={require('../assets/img/perfil.png')}
                 />
               </View>
             );
           }
         }}
         name="Perfil"
-        component={Perfil}
+        component={Profile}
       />
     </Tab.Navigator>
   );
@@ -97,12 +98,12 @@ function Tabs() {
 function HomeStack() {
   return (
     <Stack.Navigator screenOptions={{ headerShown: false }}>
-      <Stack.Screen 
+      <Stack.Screen
         name="ListMovies"
         component={ListMovies}
         TabBarcolor='#454545'
       />
-   
+
       <Stack.Screen
         name="MovieDetails"
         component={MovieDetails}
@@ -115,7 +116,7 @@ function HomeStack() {
           }
         }}
       />
-      <Stack.Screen 
+      <Stack.Screen
         name="FavoriteMovies"
         component={FavoriteMovies}
         TabBarcolor='#454545'
