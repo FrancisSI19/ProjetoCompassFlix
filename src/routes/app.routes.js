@@ -5,12 +5,12 @@ import Login from '../screens/Login';
 import ListMovies from '../components/ListMovies';
 import MovieDetails from '../screens/MovieDetails';
 import FavoriteMovies from '../components/FavoriteMovies';
+import FavoritesSeries from '../components/FavoritesSeries';
 import TabBarIcon from '../components/TabBarIcon';
 import ListTVShows from '../components/ListTVShows';
-
-import Perfil from '../screens/Perfil'
-import FavoriteSeries from '../components/FavoritesSeries';
 import RatedMovies from '../components/ListRatedMovies';
+import Profile from '../screens/Profile';
+import FavoriteSeries from '../components/FavoritesSeries';
 import RatedSeries from '../components/ListRatedSeries';
 
 
@@ -53,7 +53,7 @@ function Tabs() {
           }
           else if (route.name === 'HomeStack') {
             tabName = 'home';
-          } else if (route.name === 'Profile') {
+          } else if (route.name === 'ProfileStack') {
             tabName = 'profile';
           }
 
@@ -76,8 +76,8 @@ function Tabs() {
         component={HomeStack}
       />
       <Tab.Screen
-        name="Profile"
-        component={Perfil}
+        name="ProfileStack"
+        component={ProfileStack}
       />
     </Tab.Navigator>
   );
@@ -116,6 +116,37 @@ function HomeStack() {
         TabBarcolor='#454545'
       />
        
+    </Stack.Navigator>
+  )
+}
+
+function ProfileStack() {
+  return (
+    <Stack.Navigator screenOptions={{ headerShown: false }}>
+      <Stack.Screen
+        name="Profile"
+        component={Profile}
+      />
+
+      <Stack.Screen
+        name="MovieDetails"
+        component={MovieDetails}
+      />
+
+      <Stack.Screen
+        name="FavoriteMovies"
+        component={FavoriteMovies}
+      />
+
+      <Stack.Screen
+        name="RatedMovies"
+        component={RatedMovies}
+      />
+
+      <Stack.Screen
+        name="FavoritesSeries"
+        component={FavoritesSeries}
+      />
     </Stack.Navigator>
   )
 }

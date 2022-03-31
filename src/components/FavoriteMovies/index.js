@@ -23,7 +23,7 @@ function FavoriteMovies() {
 
     <Container>
       <IconBack
-        onPress={() => navigation.navigate('Perfil')}
+        onPress={() => navigation.navigate('Profile')}
       >
         <Ionicons name='arrow-back' size={26} color='#000' />
       </IconBack>

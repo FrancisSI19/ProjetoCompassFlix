@@ -12,22 +12,22 @@ function MoviesFavorites() {
 
     const getFavoriteMovies = async () => {
         try {
-            
+
             const sessionId = await AsyncStorage.getItem('sessionId');
             const accountId = await AsyncStorage.getItem('accountId');
-            
+
             const { data } = await api.get
                 (`account/${accountId}/favorite/movies?api_key=${API_KEY}&session_id=${sessionId}&language=pt-BR&sort_by=created_at.desc`)
             setFavoriteMovies(data.results);
 
         } catch (error) {
-            
+
             console.log(error);
         }
 
     }
     useEffect(() => {
-        
+
         getFavoriteMovies()
 
     }, [])
@@ -44,7 +44,7 @@ function MoviesFavorites() {
 
                         <TouchableOpacity
                             onPress={() => {
-                                navigation.navigate('MovieDetails', { movieId: item.id });
+                                navigation.navigate('MovieDetails', { movieId: item.id, requestScreen: 'FavoriteMovies' });
                             }}>
                             <Image
                                 source={{
