@@ -1,6 +1,6 @@
 /* eslint-disable prettier/prettier */
 import React, { useEffect, useState } from 'react';
-import { FlatList, TouchableOpacity } from 'react-native';
+import { ActivityIndicator, FlatList, TouchableOpacity } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 
 import { ContainerVote, Vote, Image, Container } from '../styles';
@@ -8,6 +8,7 @@ import {fetchMovies} from "../../services/api";
 import Loading from '../../components/Loading';
 import IconStar from '../../components/IconStar';
 import VoteAverage from '../../components/VoteAverage';
+import { TextInput } from 'react-native-gesture-handler';
 
 export default function MovieList() {
   const navigation = useNavigation();
@@ -28,7 +29,8 @@ export default function MovieList() {
 
   const loadMoreItem = () => setPageNumber(pageNumber + 1);
 
-  return loading ? (<Loading />) : (
+  return(
+  
     <FlatList
       data={movies}
       numColumns={4}
@@ -36,6 +38,8 @@ export default function MovieList() {
       onEndReached={loadMoreItem}
       onEndReachedThreshold={0.5}
       showsVerticalScrollIndicator={false}
+      ListFooterComponent = {<ActivityIndicator size={'large'}color = {"#E9A6A6"}/>}
+      refreshing = {false}
       renderItem={({ item }) => {
         return (
           <Container>
