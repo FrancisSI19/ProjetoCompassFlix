@@ -1,6 +1,8 @@
 import React, {useEffect, useState} from 'react';
 import {
   Alert,
+  ColorPropType,
+  TouchableOpacity,
 } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {
@@ -24,22 +26,22 @@ import {
   ImagemFavoritos,
   VerTudo,
 } from './styles1';
-import MoviesFavorites from '../MoviesFavorites';
 import api from '../../services/api';
 import {API_KEY} from '../../constants/constants';
-import {TouchableOpacity} from 'react-native-gesture-handler';
-import {API_URL} from '../../constants/constants'
-import RatedMovieList from '../MoviesRate';
-import RatedMovies from '../../components/ListRatedMovies';
-import {Vote} from './styles';
+
 function Perfil({navigation}) {
   const [name, setName] = useState('');
   const [username, setUsername] = useState('');
   const [avatar, setAvatar] = useState('');
   const [favoriteMovies, setFavoriteMovies] = useState([]);
   const [ratedMovies, setRatedMovies] = useState([]);
-  const [favoritesTvShows, setFavoriteTvShows] = useState([])
-
+  const [favoritesTvShows, setFavoriteTvShows] = useState([]);
+  const [ratedSeries, setRatedSeries] = useState([]);
+  const [icon1, setIcon1] = useState(true);
+  const [icon2, setIcon2] = useState(true);
+  const [favLista, setFavLista] = useState ()
+  const [avaLista, setAvaLista] = useState()
+  const [avaliacao, setAvaliacao] = useState()
   useEffect(() => {
     try {
       AsyncStorage.getItem('username').then(value => setUsername(value));
@@ -51,7 +53,9 @@ function Perfil({navigation}) {
     getFavoriteTvshows();
     getFavoriteMovies();
     getRatedMovies();
+    getRatedSeries();
   }, []);
+
 
   const optionAlert = () => {
     Alert.alert('Atenção!', 'Deseja mesmo sair?', [
@@ -83,6 +87,7 @@ function Perfil({navigation}) {
         const queryString = `account/${accountId}/favorite/movies?api_key=${API_KEY}&session_id=${sessionId}&language=pt-BR&sort_by=created_at.desc`;
         const {data} = await api.get(queryString);
         setFavoriteMovies(data.results);
+        setAvaliacao(data.results.lenght)
         console.log(data);
       } catch (error) {
         console.log(error);
@@ -97,10 +102,11 @@ function Perfil({navigation}) {
       const accountId = await AsyncStorage.getItem('accountId');
       console.log(sessionId, accountId);
       try {
-        const { data } = await api.get
-        (`account/${accountId}/favorite/tv?api_key=${API_KEY}&session_id=${sessionId}&language=pt-BR&sort_by=created_at.desc`)
-    setFavoriteTvShows(data.results);
-    setFavoriteTvShows(data.results);
+        const {data} = await api.get(
+          `account/${accountId}/favorite/tv?api_key=${API_KEY}&session_id=${sessionId}&language=pt-BR&sort_by=created_at.desc`,
+        );
+        setFavoriteTvShows(data.results);
+        setFavoriteTvShows(data.results);
         console.log(data);
       } catch (error) {
         console.log(error);
@@ -109,8 +115,20 @@ function Perfil({navigation}) {
       console.log(error);
     }
   }
+  const getRatedSeries = async () => {
+    try {
+      const sessionId = await AsyncStorage.getItem('sessionId');
+      const accountId = await AsyncStorage.getItem('accountId');
 
-  
+      const {data} = await api.get(
+        `account/${accountId}/rated/tv?api_key=${API_KEY}&session_id=${sessionId}&language=pt-BR&sort_by=created_at.desc`,
+      );
+      setRatedSeries(data.results);
+      setAvaliacao(...avaliacao + data.results.lenght)
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   const getRatedMovies = async () => {
     try {
@@ -121,14 +139,29 @@ function Perfil({navigation}) {
         `account/${accountId}/rated/movies?api_key=${API_KEY}&session_id=${sessionId}&language=pt-BR&sort_by=created_at.desc`,
       );
       setRatedMovies(data.results);
+      setAvaliacao(...avaliacao + data.results.lenght)
     } catch (error) {
       console.log(error);
     }
   };
   useEffect(() => {
     getRatedMovies();
+    getRatedSeries();
   }, []);
 
+  function Filmes(){
+    setIcon1(true)
+    setIcon2(false)
+    setFavLista(favoriteMovies)
+    setAvaLista(ratedMovies)
+  }
+  function Series(){
+    setIcon1(false)
+    setIcon2(true)
+    setFavLista(favoritesTvShows)
+    setAvaLista(ratedSeries)
+  }
+ 
   return (
     <Container>
       <Botão title="sair" onPress={optionAlert}>
@@ -136,9 +169,26 @@ function Perfil({navigation}) {
       </Botão>
       <Sair source={require('../../assets/img/sair1.png')} />
       <Linha1></Linha1>
-      <Icon1 source={require('../../assets/img/movies.png')} />
+      <TouchableOpacity onPress={()=>Filmes()}>
+        
+     
+        {icon1 ===false? (
+        <Icon1 source={require('../../assets/img/movies.png')} />
+      ) : (
+        <Icon1 source={require('../../assets/img/moviescoloridos.png')} />
+      )}
+     
+      </TouchableOpacity>
+
       <Meio></Meio>
-      <Icon2 source={require('../../assets/img/series.png')} />
+      <TouchableOpacity onPress={()=> Series()}  >
+      {icon2 ===false? (
+      <Icon2 source={require('../../assets/img/seriessemcor.png')} />
+      ) : (
+        <Icon2 source = {require('../../assets/img/series.png')} />
+      )
+    }
+    </TouchableOpacity>
       <Linha2></Linha2>
 
     
@@ -153,8 +203,8 @@ function Perfil({navigation}) {
       
         <ViewImagensSeriesFilmes>
           <SeriesFilmesUsuario>
-            {' '}
-            Filmes favoritas de {username}{' '}
+            
+           {username}
           </SeriesFilmesUsuario>
           <Vermais
             onPress={() => {
@@ -162,7 +212,7 @@ function Perfil({navigation}) {
             }}>
             <TxtVertudo>Ver tudo</TxtVertudo>
           </Vermais>
-          {favoriteMovies.map((movie, index) => {
+          {favLista &&favLista.map((movie, index) => {
             if (index < 4)
               return (
                 <ImagemFavoritos
@@ -173,8 +223,6 @@ function Perfil({navigation}) {
                 />
               );
           })}
-
-          
         </ViewImagensSeriesFilmes>
 
         {/* <ViewImagensSeriesFilmes>
@@ -202,25 +250,28 @@ function Perfil({navigation}) {
 
           
         </ViewImagensSeriesFilmes> */}
-        <VerTudo
-            onPress={() => {
-              navigation.navigate('RatedMovies');
-            }}>
-            <TxtVertudo>Ver tudo</TxtVertudo>
-          </VerTudo>
+        
 
         <ViewImagensSeriesFilmes>
-          {ratedMovies.map((movie, index) => {
+          {avaLista && avaLista.map((movie, index) => {
             if (index < 4)
               return (
+                
                 <ImagemAvaliados
                   key={movie.id}
                   source={{
                     uri: `https://image.tmdb.org/t/p/w780${movie.poster_path}`,
                   }}
                 />
+                
               );
           })}
+          <VerTudo
+          onPress={() => {
+            navigation.navigate('MoviesRate');
+          }}>
+          <TxtVertudo>Ver tudo</TxtVertudo>
+        </VerTudo>
         </ViewImagensSeriesFilmes>
     
     </Container>

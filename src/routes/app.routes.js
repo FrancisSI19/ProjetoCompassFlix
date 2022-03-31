@@ -6,6 +6,7 @@ import ListMovies from '../components/ListMovies';
 import MovieDetails from '../screens/MovieDetails';
 import FavoriteMovies from '../components/FavoriteMovies';
 import TabBarIcon from '../components/TabBarIcon';
+import ListTVShows from '../components/ListTVShows';
 
 import Perfil from '../screens/Perfil'
 import FavoriteSeries from '../components/FavoritesSeries';
@@ -29,12 +30,14 @@ export default function AppRoutes() {
         component={Tabs}
       />
     </Stack.Navigator>
+
   );
 }
 
 function Tabs() {
   return (
     <Tab.Navigator
+      initialRouteName='HomeStack'
       screenOptions={({ route }) => ({
         tabBarShowLabel: false,
         headerShown: false,
@@ -45,7 +48,10 @@ function Tabs() {
           let tabName;
           let bgColor;
 
-          if (route.name === 'HomeStack') {
+          if (route.name === 'TVShowsList') {
+            tabName = 'tvShowsList'
+          }
+          else if (route.name === 'HomeStack') {
             tabName = 'home';
           } else if (route.name === 'Profile') {
             tabName = 'profile';
@@ -61,6 +67,10 @@ function Tabs() {
         }
       })}
     >
+      <Tab.Screen
+        name="TVShowsList"
+        component={ListTVShows}
+      />
       <Tab.Screen
         name="HomeStack"
         component={HomeStack}
@@ -107,5 +117,5 @@ function HomeStack() {
       />
        
     </Stack.Navigator>
-  );
+  )
 }
