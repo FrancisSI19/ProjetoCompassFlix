@@ -29,6 +29,8 @@ export default function AppRoutes() {
         name="TabBar"
         component={Tabs}
       />
+
+      
     </Stack.Navigator>
 
   );
