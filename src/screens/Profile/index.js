@@ -227,7 +227,7 @@ const Profile = ({ navigation }) => {
                         return (
                           <TouchableOpacity
                             key={tvShow.id}
-                            onPress={() => navigation.navigate('', {tvShowId : tvShow.id, requestScreen : 'Profile'})}
+                            onPress={() => navigation.navigate('TvShowDetails', {tvShowId : tvShow.id, requestScreen : 'Profile'})}
                           >
                             <Image
                               style={{ width: 67, height: 89, borderRadius: 7, marginHorizontal: 10 }}
@@ -298,7 +298,7 @@ const Profile = ({ navigation }) => {
                             key={tvShow.id}
                           >
                             <TouchableOpacity
-                              onPress={() => navigation.navigate('', {tvShowId : tvShow.id, requestScreen : 'Profile'})}
+                              onPress={() => navigation.navigate('TvShowDetails', {tvShowId : tvShow.id, requestScreen : 'Profile'})}
                             >
                               <Image
                                 style={{ width: 58, height: 82, borderRadius: 7 }}
