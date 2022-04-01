@@ -11,7 +11,7 @@ import ListTVShows from '../components/ListTVShows';
 import RatedMovies from '../components/ListRatedMovies';
 import Profile from '../screens/Profile';
 import FavoriteSeries from '../components/FavoritesSeries';
-import RatedSeries from '../components/ListRatedSeries';
+import RatedSeries from '../components/ListRatedSeries'
 
 
 const Stack = createNativeStackNavigator();
