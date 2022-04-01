@@ -118,6 +118,10 @@ function ProfileStack() {
         name="RatedMovies"
         component={RatedMovies}
       />
+      <Stack.Screen
+        name="RatedSeries"
+        component={RatedSeries}
+      />
 
       <Stack.Screen
         name="FavoritesSeries"
