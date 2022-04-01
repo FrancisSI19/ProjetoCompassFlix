@@ -6,12 +6,13 @@ import ListMovies from '../components/ListMovies';
 import MovieDetails from '../screens/MovieDetails';
 import FavoriteMovies from '../components/FavoriteMovies';
 import FavoritesSeries from '../components/FavoritesSeries';
+import FavoriteSeries from '../components/FavoritesSeries';
 import TabBarIcon from '../components/TabBarIcon';
 import ListTVShows from '../components/ListTVShows';
+import RatedSeries from '../components/ListRatedSeries';
 import RatedMovies from '../components/ListRatedMovies';
 import Profile from '../screens/Profile';
 import TvShowDetails from '../screens/TvShowDetails';
-
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
