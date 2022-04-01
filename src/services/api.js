@@ -11,7 +11,7 @@ export const fetchMovies = async (pageNumber) => {
   const response = await axios.get(
     `${URL}movie/popular?api_key=${API_KEY}&${LANGUAGE}&page=${pageNumber}`
   );
-  return [...response.data.results];
+  return response.data.results;
 };
 
 //  Requições de todos os series
@@ -19,7 +19,7 @@ export const fetchTVShow = async (pageNumber) => {
   const response = await axios.get(
     `${URL}tv/popular?api_key=${API_KEY}&${LANGUAGE}&page=${pageNumber}`
   );
-  return [...response.data.results];
+  return response.data.results;
 };
 //  Requições de informações do filme escolhido
 export const fetchDetails = async id => {
