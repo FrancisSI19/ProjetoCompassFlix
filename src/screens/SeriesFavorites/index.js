@@ -12,22 +12,22 @@ function SeriesFavorites() {
 
     const getFavoriteSeries = async () => {
         try {
-            
+
             const sessionId = await AsyncStorage.getItem('sessionId');
             const accountId = await AsyncStorage.getItem('accountId');
-            
+
             const { data } = await api.get
                 (`account/${accountId}/favorite/tv?api_key=${API_KEY}&session_id=${sessionId}&language=pt-BR&sort_by=created_at.desc`)
             setFavoriteSeries(data.results);
 
         } catch (error) {
-            
+
             console.log(error);
         }
 
     }
     useEffect(() => {
-        
+
         getFavoriteSeries()
 
     }, [])
@@ -44,7 +44,7 @@ function SeriesFavorites() {
 
                         <TouchableOpacity
                             onPress={() => {
-                                navigation.navigate('MovieDetails', { movieId: item.id });
+                                navigation.navigate('TvShowDetails', { tvShowId: item.id, requestScreen: 'FavoritesSeries' });
                             }}>
                             <Image
                                 source={{

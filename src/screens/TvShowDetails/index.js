@@ -1,131 +1,107 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
+import { useEffect, useState } from 'react';
 import { Image, ScrollView, Text, TouchableOpacity, View } from 'react-native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import EvilIcons from 'react-native-vector-icons/EvilIcons';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import styles from './styles';
-import { API_KEY } from '../../constants/constants';
-import api from '../../services/api';
-import { fetchCredits, fetchDetails } from '../../services/api';
 import Loading from '../../components/Loading';
 import RatingModal from './RatingModal';
+import { API_KEY } from '../../constants/constants';
+import api from '../../services/api';
+import Season from './Season';
 
-const MovieDetails = ({ navigation, route }) => {
-  const [credits, setCredits] = useState(null);
+const TvShowDetails = ({ navigation, route }) => {
+  const { tvShowId, requestScreen } = route.params;
   const [loading, setLoading] = useState(true);
-  const [director, setDirector] = useState('');
 
   const [backdrop, setBackdrop] = useState('');
   const [poster, setPoster] = useState('');
+
   const [title, setTitle] = useState('');
-  const [releaseYear, setReleaseYear] = useState('');
-  const [runtime, setRuntime] = useState('');
+  const [createdBy, setCreatedBy] = useState('');
+  const [overview, setOverview] = useState('');
+
   const [voteAverage, setVoteAverage] = useState('');
   const [voteCount, setVoteCount] = useState('');
-  const [overview, setOverview] = useState('');
-  const [cast, setCast] = useState([]);
-
-  const { movieId, requestScreen } = route.params;
 
   const [favorite, setFavorite] = useState(false);
-  const [modalVisible, setModalVisible] = useState(false);
   const [rated, setRated] = useState(false);
+
+  const [modalVisible, setModalVisible] = useState(false);
   const [rating, setRating] = useState(0);
 
-  useEffect(() => {
-    fetchDetails(movieId).then((data) => {
-      setBackdrop(data.backdrop);
-      setPoster(data.poster);
-      setTitle(data.title);
-      setReleaseYear(new Date(data.releaseDate).getFullYear());
-      setRuntime(data.runtime);
-      setVoteAverage(data.voteAverage);
-      setVoteCount(data.voteCount);
-      setOverview(data.overview);
-    });
+  const [seasonsCount, setSeasonsCount] = useState('');
 
-    fetchCredits(movieId).then((data) => {
-      setCredits(data.credits);
-      setDirector(data.director);
-      setCast(data.cast);
-    });
-
-    isFavorite();
-    isRated();
-  }, []);
-
-  const isFavorite = async () => {
+  const getDetails = async () => {
     try {
-      const sessionId = await AsyncStorage.getItem('sessionId');
-      const accountId = await AsyncStorage.getItem('accountId');
+      const queryString = `tv/${tvShowId}?api_key=${API_KEY}&language=pt-BR`;
+      const { data } = await api.get(queryString);
 
-      const queryString = `account/${accountId}/favorite/movies?api_key=${API_KEY}&session_id=${sessionId}&language=pt-BR&sort_by=created_at.desc`;
-      try {
-        const { data } = await api.get(queryString);
-
-        data.results.find(movie => movie.id === movieId)
-          ? setFavorite(true)
-          : setFavorite(false);
-
-      } catch (error) {
-        console.log(error);
-      }
+      setBackdrop(data.backdrop_path);
+      setPoster(data.poster_path);
+      setTitle(data.name);
+      setCreatedBy(data.created_by[0].name);
+      setVoteAverage(data.vote_average);
+      setVoteCount(data.vote_count);
+      setOverview(data.overview);
+      setSeasonsCount(data.number_of_seasons);
     } catch (error) {
       console.log(error);
     }
   }
 
-  const markMovieAsFavorite = async () => {
+  const markAsFavorite = async () => {
     try {
+      setFavorite(!favorite);
+
       const sessionId = await AsyncStorage.getItem('sessionId');
       const accountId = await AsyncStorage.getItem('accountId');
 
       const queryString = `account/${accountId}/favorite?api_key=${API_KEY}&session_id=${sessionId}`;
-      try {
-        setFavorite(!favorite);
-        const { data } = await api.post(queryString, {
-          media_type: 'movie',
-          media_id: movieId,
-          favorite: (!favorite)
-        });
-      } catch (error) {
-        setFavorite(!favorite);
-        console.log(error);
-      }
+      const { data } = await api.post(queryString, {
+        media_type: 'tv',
+        media_id: tvShowId,
+        favorite: !favorite
+      });
+
     } catch (error) {
+      setFavorite(!favorite);
       console.log(error);
     }
   }
 
-  const isRated = async () => {
-    setLoading(true);
+  const getStates = async () => {
     try {
-      const sessionId = await AsyncStorage.getItem('sessionId');
       const accountId = await AsyncStorage.getItem('accountId');
+      const sessionId = await AsyncStorage.getItem('sessionId');
 
-      try {
-        const queryString = `account/${accountId}/rated/movies?api_key=${API_KEY}&language=pt-BR&session_id=${sessionId}&sort_by=created_at.desc`;
+      const queryString = `tv/${tvShowId}/account_states?api_key=${API_KEY}&session_id=${sessionId}&language=pt-BR`;
+      const { data } = await api.get(queryString);
+
+      setFavorite(data.favorite);
+
+      if (data.rated) {
+        const queryString = `account/${accountId}/rated/tv?api_key=${API_KEY}&language=pt-BR&session_id=${sessionId}&sort_by=created_at.desc`;
 
         const { data } = await api.get(queryString);
-        const movie = data.results.find(movie => movie.id === movieId);
+        const tvShow = data.results.find(tvShow => tvShow.id === tvShowId);
 
-        if (movie) {
-          setRated(true);
-          setRating(movie.rating);
-        } else {
-          setRated(false);
-        }
-      } catch (error) {
-        console.log(error);
+        setRated(true);
+        setRating(tvShow.rating);
       }
-
     } catch (error) {
       console.log(error);
     }
     setLoading(false);
   }
+
+  useEffect(() => {
+    getDetails();
+    getStates();
+  }, []);
 
   return loading ? <Loading size={60} /> : (
     <View style={styles.root}>
@@ -144,7 +120,7 @@ const MovieDetails = ({ navigation, route }) => {
 
         <TouchableOpacity
           style={styles.btnFavorite}
-          onPress={markMovieAsFavorite}
+          onPress={markAsFavorite}
         >
           {
             favorite
@@ -196,7 +172,7 @@ const MovieDetails = ({ navigation, route }) => {
           <RatingModal
             visible={modalVisible}
             setModalVisible={setModalVisible}
-            movieId={movieId}
+            tvShowId={tvShowId}
             setCurrentRating={setRating}
             setRated={setRated}
           />
@@ -205,14 +181,10 @@ const MovieDetails = ({ navigation, route }) => {
             <Text style={styles.title}>
               {title}
             </Text>
-            <View style={styles.timeInfoEnvelope}>
-              <Text style={styles.releaseYear}>{releaseYear} | </Text>
-              <Text style={styles.runtime}>{runtime} min</Text>
-            </View>
 
             <Text style={styles.directionText}>
-              Direção por
-              <Text style={styles.directorName}> {director?.name} </Text>
+              Criado por
+              <Text style={styles.directorName}> {createdBy} </Text>
             </Text>
 
             <View style={styles.ratingEnvelope}>
@@ -237,38 +209,11 @@ const MovieDetails = ({ navigation, route }) => {
             {overview}
           </Text>
 
-          <View style={styles.castTag}>
-            <Text style={styles.castText}>Elenco</Text>
-            <View style={styles.castBorder} />
-          </View>
-
-          {
-            cast.map(item => {
-              return (
-                <View
-                  style={styles.castEnvelope}
-                  key={item.id}
-                >
-                  <Image
-                    style={styles.castProfile}
-                    source={{ uri: `https://image.tmdb.org/t/p/w780${item.profilePath}` }}
-                  />
-                  <View style={styles.castInfoEnvelope}>
-                    <Text style={styles.castName}>
-                      {item.originalName}
-                    </Text>
-                    <Text style={styles.characterName}>
-                      {item.characterName}
-                    </Text>
-                  </View>
-                </View>
-              );
-            })
-          }
+          <Season seasonsCount={seasonsCount} tvShowId={tvShowId} />
         </View>
       </ScrollView>
     </View>
   );
-};
+}
 
-export default MovieDetails;
+export default TvShowDetails;

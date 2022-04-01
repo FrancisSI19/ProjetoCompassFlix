@@ -5,13 +5,12 @@ import Login from '../screens/Login';
 import ListMovies from '../components/ListMovies';
 import MovieDetails from '../screens/MovieDetails';
 import FavoriteMovies from '../components/FavoriteMovies';
+import FavoritesSeries from '../components/FavoritesSeries';
 import TabBarIcon from '../components/TabBarIcon';
-
-import Perfil from '../screens/Perfil'
-import FavoriteSeries from '../components/FavoritesSeries';
+import ListTVShows from '../components/ListTVShows';
 import RatedMovies from '../components/ListRatedMovies';
-import RatedSeries from '../components/ListRatedSeries';
-
+import Profile from '../screens/Profile';
+import TvShowDetails from '../screens/TvShowDetails';
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -35,6 +34,7 @@ export default function AppRoutes() {
 function Tabs() {
   return (
     <Tab.Navigator
+      initialRouteName='HomeStack'
       screenOptions={({ route }) => ({
         tabBarShowLabel: false,
         headerShown: false,
@@ -45,9 +45,12 @@ function Tabs() {
           let tabName;
           let bgColor;
 
-          if (route.name === 'HomeStack') {
+          if (route.name === 'TVShowListStack') {
+            tabName = 'tvShowsList'
+          }
+          else if (route.name === 'HomeStack') {
             tabName = 'home';
-          } else if (route.name === 'Profile') {
+          } else if (route.name === 'ProfileStack') {
             tabName = 'profile';
           }
 
@@ -62,14 +65,34 @@ function Tabs() {
       })}
     >
       <Tab.Screen
+        name="TVShowListStack"
+        component={TVShowListStack}
+      />
+      <Tab.Screen
         name="HomeStack"
         component={HomeStack}
       />
       <Tab.Screen
-        name="Profile"
-        component={Perfil}
+        name="ProfileStack"
+        component={ProfileStack}
       />
     </Tab.Navigator>
+  );
+}
+
+function TVShowListStack() {
+  return (
+    <Stack.Navigator screenOptions={{ headerShown: false }}>
+      <Stack.Screen
+        name="TVShowList"
+        component={ListTVShows}
+      />
+
+      <Stack.Screen
+        name="TvShowDetails"
+        component={TvShowDetails}
+      />
+    </Stack.Navigator>
   );
 }
 
@@ -85,27 +108,42 @@ function HomeStack() {
         name="MovieDetails"
         component={MovieDetails}
       />
+    </Stack.Navigator>
+  );
+}
+
+function ProfileStack() {
+  return (
+    <Stack.Navigator screenOptions={{ headerShown: false }}>
+      <Stack.Screen
+        name="Profile"
+        component={Profile}
+      />
+
+      <Stack.Screen
+        name="MovieDetails"
+        component={MovieDetails}
+      />
+
       <Stack.Screen
         name="FavoriteMovies"
         component={FavoriteMovies}
       />
-        <Stack.Screen 
-        name="FavoriteSeries"
-        component={FavoriteSeries}
-        TabBarcolor='#454545'
-      />
-      <Stack.Screen 
+
+      <Stack.Screen
         name="RatedMovies"
         component={RatedMovies}
-        TabBarcolor='#454545'
       />
 
-      <Stack.Screen 
-        name="SeriesRated"
-        component={RatedSeries}
-        TabBarcolor='#454545'
+      <Stack.Screen
+        name="FavoritesSeries"
+        component={FavoritesSeries}
       />
-       
+
+      <Stack.Screen
+        name="TvShowDetails"
+        component={TvShowDetails}
+      />
     </Stack.Navigator>
-  );
+  )
 }
