@@ -11,7 +11,7 @@ export default function MovieList() {
   const navigation = useNavigation();
 
   const [movies, setMovies] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
   const [pageNumber, setPageNumber] = useState(1);
 
   useEffect(() => {
@@ -34,43 +34,43 @@ export default function MovieList() {
       </View>
     )
   }
-  return (
-    <FlatList
-      data={movies}
-      numColumns={4}
-      keyExtractor={(item, index) => String(index)}
-      onEndReached={loadMoreItem}
-      onEndReachedThreshold={0.1}
-      ListFooterComponent={<FooterList load={loading} />}
-      showsVerticalScrollIndicator={false}
-      renderItem={renderItem}
-    />
-  )
-  function renderItem({ item }) {
     return (
-      <Container>
-        <TouchableOpacity
-          onPress={() =>
-            navigation.navigate('MovieDetails', {
-              movieId: item.id,
-              requestScreen: 'ListMovies',
-            })
-          }>
-          <Image
-            source={{
-              uri: `https://image.tmdb.org/t/p/w780${item.poster_path}`,
-            }}
-          />
-        </TouchableOpacity>
-        <ContainerVote>
-          <IconStar />
-          <Vote>
-            {item.vote_average}
-            <VoteAverage />
-          </Vote>
-        </ContainerVote>
-      </Container>
-    );
+      <FlatList
+        data={movies}
+        numColumns={4}
+        keyExtractor={(item, index) => String(index)}
+        onEndReached={loadMoreItem}
+        onEndReachedThreshold={0.1}
+        ListFooterComponent={<FooterList load={loading} />}
+        showsVerticalScrollIndicator={false}
+        renderItem={renderItem}
+      />
+    )
+    function renderItem({ item }) {
+      return (
+        <Container>
+          <TouchableOpacity
+            onPress={() =>
+              navigation.navigate('MovieDetails', {
+                movieId: item.id,
+                requestScreen: 'ListMovies',
+              })
+            }>
+            <Image
+              source={{
+                uri: `https://image.tmdb.org/t/p/w780${item.poster_path}`,
+              }}
+            />
+          </TouchableOpacity>
+          <ContainerVote>
+            <IconStar />
+            <Vote>
+              {item.vote_average}
+              <VoteAverage />
+            </Vote>
+          </ContainerVote>
+        </Container>
+      );
+    }
   }
-}
 
