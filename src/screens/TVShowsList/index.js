@@ -25,7 +25,6 @@ export default function TVShowsList() {
   }, [pageNumber])
 
   const loadMoreItem = () => setPageNumber(pageNumber + 1);
-
   function FooterList({ load }) {
     if (!load) return null;
     return (

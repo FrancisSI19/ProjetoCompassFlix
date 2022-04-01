@@ -22,7 +22,7 @@ function ListMovies({navigation}) {
   return (
     <>
       <Container>
-        <TouchableOpacity  onPress={() => navigation.navigate('Profile')}>
+        <TouchableOpacity  onPress={() => navigation.navigate('ProfileStack')}>
           <Image
             style={Perfil.imagem}
             source={{

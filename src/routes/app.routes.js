@@ -10,7 +10,9 @@ import TabBarIcon from '../components/TabBarIcon';
 import ListTVShows from '../components/ListTVShows';
 import RatedMovies from '../components/ListRatedMovies';
 import Profile from '../screens/Profile';
-import TvShowDetails from '../screens/TvShowDetails';
+import FavoriteSeries from '../components/FavoritesSeries';
+import RatedSeries from '../components/ListRatedSeries'
+
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -27,6 +29,8 @@ export default function AppRoutes() {
         name="TabBar"
         component={Tabs}
       />
+
+      
     </Stack.Navigator>
   );
 }
@@ -108,8 +112,29 @@ function HomeStack() {
         name="MovieDetails"
         component={MovieDetails}
       />
+      <Stack.Screen
+        name="FavoriteMovies"
+        component={FavoriteMovies}
+      />
+        <Stack.Screen 
+        name="FavoriteSeries"
+        component={FavoriteSeries}
+        TabBarcolor='#454545'
+      />
+      <Stack.Screen 
+        name="RatedMovies"
+        component={RatedMovies}
+        TabBarcolor='#454545'
+      />
+
+      <Stack.Screen 
+        name="SeriesRated"
+        component={RatedSeries}
+        TabBarcolor='#454545'
+      />
+       
     </Stack.Navigator>
-  );
+  )
 }
 
 function ProfileStack() {
@@ -134,15 +159,14 @@ function ProfileStack() {
         name="RatedMovies"
         component={RatedMovies}
       />
+      <Stack.Screen
+        name="RatedSeries"
+        component={RatedSeries}
+      />
 
       <Stack.Screen
         name="FavoritesSeries"
         component={FavoritesSeries}
-      />
-
-      <Stack.Screen
-        name="TvShowDetails"
-        component={TvShowDetails}
       />
     </Stack.Navigator>
   )
