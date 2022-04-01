@@ -83,7 +83,7 @@ const styles = StyleSheet.create({
   mediaInfoEnvelope: {
     width: '64%',
     position: 'absolute',
-    top: 4,
+    top: 10,
     right: 20,
   },
   mainMediaInfo: {
@@ -96,21 +96,6 @@ const styles = StyleSheet.create({
     fontFamily: 'OpenSans-Bold',
     color: '#fff'
   },
-  timeInfoEnvelope: {
-    marginTop: 2,
-    flexDirection: 'row',
-    alignItems: 'baseline'
-  },
-  releaseYear: {
-    fontSize: 12,
-    fontFamily: 'OpenSans-Regular',
-    color: '#fff'
-  },
-  runtime: {
-    fontSize: 10,
-    fontFamily: 'OpenSans-Regular',
-    color: '#fff'
-  },
   directionText: {
     fontSize: 10,
     fontFamily: 'OpenSans-Regular',
@@ -120,7 +105,7 @@ const styles = StyleSheet.create({
     fontFamily: 'OpenSans-Bold'
   },
   ratingEnvelope: {
-    marginTop: 6,
+    marginTop: 10,
     flexDirection: 'row',
     alignItems: 'center'
   },
@@ -140,51 +125,29 @@ const styles = StyleSheet.create({
   overview: {
     marginTop: 160,
     fontFamily: 'OpenSans-Regular',
-    color: '#fff'
+    color: '#fff',
+    marginBottom: 20
   },
-  castTag: {
-    alignItems: 'center',
-    alignSelf: 'flex-start',
-    marginTop: 24
+  seasonContainer: {
+    width: '100%',
+    alignSelf: 'center',
+    marginBottom: 10,
+    borderRadius: 5,
+    backgroundColor: 'rgba(255, 255, 255, 0.5)'
   },
-  castText: {
-    paddingVertical: 2,
-    paddingHorizontal: 8,
-    borderRadius: 50,
-    fontSize: 12,
-    fontFamily: 'OpenSans-SemiBold',
-    backgroundColor: '#9C4A8B',
-    color: '#fff'
-  },
-  castBorder: {
-    width: 28,
-    marginTop: 4,
-    borderWidth: 0.8,
-    borderRadius: 10,
-    borderColor: '#9C4A8B'
-  },
-  castEnvelope: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    marginTop: 20
-  },
-  castProfile: {
-    width: 46,
-    height: 46,
-    borderRadius: 30
-  },
-  castInfoEnvelope: {
-    marginLeft: 14
-  },
-  castName: {
-    fontSize: 16,
+  seasonText: {
+    color: '#fff',
     fontFamily: 'OpenSans-Bold',
-    color: '#fff'
+    marginLeft: 14,
+    marginTop: 12
   },
-  characterName: {
-    fontSize: 10,
-    fontFamily: 'OpenSans-Regular',
-    color: '#fff'
+  seasonBorder: {
+    width: '100%',
+    height: 4,
+    marginTop: 8,
+    borderBottomStartRadius: 5,
+    borderBottomEndRadius: 5,
+    backgroundColor: 'rgba(255, 255, 255, 0.5)'
   }
 });
 

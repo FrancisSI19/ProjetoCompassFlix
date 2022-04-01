@@ -44,7 +44,7 @@ function SeriesFavorites() {
 
                         <TouchableOpacity
                             onPress={() => {
-                                navigation.navigate('', { movieId: item.id, requestScreen: 'FavoritesSeries' });
+                                navigation.navigate('TvShowDetails', { tvShowId: item.id, requestScreen: 'FavoritesSeries' });
                             }}>
                             <Image
                                 source={{

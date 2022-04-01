@@ -38,7 +38,7 @@ export default function TVShowsList() {
       renderItem={({ item }) => {
         return (
           <Container>
-            <TouchableOpacity onPress={ () => navigation.navigate('', {tvshowId: item.id})}>
+            <TouchableOpacity onPress={ () => navigation.navigate('TvShowDetails', {tvShowId: item.id, requestScreen: 'TVShowList'})}>
               <Image source={{uri: `https://image.tmdb.org/t/p/w780${item.poster_path}`}}/>
             </TouchableOpacity>
             <ContainerVote>
