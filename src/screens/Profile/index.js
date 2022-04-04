@@ -252,7 +252,7 @@ const Profile = ({ navigation }) => {
             {name !== null ? name : username}
           </Text>
 
-          <TouchableOpacity onPress={() => navigation.navigate('RatedMovies', {requestScreen: 'RatedMovies'})}>
+          <TouchableOpacity onPress={() => navigation.navigate(showMovieList ? 'RatedMovies' : 'RatedSeries')}>
             <Text style={{ color: '#E9A6A6', fontSize: 10, fontFamily: 'OpenSans-SemiBold' }}>Ver tudo</Text>
           </TouchableOpacity>
         </View>

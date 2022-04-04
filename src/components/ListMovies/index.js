@@ -42,10 +42,11 @@ function ListMovies({navigation}) {
 }
 const Perfil = StyleSheet.create({
   imagem: {
+    position: 'absolute',
     width: 44,
     height: 44,
     top: 18,
-    left: 312,
+    right: 10,
     borderRadius: 40,
   },
 });
