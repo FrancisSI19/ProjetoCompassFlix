@@ -66,69 +66,65 @@ const Login = ({ navigation }) => {
     let requestToken = '';
     let sessionId = '';
 
-    if (username === '' || password === '') {
-      Alert.alert('Login inválido', 'Ops! Você esqueceu de inserir seus dados.');
-    } else {
-      setLoading(true);
+    setLoading(true);
+
+    try {
+      const { data } = await api.get(createRequestToken);
+
+      requestToken = data.request_token;
+      console.log('requestToken:', requestToken);
 
       try {
-        const { data } = await api.get(createRequestToken);
-
-        requestToken = data.request_token;
-        console.log('requestToken:', requestToken);
+        const { data } = await api.post(validateTokenWithLogin, {
+          username: username,
+          password: password,
+          request_token: requestToken
+        });
+        console.log('validateToken:', data);
 
         try {
-          const { data } = await api.post(validateTokenWithLogin, {
-            username: username,
-            password: password,
-            request_token: requestToken
-          });
-          console.log('validateToken:', data);
+          const { data } = await api.post(createSession, { request_token: requestToken });
+          sessionId = data.session_id;
 
           try {
-            const { data } = await api.post(createSession, { request_token: requestToken });
-            sessionId = data.session_id;
+            const {data} = await api.get(`${getAccountDetails}${sessionId}`);
 
-            try {
-              const {data} = await api.get(`${getAccountDetails}${sessionId}`);
+            await AsyncStorage.setItem('sessionId', sessionId);
+            await AsyncStorage.setItem('accountId', (data.id).toString());
+            await AsyncStorage.setItem('name', data.name);
+            await AsyncStorage.setItem('username', data.username);
+            const avatarPath = data.avatar.tmdb.avatar_path === null ? '' : data.avatar.tmdb.avatar_path;
+            await AsyncStorage.setItem('avatar', avatarPath);
 
-              await AsyncStorage.setItem('sessionId', sessionId);
-              await AsyncStorage.setItem('accountId', (data.id).toString());
-              await AsyncStorage.setItem('name', data.name);
-              await AsyncStorage.setItem('username', data.username);
-              const avatarPath = data.avatar.tmdb.avatar_path === null ? '' : data.avatar.tmdb.avatar_path;
-              await AsyncStorage.setItem('avatar', avatarPath);
+            console.log('sessionId:', sessionId);
+            console.log('accountId:', data.id);
+            console.log('name:', data.name);
+            console.log('username:', data.username);
+            console.log('avatar:', avatarPath);
 
-              console.log('sessionId:', sessionId);
-              console.log('accountId:', data.id);
-              console.log('name:', data.name);
-              console.log('username:', data.username);
-              console.log('avatar:', avatarPath);
+            setInvalidLogin(false);
+            setUsername('');
+            setPassword('');
 
-              setInvalidLogin(false);
-              setUsername('');
-              setPassword('');
-
-              navigation.navigate('TabBar');
-            } catch (error) {
-              console.log(error);
-            }
-
+            navigation.navigate('TabBar');
           } catch (error) {
             console.log(error);
           }
 
         } catch (error) {
-          setInvalidLogin(true);
           console.log(error);
         }
 
       } catch (error) {
+        setInvalidLogin(true);
         console.log(error);
       }
 
-      setLoading(false);
+    } catch (error) {
+      console.log(error);
     }
+
+    setLoading(false);
   }
 
   console.log(loading)
