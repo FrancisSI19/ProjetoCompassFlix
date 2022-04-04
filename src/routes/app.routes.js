@@ -6,6 +6,7 @@ import ListMovies from '../components/ListMovies';
 import MovieDetails from '../screens/MovieDetails';
 import FavoriteMovies from '../components/FavoriteMovies';
 import FavoritesSeries from '../components/FavoritesSeries';
+import ListRatedSeries from '../components/ListRatedSeries';
 import TabBarIcon from '../components/TabBarIcon';
 import ListTVShows from '../components/ListTVShows';
 import RatedMovies from '../components/ListRatedMovies';
@@ -138,6 +139,11 @@ function ProfileStack() {
       <Stack.Screen
         name="FavoritesSeries"
         component={FavoritesSeries}
+      />
+
+      <Stack.Screen
+        name="RatedSeries"
+        component={ListRatedSeries}
       />
 
       <Stack.Screen
