@@ -14,6 +14,7 @@ import Profile from '../screens/Profile';
 import FavoriteSeries from '../components/FavoritesSeries';
 import RatedSeries from '../components/ListRatedSeries'
 import TvShowDetails from '../screens/TvShowDetails';
+import MyMoviesList from '../screens/MyMoviesList';
 
 
 
@@ -171,6 +172,11 @@ function ProfileStack() {
       <Stack.Screen
         name="TvShowDetails"
         component={TvShowDetails}
+      />
+
+<Stack.Screen
+        name="MyMoviesList"
+        component= {MyMoviesList}
       />
     </Stack.Navigator>
   )
