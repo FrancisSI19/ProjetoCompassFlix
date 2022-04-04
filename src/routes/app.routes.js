@@ -12,6 +12,7 @@ import ListTVShows from '../components/ListTVShows';
 import RatedMovies from '../components/ListRatedMovies';
 import Profile from '../screens/Profile';
 import TvShowDetails from '../screens/TvShowDetails';
+import MyMoviesList from '../screens/MyMoviesList';
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -149,6 +150,11 @@ function ProfileStack() {
       <Stack.Screen
         name="TvShowDetails"
         component={TvShowDetails}
+      />
+
+<Stack.Screen
+        name="MyMoviesList"
+        component= {MyMoviesList}
       />
     </Stack.Navigator>
   )
