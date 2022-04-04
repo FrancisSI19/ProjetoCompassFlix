@@ -231,6 +231,13 @@ const MovieDetails = ({ navigation, route }) => {
                 </Text>
               </View>
             </View>
+
+            <TouchableOpacity style={styles.containerAddMovie}>
+              <View style={styles.btnAddMovie}>
+                <Ionicons name='add' size={16} color='#000' />
+              </View>
+              <Text style={styles.txtAddMovie}>Adicionar a uma lista</Text>
+            </TouchableOpacity>
           </View>
 
           <Text style={styles.overview}>
