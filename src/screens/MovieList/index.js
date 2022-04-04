@@ -1,6 +1,6 @@
 /* eslint-disable prettier/prettier */
 import React, { useEffect, useState } from 'react';
-import { FlatList, TouchableOpacity, View, ActivityIndicator } from 'react-native';
+import { ActivityIndicator, FlatList, TouchableOpacity, View } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { ContainerVote, Vote, Image, Container } from '../styles';
 import {fetchMovies} from "../../services/api";
@@ -34,42 +34,30 @@ export default function MovieList() {
       </View>
     )
   }
-    return (
-      <FlatList
-        data={movies}
-        numColumns={4}
-        keyExtractor={(item, index) => String(index)}
-        onEndReached={loadMoreItem}
-        onEndReachedThreshold={0.1}
-        ListFooterComponent={<FooterList load={loading} />}
-        showsVerticalScrollIndicator={false}
-        renderItem={renderItem}
-      />
-    )
-    function renderItem({ item }) {
-      return (
-        <Container>
-          <TouchableOpacity
-            onPress={() =>
-              navigation.navigate('MovieDetails', {
-                movieId: item.id,
-                requestScreen: 'ListMovies',
-              })
-            }>
-            <Image
-              source={{
-                uri: `https://image.tmdb.org/t/p/w780${item.poster_path}`,
-              }}
-            />
-          </TouchableOpacity>
-          <ContainerVote>
-            <IconStar />
-            <Vote>
-              {item.vote_average}
-              <VoteAverage />
-            </Vote>
-          </ContainerVote>
-        </Container>
-      );
-    }
-  }
+  return (
+    <FlatList
+      data={movies}
+      numColumns={4}
+      keyExtractor={( item, index) => String(index)}
+      onEndReached={loadMoreItem}
+      onEndReachedThreshold={0.5}
+      ListFooterComponent={<FooterList load={loading} />}
+      showsVerticalScrollIndicator={false}
+      renderItem={({ item }) => {
+        return (
+          <Container>
+            <TouchableOpacity onPress={ () => navigation.navigate('MovieDetails', {movieId: item.id, requestScreen: 'ListMovies'})}>
+              <Image source={{uri: `https://image.tmdb.org/t/p/w780${item.poster_path}`}}/>
+            </TouchableOpacity>
+            <ContainerVote>
+              <IconStar/>
+              <Vote>
+                {item.vote_average}<VoteAverage/>
+              </Vote>
+            </ContainerVote>
+          </Container>
+        );
+      }}
+    />
+  );
+}

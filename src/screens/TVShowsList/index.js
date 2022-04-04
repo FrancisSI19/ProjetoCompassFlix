@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {FlatList, TouchableOpacity, View, ActivityIndicator} from 'react-native';
+import {ActivityIndicator, FlatList, TouchableOpacity, View} from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 
 import {ContainerVote, Vote, Image, Container} from '../styles';
@@ -25,21 +25,23 @@ export default function TVShowsList() {
   }, [pageNumber])
 
   const loadMoreItem = () => setPageNumber(pageNumber + 1);
+
   function FooterList({ load }) {
-    if (!load) return null;
-    return (
-      <View style={{ padding: 10 }}>
-        <ActivityIndicator size={'large'} color='#E9A6A6' />
-      </View>
-    )
-  }
+      if (!load) return null;
+      return (
+        <View style={{ padding: 10 }}>
+          <ActivityIndicator size={'large'} color='#E9A6A6' />
+        </View>
+      )
+    }
+    
   return (
     <FlatList
       data={tvshows}
       numColumns={4}
       keyExtractor={(item, index) => String(index)}
       onEndReached={loadMoreItem}
-      onEndReachedThreshold={0.1}
+      onEndReachedThreshold={0.5}
       ListFooterComponent={<FooterList load={loading} />}
       showsVerticalScrollIndicator={false}
       renderItem={renderItem}

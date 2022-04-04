@@ -78,7 +78,7 @@ const RatingModal = ({ visible, setModalVisible, tvShowId, setCurrentRating, set
           </View>
 
           {
-            invalidRating && <Text style={styles.invalidRating}>A nota deve ser entre 0,5 e 10</Text>
+            invalidRating && <Text style={styles.invalidRating}>A nota deve ser entre 0.5 e 10</Text>
           }
 
           <View style={[styles.btnsEnvelope, { marginTop: invalidRating ? 10 : 32 }]}>

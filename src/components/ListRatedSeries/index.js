@@ -3,14 +3,13 @@ import { Container, Name, IconBack, Title, ContainerRated } from './styles';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import { useNavigation } from '@react-navigation/native';
-import RatedSeriesList from '../../screens/SeriesRate'
+import RatedSeriesList from '../../screens/SeriesRated'
 
 
 function RatedSeries() {
   const navigation = useNavigation();
   const [name, setName] = useState('');
   const [username, setUsername] = useState('');
-  
   useEffect(() => {
     try {
       AsyncStorage.getItem('username').then(value => setUsername(value));

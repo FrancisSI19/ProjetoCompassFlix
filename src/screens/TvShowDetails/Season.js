@@ -51,7 +51,7 @@ export default function Season({ seasonsCount, tvShowId }) {
         <View style={seasonContainer}>
           <View style={seasonTextContainer}>
             <Text style={seasonText}>Temporada 1</Text>
-            <Ionicons name={collapsed ? 'chevron-down' : 'chevron-up'} size={16} color='#fff' />
+            <Ionicons  name={collapsed ? 'chevron-down' : 'chevron-up'} size={16} color='#fff' />
           </View>
 
           <View style={[seasonBorder, { backgroundColor: collapsed ? 'rgba(255, 255, 255, 0.5)' : '#E9A6A6' }]} />

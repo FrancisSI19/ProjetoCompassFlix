@@ -11,7 +11,7 @@ import Loading from '../../components/Loading';
 import RatingModal from './RatingModal';
 import { API_KEY } from '../../constants/constants';
 import api from '../../services/api';
-import Season from './Season';
+import Seasons from './Seasons';
 
 const TvShowDetails = ({ navigation, route }) => {
   const { tvShowId, requestScreen } = route.params;
@@ -33,7 +33,7 @@ const TvShowDetails = ({ navigation, route }) => {
   const [modalVisible, setModalVisible] = useState(false);
   const [rating, setRating] = useState(0);
 
-  const [seasonsCount, setSeasonsCount] = useState('');
+  const [seasons, setSeasons] = useState('');
 
   const getDetails = async () => {
     try {
@@ -47,7 +47,7 @@ const TvShowDetails = ({ navigation, route }) => {
       setVoteAverage(data.vote_average);
       setVoteCount(data.vote_count);
       setOverview(data.overview);
-      setSeasonsCount(data.number_of_seasons);
+      setSeasons(data.seasons);
     } catch (error) {
       console.log(error);
     }
@@ -209,7 +209,7 @@ const TvShowDetails = ({ navigation, route }) => {
             {overview}
           </Text>
 
-          <Season seasonsCount={seasonsCount} tvShowId={tvShowId} />
+          <Seasons seasons={seasons} tvShowId={tvShowId} />
         </View>
       </ScrollView>
     </View>

@@ -14,22 +14,22 @@ function RatedSeriesList() {
 
     const getRatedSeries = async () => {
         try {
-            
+
             const sessionId = await AsyncStorage.getItem('sessionId');
             const accountId = await AsyncStorage.getItem('accountId');
-            
+
             const { data } = await api.get
                 (`account/${accountId}/rated/tv?api_key=${API_KEY}&session_id=${sessionId}&language=pt-BR&sort_by=created_at.desc`)
             setRatedSeries(data.results);
 
         } catch (error) {
-            
+
             console.log(error);
         }
 
     }
     useEffect(() => {
-        
+
         getRatedSeries()
 
     }, [])
@@ -47,7 +47,7 @@ function RatedSeriesList() {
 
             <TouchableOpacity
               onPress={() => {
-                navigation.navigate('MovieDetails', { movieId: item.id });
+                navigation.navigate('TvShowDetails', { tvShowId: item.id, requestScreen: 'RatedSeries' });
               }}>
               <Image
                 source={{
@@ -63,7 +63,7 @@ function RatedSeriesList() {
         );
       }}
     />
-    
+
     </>
 };
 

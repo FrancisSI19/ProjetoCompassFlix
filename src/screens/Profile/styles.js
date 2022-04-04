@@ -34,7 +34,24 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontFamily: 'OpenSans-Bold',
     color: '#fff'
-  }
+  },
+botãoVerLista: {
+  backgroundColor: '#6C7BFC',
+  marginTop: 18,
+  borderRadius:5,
+  alignItems: 'center',
+  justifyContent: 'center',
+  paddingHorizontal:6,
+  paddingVertical: 4
+},
+VerListas: {
+
+fontStyle: 'normal',
+fontSize: 10,
+color: '#FFFFFF',
+}
+
 });
+
 
 export default styles;

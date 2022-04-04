@@ -6,6 +6,7 @@ import ListMovies from '../components/ListMovies';
 import MovieDetails from '../screens/MovieDetails';
 import FavoriteMovies from '../components/FavoriteMovies';
 import FavoritesSeries from '../components/FavoritesSeries';
+import ListRatedSeries from '../components/ListRatedSeries';
 import TabBarIcon from '../components/TabBarIcon';
 import ListTVShows from '../components/ListTVShows';
 import RatedMovies from '../components/ListRatedMovies';
@@ -120,7 +121,7 @@ function HomeStack() {
         component={FavoriteMovies}
       />
         <Stack.Screen 
-        name="FavoriteSeries"
+        name="FavoritesSeries"
         component={FavoriteSeries}
         TabBarcolor='#454545'
       />
@@ -168,8 +169,8 @@ function ProfileStack() {
       />
 
       <Stack.Screen
-        name="FavoritesSeries"
-        component={FavoritesSeries}
+        name="TvShowDetails"
+        component={TvShowDetails}
       />
     </Stack.Navigator>
   )
