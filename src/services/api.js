@@ -9,7 +9,15 @@ export default axios.create({
 //  Requições de todos os filmes
 export const fetchMovies = async (pageNumber) => {
   const response = await axios.get(
-    `${URL}movie/popular?api_key=${API_KEY}&${LANGUAGE}&page=${pageNumber}`,
+    `${URL}movie/popular?api_key=${API_KEY}&${LANGUAGE}&page=${pageNumber}`
+  );
+  return [...response.data.results];
+};
+
+//  Requições de todos os series
+export const fetchTVShow = async (pageNumber) => {
+  const response = await axios.get(
+    `${URL}tv/popular?api_key=${API_KEY}&${LANGUAGE}&page=${pageNumber}`
   );
   return [...response.data.results];
 };
@@ -28,6 +36,14 @@ export const fetchDetails = async id => {
     voteCount: data.vote_count,
     overview: data.overview
   }
+};
+
+export const fetchFavorites = async (accountId, sessionId) => {
+  const response = await axios.get(
+    `${URL}/account/${accountId}/favorite/movies?api_key=${API_KEY}&session_id=${sessionId}`,
+  );
+  console.log(response);
+  return response.data.results;
 };
 
 //  Requições de informações da direção / elenco
@@ -50,8 +66,6 @@ export const fetchCredits = async id => {
       profilePath: name.profile_path
     };
   });
-
-  console.log(cast);
 
   const credits = response.data;
   return {

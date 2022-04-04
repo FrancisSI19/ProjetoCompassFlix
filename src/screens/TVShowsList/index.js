@@ -1,26 +1,25 @@
-/* eslint-disable prettier/prettier */
-import React, { useEffect, useState } from 'react';
-import { ActivityIndicator, FlatList, TouchableOpacity, View } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
+import React, {useEffect, useState} from 'react';
+import {ActivityIndicator, FlatList, TouchableOpacity, View} from 'react-native';
+import {useNavigation} from '@react-navigation/native';
 
-import { ContainerVote, Vote, Image, Container } from '../styles';
-import {fetchMovies} from "../../services/api";
+import {ContainerVote, Vote, Image, Container} from '../styles';
+import {fetchTVShow} from "../../services/api";
 import Loading from '../../components/Loading';
 import IconStar from '../../components/IconStar';
 import VoteAverage from '../../components/VoteAverage';
 
-export default function MovieList() {
+export default function TVShowsList() {
   const navigation = useNavigation();
 
-  const [movies, setMovies] = useState([]);
+  const [tvshows, setTvshows] = useState([]);
   const [loading, setLoading] = useState(true);
   const [pageNumber, setPageNumber] = useState(1);
 
   useEffect(() => {
     setLoading(true);
-    fetchMovies(pageNumber)
+    fetchTVShow(pageNumber)
       .then((data) => {
-        setMovies([...movies, ...data]);
+        setTvshows([...tvshows, ...data]);
         setLoading(false);
 
       }).catch(error => error)
@@ -29,16 +28,17 @@ export default function MovieList() {
   const loadMoreItem = () => setPageNumber(pageNumber + 1);
 
   function FooterList({ load }) {
-    if (!load) return null;
-    return (
-      <View style={{ padding: 10 }}>
-        <ActivityIndicator size={'large'} color='#E9A6A6' />
-      </View>
-    )
-  }
+      if (!load) return null;
+      return (
+        <View style={{ padding: 10 }}>
+          <ActivityIndicator size={'large'} color='#E9A6A6' />
+        </View>
+      )
+    }
+    
   return (
     <FlatList
-      data={movies}
+      data={tvshows}
       numColumns={4}
       keyExtractor={( item, index) => String(index)}
       onEndReached={loadMoreItem}
@@ -48,7 +48,7 @@ export default function MovieList() {
       renderItem={({ item }) => {
         return (
           <Container>
-            <TouchableOpacity onPress={ () => navigation.navigate('MovieDetails', {movieId: item.id, requestScreen: 'ListMovies'})}>
+            <TouchableOpacity onPress={ () => navigation.navigate('TvShowDetails', {tvShowId: item.id, requestScreen: 'TVShowList'})}>
               <Image source={{uri: `https://image.tmdb.org/t/p/w780${item.poster_path}`}}/>
             </TouchableOpacity>
             <ContainerVote>

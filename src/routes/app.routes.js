@@ -1,11 +1,17 @@
 import React from 'react';
-import {Image, View} from 'react-native';
-import {createNativeStackNavigator} from '@react-navigation/native-stack';
-import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
-
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Login from '../screens/Login';
 import ListMovies from '../components/ListMovies';
 import MovieDetails from '../screens/MovieDetails';
+import FavoriteMovies from '../components/FavoriteMovies';
+import FavoritesSeries from '../components/FavoritesSeries';
+import ListRatedSeries from '../components/ListRatedSeries';
+import TabBarIcon from '../components/TabBarIcon';
+import ListTVShows from '../components/ListTVShows';
+import RatedMovies from '../components/ListRatedMovies';
+import Profile from '../screens/Profile';
+import TvShowDetails from '../screens/TvShowDetails';
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -13,11 +19,11 @@ const Tab = createBottomTabNavigator();
 export default function AppRoutes() {
   return (
     <Stack.Navigator screenOptions={{ headerShown: false }}>
-      <Stack.Screen 
+      <Stack.Screen
         name="Login"
         component={Login}
       />
-      
+
       <Stack.Screen
         name="TabBar"
         component={Tabs}
@@ -28,62 +34,122 @@ export default function AppRoutes() {
 
 function Tabs() {
   return (
-    <Tab.Navigator 
-      screenOptions={{
-        tabBarShowLabel: false, 
-        headerShown: false, 
-        tabBarActiveBackgroundColor: '#454545' 
-      }}
-    > 
-      <Tab.Screen 
-        options={{ 
-          tabBarIcon: () =>  {
-            return (
-              <View style={{ 
-                  padding: 10, 
-                  borderRadius: 30,
-                  backgroundColor: '#E9A6A6'
-                }}
-              >
-                <Image style={{
-                    width: 25,
-                    height: 25,
-                    backgroundColor: '#E9A6A6'
-                  }}
-                  source={require('../assets/img/movies.png')} 
-                />
-              </View>
-            );
+    <Tab.Navigator
+      initialRouteName='HomeStack'
+      screenOptions={({ route }) => ({
+        tabBarShowLabel: false,
+        headerShown: false,
+        tabBarStyle: {
+          backgroundColor: '#454545'
+        },
+        tabBarIcon: ({ focused }) => {
+          let tabName;
+          let bgColor;
+
+          if (route.name === 'TVShowListStack') {
+            tabName = 'tvShowsList'
           }
-        }}
+          else if (route.name === 'HomeStack') {
+            tabName = 'home';
+          } else if (route.name === 'ProfileStack') {
+            tabName = 'profile';
+          }
+
+          if (focused) {
+            bgColor = '#E9A6A6';
+          } else {
+            bgColor = '#454545';
+          }
+
+          return <TabBarIcon tabName={tabName} bgColor={bgColor} />
+        }
+      })}
+    >
+      <Tab.Screen
+        name="TVShowListStack"
+        component={TVShowListStack}
+      />
+      <Tab.Screen
         name="HomeStack"
         component={HomeStack}
       />
+      <Tab.Screen
+        name="ProfileStack"
+        component={ProfileStack}
+      />
     </Tab.Navigator>
+  );
+}
+
+function TVShowListStack() {
+  return (
+    <Stack.Navigator screenOptions={{ headerShown: false }}>
+      <Stack.Screen
+        name="TVShowList"
+        component={ListTVShows}
+      />
+
+      <Stack.Screen
+        name="TvShowDetails"
+        component={TvShowDetails}
+      />
+    </Stack.Navigator>
   );
 }
 
 function HomeStack() {
   return (
     <Stack.Navigator screenOptions={{ headerShown: false }}>
-      <Stack.Screen 
+      <Stack.Screen
         name="ListMovies"
         component={ListMovies}
-        TabBarcolor='#454545'
       />
-   
+
       <Stack.Screen
         name="MovieDetails"
         component={MovieDetails}
-        options={{
-          title: 'MovieDetails',
-          headerTintColor: '#f0f0f0',
-          headerStyle: {
-            backgroundColor: '#1c1c1c',
-            height: 300
-          }
-        }}
       />
     </Stack.Navigator>
   );
+}
+
+function ProfileStack() {
+  return (
+    <Stack.Navigator screenOptions={{ headerShown: false }}>
+      <Stack.Screen
+        name="Profile"
+        component={Profile}
+      />
+
+      <Stack.Screen
+        name="MovieDetails"
+        component={MovieDetails}
+      />
+
+      <Stack.Screen
+        name="FavoriteMovies"
+        component={FavoriteMovies}
+      />
+
+      <Stack.Screen
+        name="RatedMovies"
+        component={RatedMovies}
+      />
+
+      <Stack.Screen
+        name="FavoritesSeries"
+        component={FavoritesSeries}
+      />
+
+      <Stack.Screen
+        name="RatedSeries"
+        component={ListRatedSeries}
+      />
+
+      <Stack.Screen
+        name="TvShowDetails"
+        component={TvShowDetails}
+      />
+    </Stack.Navigator>
+  )
 }

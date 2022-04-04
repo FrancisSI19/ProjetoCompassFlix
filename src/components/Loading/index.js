@@ -1,21 +1,21 @@
 import React from 'react';
-import { Text, View, ActivityIndicator } from 'react-native';
+import { View, StyleSheet } from 'react-native';
+import { ActivityIndicator } from 'react-native';
 
-const Loading = () => {
+const Loading = ({ size }) => {
   return (
-    <View
-      // eslint-disable-next-line prettier/prettier
-      style={{
-        flex: 1,
-        justifyContent: 'center',
-        backgroundColor: 'rgb(21,21,21)',
-      }}>
-      <ActivityIndicator size="small" color="#0000ff" />
-      <Text style={{ color: 'white', alignSelf: 'center' }}>
-        Aguarde...
-      </Text>
+    <View style={styles.background}>
+      <ActivityIndicator size={size} color="#E9A6A6" />
     </View>
   );
 };
+
+const styles = StyleSheet.create({
+  background: {
+    flex: 1,
+    justifyContent: 'center',
+    backgroundColor: '#000'
+  }
+})
 
 export default Loading;
