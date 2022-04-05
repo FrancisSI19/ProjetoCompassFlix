@@ -6262,19 +6262,19 @@
   "resolved" "https://registry.npmjs.org/react-refresh/-/react-refresh-0.4.3.tgz"
   "version" "0.4.3"
 
-"react-router-native@^6.2.2":
-  "integrity" "sha512-scDPerBzdLuXFKrEq0wCGqftEQpCOgkDHoyXBFJRyZJ3U1ikZxdtCnEOR2Lu7DgIcwM9EySK7UmApmkuZfsx/A=="
-  "resolved" "https://registry.npmjs.org/react-router-native/-/react-router-native-6.2.2.tgz"
-  "version" "6.2.2"
+"react-router-native@^6.3.0":
+  "integrity" "sha512-Y+UuU6Typnz1eGWfYf2UYmh1qItbrNBK5kr3p7ZsamsLIxCKSoYo2YJyz9JOgRiv1nOFsCoSkpQJPYLAz68hlQ=="
+  "resolved" "https://registry.npmjs.org/react-router-native/-/react-router-native-6.3.0.tgz"
+  "version" "6.3.0"
   dependencies:
     "@ungap/url-search-params" "^0.1.4"
     "history" "^5.2.0"
-    "react-router" "6.2.2"
+    "react-router" "6.3.0"
 
-"react-router@6.2.2":
-  "integrity" "sha512-/MbxyLzd7Q7amp4gDOGaYvXwhEojkJD5BtExkuKmj39VEE0m3l/zipf6h2WIB2jyAO0lI6NGETh4RDcktRm4AQ=="
-  "resolved" "https://registry.npmjs.org/react-router/-/react-router-6.2.2.tgz"
-  "version" "6.2.2"
+"react-router@6.3.0":
+  "integrity" "sha512-7Wh1DzVQ+tlFjkeo+ujvjSqSJmkt1+8JO+T5xklPlgrh70y7ogx75ODRW0ThWhY7S+6yEDks8TYrtQe/aoboBQ=="
+  "resolved" "https://registry.npmjs.org/react-router/-/react-router-6.3.0.tgz"
+  "version" "6.3.0"
   dependencies:
     "history" "^5.2.0"
 

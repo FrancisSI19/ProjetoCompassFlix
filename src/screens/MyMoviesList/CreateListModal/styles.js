@@ -35,12 +35,26 @@ const styles = StyleSheet.create({
   },
   input: {
     paddingVertical: 4,
+    width: 277,
+    left:-90,
+    top:-10,
     textAlign: 'center',
     fontSize: 14,
     borderRadius: 50,
     backgroundColor: 'rgba(196, 196, 196, 0.35)',
     color: '#000', height: 26,
   },
+
+  width: 277,
+  left:-90,
+  top:-10,
+  textAlign: 'center',
+  fontSize: 14,
+  borderRadius: 5,
+  backgroundColor: 'rgba(196, 196, 196, 0.35)',
+  color: '#000', height: 26,
+
+
   maxVote: {
     fontSize: 18,
     fontFamily: 'OpenSans-Bold',
@@ -64,6 +78,8 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     borderWidth: 1,
     borderRadius: 5,
+    top:40,
+    right:80
   },
   textCancel: {
     textTransform: 'uppercase',
@@ -75,8 +91,11 @@ const styles = StyleSheet.create({
     width: 84,
     alignItems: 'center',
     justifyContent: 'center',
+    borderWidth: 1,
     borderRadius: 5,
-    backgroundColor: '#000'
+    backgroundColor: '#000',
+    top:25,
+    left:65
   },
   textOk: {
     textTransform: 'uppercase',

@@ -24,19 +24,19 @@ function CreateListModal () {
 
                             <TextInput
                                 style={styles.input}
-                                keyboardType='text'
-                                maxLength={10}
+                                maxLength={50}
                                 onChangeText={onChangeText}
                                 value={text}
                             />
-
+                        <View>
                             <TextInput
-                                style={styles.input}
+                                style={styles.input2}
                                 keyboardType='text'
                                 maxLength={50}
                                 onChangeText={onChangeText}
                                 value={text}
                             />
+                            </View>
                         </View>
 
                        
