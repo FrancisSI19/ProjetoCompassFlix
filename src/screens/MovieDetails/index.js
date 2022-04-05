@@ -248,6 +248,7 @@ const MovieDetails = ({ navigation, route }) => {
             <ListModal
               visible={showListModal}
               setVisible={setShowListModal}
+              movieId={movieId}
             />
           </View>
 

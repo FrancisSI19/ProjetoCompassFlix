@@ -7,22 +7,22 @@ import styles from './styles';
 import { API_KEY } from '../../../../constants/constants';
 import api from '../../../../services/api';
 
-const ListModal = ({ visible, setVisible }) => {
+const ListModal = ({ visible, setVisible, movieId }) => {
   const [movieList, setMovieList] = useState([]);
-  const [selected, setSelected] = useState('');
+  const [selectedListId, setSelectedListId] = useState('');
 
-  const selectList = (name) => {
-    if (name === selected) {
-      setSelected('');
+  const selectList = (id) => {
+    if (id === selectedListId) {
+      setSelectedListId('');
     } else {
-      setSelected(name);
+      setSelectedListId(id);
     }
   }
 
   const getCreatedLists = async () => {
     try {
       const sessionId = await AsyncStorage.getItem('sessionId');
-      const queryString = `https://api.themoviedb.org/3/account/12056192/lists?api_key=${API_KEY}&language=pt-BR&session_id=${sessionId}`;
+      const queryString = `account/12056192/lists?api_key=${API_KEY}&language=pt-BR&session_id=${sessionId}`;
 
       const { data } = await api.get(queryString);
       setMovieList(data.results);
@@ -31,7 +31,20 @@ const ListModal = ({ visible, setVisible }) => {
     }
   }
 
+  const addMovie = async () => {
+    try {
+      const sessionId = await AsyncStorage.getItem('sessionId');
+      const queryString = `list/${selectedListId}/add_item?api_key=${API_KEY}&session_id=${sessionId}`;
+
+      const { data } = await api.post(queryString, {media_id: movieId})
+      console.log(data);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
   useEffect(() => {
+    console.log(movieId);
     getCreatedLists();
   }, [])
 
@@ -48,7 +61,7 @@ const ListModal = ({ visible, setVisible }) => {
 
             <TouchableOpacity onPress={() => {
               setVisible(false);
-              setSelected('');
+              setSelectedListId('');
             }}>
               <Icon name='close' size={18} color='#000' />
             </TouchableOpacity>
@@ -64,10 +77,10 @@ const ListModal = ({ visible, setVisible }) => {
                     key={list.id}
                   >
                     <TouchableOpacity
-                      style={[styles.radio, {padding: selected === list.name ? 2 : 10}]}
-                      onPress={() => selectList(list.name)}
+                      style={[styles.radio, {padding: selectedListId === list.id ? 3 : 10}]}
+                      onPress={() => selectList(list.id)}
                     >
-                      <View style={[styles.radioFill, {padding: selected === list.name ? 8 : 0 }]} />
+                      <View style={[styles.radioFill, {padding: selectedListId === list.id ? 7 : 0 }]} />
                     </TouchableOpacity>
                     <Text style={styles.listTitle}>{list.name}</Text>
                   </View>
@@ -76,10 +89,11 @@ const ListModal = ({ visible, setVisible }) => {
             }
 
             <TouchableOpacity
-              style={[styles.btnSave, {backgroundColor: selected ? '#000' : '#C4C4C4'}]}
-              disabled={selected ? false : true}
+              style={[styles.btnSave, {backgroundColor: selectedListId ? '#000' : '#C4C4C4'}]}
+              disabled={selectedListId ? false : true}
+              onPress={addMovie}
             >
-              <Text style={[styles.txtSave, {color: selected ? '#fff' : '#8E8E8E'}]}>Salvar</Text>
+              <Text style={[styles.txtSave, {color: selectedListId ? '#fff' : '#8E8E8E'}]}>Salvar</Text>
             </TouchableOpacity>
           </View>
         </View>
