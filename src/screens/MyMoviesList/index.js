@@ -6,11 +6,12 @@ import { Container, ButtonAdd, IconBack, Title } from './styles';
 import { useNavigation } from '@react-navigation/native';
 import CreateListModal from './CreateListModal';
 
-const MyMoviesList = () => {
+
+function MyMoviesList () {
 
   const navigation = useNavigation();
   function clickHandler () {
-    <CreateListModal/>
+    alert('Cliquei no botão');
   };
 
   return (
@@ -33,7 +34,7 @@ const MyMoviesList = () => {
         onPress={clickHandler}
       >
         <AntDesing name="pluscircle" size={50} color="#E9A6A6" />
-        
+        <CreateListModal/>
       </ButtonAdd>
     </Container>
   );

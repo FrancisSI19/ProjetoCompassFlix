@@ -5,7 +5,7 @@ import styles from './styles';
 import api from '../../../services/api';
 import { API_KEY } from '../../../constants/constants';
 
-const CreateListModal = () => {
+function CreateListModal () {
     const [text, onChangeText] = useState('');
     const [visible, setModalVisible] = useState();
     
