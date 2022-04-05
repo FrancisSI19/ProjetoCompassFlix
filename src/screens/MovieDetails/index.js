@@ -11,6 +11,7 @@ import api from '../../services/api';
 import { fetchCredits, fetchDetails } from '../../services/api';
 import Loading from '../../components/Loading';
 import RatingModal from './RatingModal';
+import ListModal from './Components/ListModal';
 
 const MovieDetails = ({ navigation, route }) => {
   const [credits, setCredits] = useState(null);
@@ -33,6 +34,8 @@ const MovieDetails = ({ navigation, route }) => {
   const [modalVisible, setModalVisible] = useState(false);
   const [rated, setRated] = useState(false);
   const [rating, setRating] = useState(0);
+
+  const [showListModal, setShowListModal] = useState(false);
 
   useEffect(() => {
     fetchDetails(movieId).then((data) => {
@@ -232,12 +235,20 @@ const MovieDetails = ({ navigation, route }) => {
               </View>
             </View>
 
-            <TouchableOpacity style={styles.containerAddMovie}>
+            <TouchableOpacity
+              style={styles.containerAddMovie}
+              onPress={() => setShowListModal(true)}
+            >
               <View style={styles.btnAddMovie}>
-                <Ionicons name='add' size={16} color='#000' />
+                <MaterialIcons name='add' size={20} color='#000' />
               </View>
               <Text style={styles.txtAddMovie}>Adicionar a uma lista</Text>
             </TouchableOpacity>
+
+            <ListModal
+              visible={showListModal}
+              setVisible={setShowListModal}
+            />
           </View>
 
           <Text style={styles.overview}>
