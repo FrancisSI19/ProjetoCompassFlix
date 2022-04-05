@@ -1,77 +1,43 @@
 import React from 'react';
-import {
-  SafeAreaView,
-  StyleSheet,
-  View,
-  Image,
-  TouchableOpacity,
-  Text,
-} from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
+import AntDesing from "react-native-vector-icons/AntDesign";
+import Ionicons from 'react-native-vector-icons/Ionicons';
+import { Container, ButtonAdd, IconBack, Title } from './styles';
+import { useNavigation } from '@react-navigation/native';
 
-export default MyMoviesList = () => {
+const MyMoviesList = () => {
+
+  const navigation = useNavigation();
   const clickHandler = () => {
     alert('Botão Clicado');
   };
 
   return (
-      
-    <SafeAreaView style={styles.container}>
-        <ScrollView>
-      <View style={styles.container}>
-        <Text style={styles.titleStyle}>
-         Minhas Listas
-        </Text>
-        <TouchableOpacity
-          activeOpacity={0.7}
-          onPress={clickHandler}
-          style={styles.touchableOpacityStyle}>
-          <Image
-            source={{
-              uri:
-                'https://developerplus.com.br/wp-content/uploads/2021/12/plus_icon.png',
-            }}
-            style={styles.floatingButtonStyle}
-          />
-        </TouchableOpacity>
-      </View>
+
+    <Container>
+      <IconBack
+        onPress={() => navigation.navigate('Profile')}
+      >
+        <Ionicons name='arrow-back' size={26} color='#000' />
+      </IconBack>
+      <ScrollView>
+        <Container>
+
+          <Title>
+            Minhas Listas
+          </Title>
+        </Container>
       </ScrollView>
-    </SafeAreaView>
+      <ButtonAdd
+        onPress={clickHandler}
+      >
+        <AntDesing name="pluscircle" size={50} color="#E9A6A6" />
+
+      </ButtonAdd>
+    </Container>
   );
 };
 
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: 'white',
-    padding: 10,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  titleStyle: {
-    fontSize: 28,
-    fontWeight: 'bold',
-    textAlign: 'center',
-    padding: 10,
-  },
-  textStyle: {
-    fontSize: 16,
-    textAlign: 'center',
-    padding: 10,
-  },
-  touchableOpacityStyle: {
-    position: 'absolute',
-    width: 50,
-    height: 50,
-    alignItems: 'center',
-    justifyContent: 'center',
-    right: 30,
-    bottom: 30,
-  },
-  floatingButtonStyle: {
-    resizeMode: 'contain',
-    width: 70,
-    height: 70,
-  },
-});
+export default MyMoviesList;
+

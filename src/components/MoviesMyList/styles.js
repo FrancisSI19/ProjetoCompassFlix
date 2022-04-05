@@ -7,7 +7,7 @@ export const Container = styled.View`
     
 `;
 
-export const ContainerRated = styled.View`
+export const ContainerList = styled.View`
     flex: 1;
     padding: 10px;
     background-color: #000000;
@@ -21,9 +21,12 @@ export const Title = styled.Text`
     text-align: center;
 `;
 
-export const Name = styled.Text`
-    color: #E9A6A6;
-
+export const SubTitle = styled.Text`
+  margin-top: 0px;
+  font-family: 'OpenSans-Regular';
+  font-size: 12px;
+  color: #f8f8ff;
+  margin-left: 10px;
 `;
 
 export const IconBack = styled.TouchableOpacity`
