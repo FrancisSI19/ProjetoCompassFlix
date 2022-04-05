@@ -1,15 +1,16 @@
 import React from 'react';
-import { ScrollView } from 'react-native-gesture-handler';
+import { ScrollView } from 'react-native';
 import AntDesing from "react-native-vector-icons/AntDesign";
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import { Container, ButtonAdd, IconBack, Title } from './styles';
 import { useNavigation } from '@react-navigation/native';
+import CreateListModal from './CreateListModal';
 
 const MyMoviesList = () => {
 
   const navigation = useNavigation();
-  const clickHandler = () => {
-    alert('Botão Clicado');
+  function clickHandler () {
+    <CreateListModal/>
   };
 
   return (
@@ -32,7 +33,7 @@ const MyMoviesList = () => {
         onPress={clickHandler}
       >
         <AntDesing name="pluscircle" size={50} color="#E9A6A6" />
-
+        
       </ButtonAdd>
     </Container>
   );
