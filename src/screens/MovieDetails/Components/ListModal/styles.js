@@ -30,6 +30,13 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
     paddingVertical: 10,
   },
+  noListText: {
+    alignSelf: 'center',
+    marginTop: 10,
+    fontFamily: 'OpenSans-SemiBold',
+    fontSize: 12,
+    color: '#EC2626',
+  },
   list: {
     flexDirection: 'row',
     alignItems: 'center',
@@ -39,6 +46,10 @@ const styles = StyleSheet.create({
     borderWidth: 2,
     borderRadius: 20,
     borderColor: '#000',
+  },
+  radioFill: {
+    backgroundColor: '#000',
+    borderRadius: 20,
   },
   listTitle: {
     marginLeft: 10,
