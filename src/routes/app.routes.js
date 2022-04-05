@@ -169,7 +169,7 @@ function ProfileStack() {
         component={TvShowDetails}
       />
 
-<Stack.Screen
+      <Stack.Screen
         name="MyMoviesList"
         component= {MyMoviesList}
       />

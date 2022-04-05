@@ -47,6 +47,7 @@ export const fetchFavorites = async (accountId, sessionId) => {
   
 };
 
+  
 //  Requições de informações da direção / elenco
 export const fetchCredits = async id => {
   const response = await axios.get(
