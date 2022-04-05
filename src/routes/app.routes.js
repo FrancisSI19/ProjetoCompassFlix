@@ -5,8 +5,6 @@ import Login from '../screens/Login';
 import ListMovies from '../components/ListMovies';
 import MovieDetails from '../screens/MovieDetails';
 import FavoriteMovies from '../components/FavoriteMovies';
-import FavoritesSeries from '../components/FavoritesSeries';
-import ListRatedSeries from '../components/ListRatedSeries';
 import TabBarIcon from '../components/TabBarIcon';
 import ListTVShows from '../components/ListTVShows';
 import RatedMovies from '../components/ListRatedMovies';
@@ -15,9 +13,6 @@ import FavoriteSeries from '../components/FavoritesSeries';
 import RatedSeries from '../components/ListRatedSeries'
 import TvShowDetails from '../screens/TvShowDetails';
 import MyMoviesList from '../screens/MyMoviesList';
-
-
-
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();

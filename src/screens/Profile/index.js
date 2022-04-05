@@ -10,11 +10,11 @@ import {
 } from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import MyMoviesList from '../MyMoviesList';
 import styles from './styles';
 import Loading from '../../components/Loading';
 import {API_KEY} from '../../constants/constants';
 import api from '../../services/api';
+
 
 const Profile = ({navigation}) => {
   const [ratingLoading, setRatingLoading] = useState(true);
