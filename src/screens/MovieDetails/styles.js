@@ -153,10 +153,10 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
   },
   txtAddMovie: {
-    marginHorizontal: 6,
-    marginVertical: 4,
+    marginHorizontal: 8,
+    marginVertical: 6,
     fontFamily: 'OpenSans-Bold',
-    fontSize: 8,
+    fontSize: 9,
     color: '#000'
   },
   overview: {
