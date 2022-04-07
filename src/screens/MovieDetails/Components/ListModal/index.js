@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Modal, Text, TouchableOpacity, View } from 'react-native';
+import { Modal, Text, TouchableOpacity, ScrollView, View } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
@@ -7,13 +7,11 @@ import styles from './styles';
 import { API_KEY } from '../../../../constants/constants';
 import api from '../../../../services/api';
 
-import SucessModal from '../SuccessModal';
+import SucessModal from '../InfoModal';
 
-const ListModal = ({ visible, setVisible, movieId }) => {
+const ListModal = ({ visible, setVisible, movieId, setShowSuccessModal, setListContainsMovie }) => {
   const [movieList, setMovieList] = useState([]);
   const [selectedListId, setSelectedListId] = useState('');
-
-  const [showSuccessModal, setShowSuccessModal] = useState(false);
 
   const selectList = (id) => {
     if (id === selectedListId) {
@@ -44,9 +42,18 @@ const ListModal = ({ visible, setVisible, movieId }) => {
       const { data } = await api.post(queryString, {media_id: movieId})
       console.log(data);
 
+      setVisible(false);
       setShowSuccessModal(true);
+      setSelectedListId('');
     } catch (error) {
-      console.log(error);
+      if (error.response.data.status_code === 8) { // 8 = "Duplicate entry: The data you tried to submit already exists."
+        setListContainsMovie(true);
+        setVisible(false);
+        setShowSuccessModal(true);
+        setSelectedListId('');
+      } else {
+        console.log(error);
+      }
     }
   }
 
@@ -75,7 +82,10 @@ const ListModal = ({ visible, setVisible, movieId }) => {
               </TouchableOpacity>
             </View>
 
-            <View style={styles.content}>
+            <ScrollView
+              style={styles.content}
+              showsVerticalScrollIndicator={false}
+            >
               {movieList.length === 0
                 ? <Text style={styles.noListText}>Você precisa criar uma lista primeiro.</Text>
                 : movieList.map(list => {
@@ -95,24 +105,17 @@ const ListModal = ({ visible, setVisible, movieId }) => {
                   );
                 })
               }
-              <TouchableOpacity
-                style={[styles.btnSave, {backgroundColor: selectedListId ? '#000' : '#C4C4C4'}]}
-                disabled={selectedListId ? false : true}
-                onPress={addMovie}
-              >
-                <Text style={[styles.txtSave, {color: selectedListId ? '#fff' : '#8E8E8E'}]}>Salvar</Text>
-              </TouchableOpacity>
-            </View>
+            </ScrollView>
+            <TouchableOpacity
+              style={[styles.btnSave, {backgroundColor: selectedListId ? '#000' : '#C4C4C4'}]}
+              disabled={selectedListId ? false : true}
+              onPress={addMovie}
+            >
+              <Text style={[styles.txtSave, {color: selectedListId ? '#fff' : '#8E8E8E'}]}>Salvar</Text>
+            </TouchableOpacity>
           </View>
         </View>
       </Modal>
-
-      <SucessModal
-        showSuccessModal={showSuccessModal}
-        setShowSuccessModal={setShowSuccessModal}
-        setShowListModal={setVisible}
-        setSelectedListId={setSelectedListId}
-      />
     </>
   );
 }

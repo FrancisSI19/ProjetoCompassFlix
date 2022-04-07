@@ -22,6 +22,13 @@ const styles = StyleSheet.create({
     borderWidth: 3,
     borderColor: '#000',
   },
+  exclamationIcon: {
+    paddingHorizontal: 9,
+    paddingVertical: 3,
+    borderRadius: 30,
+    borderWidth: 3,
+    borderColor: '#000',
+  },
   successTxt: {
     marginVertical: 24,
     fontWeight: 'bold',

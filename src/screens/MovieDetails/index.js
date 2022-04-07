@@ -12,6 +12,7 @@ import { fetchCredits, fetchDetails } from '../../services/api';
 import Loading from '../../components/Loading';
 import RatingModal from './RatingModal';
 import ListModal from './Components/ListModal';
+import InfoModal from './Components/InfoModal';
 
 const MovieDetails = ({ navigation, route }) => {
   const [credits, setCredits] = useState(null);
@@ -36,6 +37,8 @@ const MovieDetails = ({ navigation, route }) => {
   const [rating, setRating] = useState(0);
 
   const [showListModal, setShowListModal] = useState(false);
+  const [showSuccessModal, setShowSuccessModal] = useState(false);
+  const [listContainsMovie, setListContainsMovie] = useState(false);
 
   useEffect(() => {
     fetchDetails(movieId).then((data) => {
@@ -249,6 +252,14 @@ const MovieDetails = ({ navigation, route }) => {
               visible={showListModal}
               setVisible={setShowListModal}
               movieId={movieId}
+              setShowSuccessModal={setShowSuccessModal}
+              setListContainsMovie={setListContainsMovie}
+            />
+
+            <InfoModal
+              visible={showSuccessModal}
+              setVisible={setShowSuccessModal}
+              listContainsMovie={listContainsMovie}
             />
           </View>
 
