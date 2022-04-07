@@ -9,6 +9,7 @@ const styles = StyleSheet.create({
   },
   container: {
     width: '100%',
+    maxHeight: '50%',
     borderTopStartRadius: 15,
     borderTopEndRadius: 15,
     backgroundColor: '#fff',
@@ -40,7 +41,7 @@ const styles = StyleSheet.create({
   list: {
     flexDirection: 'row',
     alignItems: 'center',
-    marginBottom: 10,
+    marginBottom: 12,
   },
   radio: {
     borderWidth: 2,
