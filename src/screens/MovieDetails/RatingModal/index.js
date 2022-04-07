@@ -11,6 +11,15 @@ import { API_KEY } from '../../../constants/constants';
 const RatingModal = ({ visible, setModalVisible, movieId, setCurrentRating, setRated }) => {
   const [rating, setRating] = useState('');
   const [invalidRating, setInvalideRating] = useState(false);
+  const [disabled, setDisabled] = useState(false);
+
+  function buttonDisable() {
+    if (setInvalideRating === true) {
+      disabled = true
+    } else {
+      disabled = false;
+    }
+  }
 
   const ratingIsValid = (userRating) => {
     return (
@@ -49,6 +58,7 @@ const RatingModal = ({ visible, setModalVisible, movieId, setCurrentRating, setR
       }
     } else {
       setInvalideRating(true);
+
     }
   }
 
@@ -102,6 +112,7 @@ const RatingModal = ({ visible, setModalVisible, movieId, setCurrentRating, setR
             </TouchableOpacity>
 
             <TouchableOpacity
+              disabled={buttonDisable}
               style={styles.btnOk}
               onPress={() => {
                 rateMovie();
