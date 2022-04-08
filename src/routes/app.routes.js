@@ -30,7 +30,7 @@ export default function AppRoutes() {
         component={Tabs}
       />
 
-      
+
     </Stack.Navigator>
   );
 }
@@ -112,27 +112,34 @@ function HomeStack() {
         name="MovieDetails"
         component={MovieDetails}
       />
+
+
+      <Stack.Screen
+        name="TvShowDetails"
+        component={TvShowDetails}
+      />
+      
       <Stack.Screen
         name="FavoriteMovies"
         component={FavoriteMovies}
       />
-        <Stack.Screen 
+      <Stack.Screen
         name="FavoritesSeries"
         component={FavoriteSeries}
         TabBarcolor='#454545'
       />
-      <Stack.Screen 
+      <Stack.Screen
         name="RatedMovies"
         component={RatedMovies}
         TabBarcolor='#454545'
       />
 
-      <Stack.Screen 
+      <Stack.Screen
         name="SeriesRated"
         component={RatedSeries}
         TabBarcolor='#454545'
       />
-       
+
     </Stack.Navigator>
   )
 }
@@ -171,7 +178,7 @@ function ProfileStack() {
 
       <Stack.Screen
         name="MyMoviesList"
-        component= {MyMoviesList}
+        component={MyMoviesList}
       />
     </Stack.Navigator>
   )

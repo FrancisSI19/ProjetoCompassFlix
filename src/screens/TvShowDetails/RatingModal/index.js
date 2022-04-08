@@ -96,6 +96,7 @@ const RatingModal = ({ visible, setModalVisible, tvShowId, setCurrentRating, set
             </TouchableOpacity>
 
             <TouchableOpacity
+            
               style={styles.btnOk}
               onPress={() => {
                 rateMovie();

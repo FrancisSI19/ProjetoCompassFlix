@@ -9,7 +9,7 @@ import api from '../../../../services/api';
 
 import SucessModal from '../InfoModal';
 
-const ListModal = ({ visible, setVisible, movieId, setShowSuccessModal, setListContainsMovie }) => {
+function ListModal ({ visible, setVisible, movieId, setShowSuccessModal, setListContainsMovie }) {
   const [movieList, setMovieList] = useState([]);
   const [selectedListId, setSelectedListId] = useState('');
 

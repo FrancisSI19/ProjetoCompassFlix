@@ -269,7 +269,7 @@ const MovieDetails = ({ navigation, route }) => {
 
           <View style={styles.castTag}>
             <Text style={styles.castText}>Elenco</Text>
-            <View style={styles.castBorder} />
+            {/* <View style={styles.castBorder} /> */}
           </View>
 
           {
