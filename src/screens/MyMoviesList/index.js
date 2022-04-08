@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import { ScrollView } from 'react-native';
 import AntDesing from "react-native-vector-icons/AntDesign";
 import Ionicons from 'react-native-vector-icons/Ionicons';
@@ -7,16 +7,18 @@ import { useNavigation } from '@react-navigation/native';
 import CreateListModal from './CreateListModal';
 
 
+
 function MyMoviesList () {
 
   const navigation = useNavigation();
-  function clickHandler () {
-    alert('Cliquei no botão');
-  };
+ 
+  const [modalVisible, setModalVisible] = useState(false);
+
 
   return (
-
+   
     <Container>
+       
       <IconBack
         onPress={() => navigation.navigate('Profile')}
       >
@@ -24,20 +26,34 @@ function MyMoviesList () {
       </IconBack>
       <ScrollView>
         <Container>
-
-          <Title>
+        <Title>
             Minhas Listas
           </Title>
+
+     
         </Container>
       </ScrollView>
+      <CreateListModal
+        visible={modalVisible}
+        setModalVisible={setModalVisible} 
+        />
+
+      
       <ButtonAdd
-        onPress={clickHandler}
+        onPress={() => setModalVisible(true)}
       >
+      
         <AntDesing name="pluscircle" size={50} color="#E9A6A6" />
-        <CreateListModal/>
+
       </ButtonAdd>
+
+     
+
     </Container>
+
+
   );
+ 
 };
 
 

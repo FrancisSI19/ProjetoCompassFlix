@@ -11,6 +11,7 @@ import { API_KEY } from '../../../constants/constants';
 const RatingModal = ({ visible, setModalVisible, movieId, setCurrentRating, setRated }) => {
   const [rating, setRating] = useState('');
   const [invalidRating, setInvalideRating] = useState(false);
+  const [disabled, setDisabled] = useState(false);
 
   const ratingIsValid = (userRating) => {
     return (
@@ -19,6 +20,16 @@ const RatingModal = ({ visible, setModalVisible, movieId, setCurrentRating, setR
         ? true
         : false
     );
+  }
+
+  const handleChange = (value) => {
+    if (setRating(value.replace(/[^0-9.]/g, '')) || rating) {
+      setDisabled(false)
+      console.log("Caiu no if");
+    } else {
+      setDisabled(true);
+      console.log("Caiu no else");
+    }
   }
 
   const rateMovie = async () => {
@@ -75,7 +86,7 @@ const RatingModal = ({ visible, setModalVisible, movieId, setCurrentRating, setR
                 style={styles.input}
                 keyboardType='numeric'
                 maxLength={3}
-                onChangeText={value => setRating(value.replace(/[^0-9.]/g, ''))}
+                onChangeText={handleChange}
                 value={rating}
               />
             </View>
@@ -102,6 +113,7 @@ const RatingModal = ({ visible, setModalVisible, movieId, setCurrentRating, setR
             </TouchableOpacity>
 
             <TouchableOpacity
+              disabled={disabled}
               style={styles.btnOk}
               onPress={() => {
                 rateMovie();

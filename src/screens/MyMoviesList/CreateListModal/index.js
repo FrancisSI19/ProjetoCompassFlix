@@ -5,9 +5,9 @@ import styles from './styles';
 import api from '../../../services/api';
 import { API_KEY } from '../../../constants/constants';
 
-function CreateListModal () {
+function CreateListModal ({visible, setModalVisible}) {
     const [text, onChangeText] = useState('');
-    const [visible, setModalVisible] = useState();
+   
     
     return (
         <Modal
@@ -24,18 +24,17 @@ function CreateListModal () {
 
                             <TextInput
                                 style={styles.input}
-                                keyboardType='text'
                                 maxLength={10}
                                 onChangeText={onChangeText}
                                 value={text}
+                      
                             />
 
                             <TextInput
                                 style={styles.input}
-                                keyboardType='text'
                                 maxLength={50}
-                                onChangeText={onChangeText}
-                                value={text}
+                                type={text}
+                            
                             />
                         </View>
 
