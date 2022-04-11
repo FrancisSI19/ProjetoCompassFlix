@@ -56,11 +56,15 @@ const RatingModal = ({ visible, setModalVisible, movieId, setCurrentRating, setR
   }
 
   const handleChange = (value) => {
-    if (setRating(value.replace(/[^0-9.]/g, '')) || rating) {
-      setDisabled(true)
+    const teste = (value.replace(/[^0-9.]/g, ''))
+    setRating(teste)
+    if (ratingIsValid(teste)) {
+      setInvalideRating(false)
+      setDisabled(false)
       console.log("Caiu no if");
     } else {
-      setDisabled(false);
+      setInvalideRating(true)
+      setDisabled(true);
       console.log("Caiu no else");
     }
   }
