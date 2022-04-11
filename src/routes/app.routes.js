@@ -13,6 +13,7 @@ import FavoriteSeries from '../components/FavoritesSeries';
 import RatedSeries from '../components/ListRatedSeries'
 import TvShowDetails from '../screens/TvShowDetails';
 import MyMoviesList from '../screens/MyMoviesList';
+import MyMovies from '../screens/MyMovies';
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -118,7 +119,7 @@ function HomeStack() {
         name="TvShowDetails"
         component={TvShowDetails}
       />
-      
+
       <Stack.Screen
         name="FavoriteMovies"
         component={FavoriteMovies}
@@ -179,6 +180,11 @@ function ProfileStack() {
       <Stack.Screen
         name="MyMoviesList"
         component={MyMoviesList}
+      />
+
+      <Stack.Screen
+        name="MyMovies"
+        component= {MyMovies}
       />
     </Stack.Navigator>
   )
