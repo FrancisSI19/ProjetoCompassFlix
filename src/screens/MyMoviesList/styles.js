@@ -71,9 +71,9 @@ border-radius: 5px;
 
 
 export const ContainerDel = styled.TouchableOpacity`
-width: 28px;
+width: 27px;
 height: 79px
-top: -49px;
+top: -43px;
 margin-Top: 10px;
 left: 300px;
 background: #E9A6A6;

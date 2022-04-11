@@ -14,6 +14,9 @@ function MyMoviesList() {
   const navigation = useNavigation();
   const [modalVisible, setModalVisible] = useState(false);
   const [movieList, setMovieList] = useState([]);
+  const [listName, setListName] = useState('')
+  const [listDescription, setListDescription] = useState('')
+
 
   const getCreatedLists = async () => {
     try {
@@ -40,6 +43,25 @@ function MyMoviesList() {
 
     }
   }
+  const createList = async () => {
+    try {
+      const sessionId = await AsyncStorage.getItem('sessionId');
+      console.log('id:',sessionId)
+
+      const queryString = `list?api_key=${API_KEY}&session_id=${sessionId}`
+      const {data} = await api.post(queryString,
+        {
+          name: listName,
+          description: listDescription,
+          language: "pt"
+        }
+      );
+      console.log(data)
+    } catch (error) {
+      console.log('createList:',error)
+      
+    }
+  }
 
   useEffect(() => {
     getCreatedLists();
@@ -54,13 +76,13 @@ function MyMoviesList() {
       {movieList.map(list => {
         return (
           <ContainerList
-
+              onPress={navigation.navigate('MyMovies', {listId : list.id})}
             key={list.id}>
             <Text style={{ color: 'white' }}>{list.name}
             </Text>
-            <Text style={{ color: '#fff', fontFamily: 'Open Sans', fontweight: 400, fontsize: 10, }} > {list.item_count} FILMES</Text>
+            <Text style={{ color: '#fff', fontFamily:'Open Sans', fontWeight: '400', fontSize: 10, }} > {list.item_count} FILMES</Text>
             <ContainerDel onPress={() => deleteList(list.id)} title='delete' />
-            <Image style={{ top: -90, left: 308, color: 'red' }}
+            <Image style={{ top: -90, left: 308, }}
               source={require('../../assets/img/Vector.png')}
             />
           </ContainerList>
@@ -70,9 +92,15 @@ function MyMoviesList() {
       <IconBack onPress={() => navigation.navigate('Profile')}>
         <Ionicons name="arrow-back" size={26} color="#000" />
       </IconBack>
+
       <CreateListModal
         visible={modalVisible}
         setModalVisible={setModalVisible}
+        setName={setListName}
+        name={listName}
+        description={listDescription}
+        setDescription={setListDescription}
+        createList={createList}
       />
 
 
@@ -83,11 +111,10 @@ function MyMoviesList() {
         <AntDesing name="pluscircle" size={50} color="#E9A6A6" />
 
       </ButtonAdd>
-
     </Container>
+
 
   );
 }
 
 export default MyMoviesList;
-
