@@ -10,9 +10,10 @@ import api from '../../services/api';
 import styles from './styles';
 import Poster from '../../components/Poster';
 import ModalRemove from '../../components/ModalRemove';
+import Switch from '../../components/Switch';
 
 const MyMovies = ({ navigation }) => {
-  const [viewMode, setViewMode] = useState(true);
+  const [isEnable, setIsEnable] = useState(false);
   const [movies, setMovies] = useState([]);
 
   const [visible, setVisible] = useState(false);
@@ -24,33 +25,10 @@ const MyMovies = ({ navigation }) => {
       const queryString = `https://api.themoviedb.org/3/list/${listId}?api_key=${API_KEY}&language=pt-BR`;
 
       const { data } = await api.get(queryString);
-      console.log(data.items);
       setMovies(data.items);
     } catch (error) {
       console.log(error);
     }
-  }
-
-  const renderMovieList = ({ item }) => {
-    return (
-      <>
-        {viewMode
-          ? (<TouchableOpacity>
-              <Poster posterPath={item.poster_path} />
-            </TouchableOpacity>)
-          : (<View>
-              <Poster posterPath={item.poster_path} />
-              <TouchableOpacity style={styles.btnRemove}
-                onPress={() => {
-                  setMovieToRemove(item.id)
-                  setVisible(true);
-                }}
-              >
-                <Entypo name='minus' size={12} color='#EC2626' />
-              </TouchableOpacity>
-            </View>)}
-      </>
-    );
   }
 
   const removeMovie = async (movieId) => {
@@ -63,6 +41,28 @@ const MyMovies = ({ navigation }) => {
     } catch (error) {
       console.log(error);
     }
+  }
+
+  const renderMovieList = ({ item }) => {
+    return (
+      <>
+        {isEnable
+          ? (<View>
+              <Poster posterPath={item.poster_path} />
+              <TouchableOpacity style={styles.btnRemove}
+                onPress={() => {
+                  setMovieToRemove(item.id)
+                  setVisible(true);
+                }}
+              >
+                <Entypo name='minus' size={12} color='#EC2626' />
+              </TouchableOpacity>
+            </View>)
+          : (<TouchableOpacity onPress={() => navigation.navigate('MovieDetails', {movieId: item.id, requestScreen: 'MyMovies'})}>
+              <Poster posterPath={item.poster_path} />
+            </TouchableOpacity>)}
+      </>
+    );
   }
 
   useEffect(() => {
@@ -78,11 +78,7 @@ const MyMovies = ({ navigation }) => {
           <Ionicons name='arrow-back' size={22} color='#000' />
         </TouchableOpacity>
 
-        <TouchableOpacity
-          onPress={() => setViewMode(!viewMode)}
-        >
-          <Text style={{ color: '#fff' }}>Switch</Text>
-        </TouchableOpacity>
+        <Switch isEnable={isEnable} setIsEnable={setIsEnable} />
       </View>
 
       <View style={styles.title}>

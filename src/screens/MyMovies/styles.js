@@ -7,6 +7,7 @@ const styles = StyleSheet.create({
   },
   btnsContainer: {
     flexDirection: 'row',
+
     justifyContent: 'space-between',
     margin: 20,
   },
