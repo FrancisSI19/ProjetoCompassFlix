@@ -5,10 +5,10 @@ import styles from './styles';
 import api from '../../../services/api';
 import { API_KEY } from '../../../constants/constants';
 
-function CreateListModal ({visible, setModalVisible}) {
-    const [text, onChangeText] = useState('');
-   
-    
+function CreateListModal ({visible, setModalVisible, setName, setDescription, name, description, createList}) {
+    const [listName, setListName] = useState('');
+    const [listDescription, setListDescription] = useState('');
+
     return (
         <Modal
             transparent
@@ -24,17 +24,18 @@ function CreateListModal ({visible, setModalVisible}) {
 
                             <TextInput
                                 style={styles.input}
-                                maxLength={10}
-                                onChangeText={onChangeText}
-                                value={text}
-                      
+                                maxLength={30}
+                                placeholder= 'Nome da lista'
+                                onChangeText={value => setName(value)}
+                                value={name}   
                             />
 
                             <TextInput
-                                style={styles.input}
+                                style={styles.input2}
+                                placeholder = 'Descrição'
                                 maxLength={50}
-                                type={text}
-                            
+                                onChangeText={value => setDescription(value)}
+                                value= {description}
                             />
                         </View>
 
@@ -47,7 +48,8 @@ function CreateListModal ({visible, setModalVisible}) {
                             style={styles.btnCancel}
                             onPress={() => {
                                 setModalVisible(false);
-                                
+                                setDescription('');
+                                setName('');
                             }}
                         >
                             <Text style={styles.textCancel}>
@@ -58,8 +60,12 @@ function CreateListModal ({visible, setModalVisible}) {
                         <TouchableOpacity
                             style={styles.btnOk}
                             onPress={() => {
-                                text();
+                                setModalVisible(false);
+                                createList();
+                                setDescription('');
+                                setName('');
                             }}
+
                         >
                             <Text style={styles.textOk}>
                                 SALVAR
