@@ -1,9 +1,10 @@
 import React from 'react';
-import { Modal, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { Modal, Text, TouchableOpacity, View } from 'react-native';
 
 import styles from './styles';
 
 const ModalRemove = ({ visible, setVisible, description, removeItem, itemToRemove }) => {
+  console.log(itemToRemove);
   return (
     <Modal
       transparent
