@@ -10,7 +10,7 @@ import { API_KEY } from '../../../constants/constants';
 
 const RatingModal = ({ visible, setModalVisible, movieId, setCurrentRating, setRated }) => {
   const [rating, setRating] = useState('');
-  const [invalidRating, setInvalideRating] = useState(false);
+  const [invalidRating, setInvalidRating] = useState(false);
   const [disabled, setDisabled] = useState(false);
 
   const ratingIsValid = (userRating) => {
@@ -28,7 +28,7 @@ const RatingModal = ({ visible, setModalVisible, movieId, setCurrentRating, setR
     const userRating = rating;
 
     if (ratingIsValid(userRating)) {
-      setInvalideRating(false);
+      setInvalidRating(false);
       try {
         const sessionId = await AsyncStorage.getItem('sessionId');
         const queryString = `movie/${movieId}/rating?api_key=${API_KEY}&session_id=${sessionId}`;
@@ -51,21 +51,21 @@ const RatingModal = ({ visible, setModalVisible, movieId, setCurrentRating, setR
         console.log(error);
       }
     } else {
-      setInvalideRating(true);
+      setInvalidRating(true);
     }
   }
 
   const handleChange = (value) => {
-    const teste = (value.replace(/[^0-9.]/g, ''))
-    setRating(teste)
-    if (ratingIsValid(teste)) {
-      setInvalideRating(false)
+    const disableRating = (value.replace(/[^0-9.]/g, ''))
+    setRating(disableRating)
+    if (ratingIsValid(disableRating)) {
+      setInvalidRating(false)
       setDisabled(false)
-      console.log("Caiu no if");
+     
     } else {
-      setInvalideRating(true)
+      setInvalidRating(true)
       setDisabled(true);
-      console.log("Caiu no else");
+     
     }
   }
   return (
@@ -107,7 +107,7 @@ const RatingModal = ({ visible, setModalVisible, movieId, setCurrentRating, setR
             <TouchableOpacity
               style={styles.btnCancel}
               onPress={() => {
-                setInvalideRating(false);
+                setInvalidRating(false);
                 setModalVisible(false);
                 setRating('');
               }}

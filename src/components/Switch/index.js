@@ -5,7 +5,7 @@ import FontAwesome from 'react-native-vector-icons/FontAwesome';
 
 import styles from './styles';
 
-const Switch = ({ isEnable, setIsEnable }) => {
+const Switch = ({ isEnable, setIsEnable }) =>{
   const [position, setPosition] = useState(new Animated.Value(0));
 
   const animate = () => {
