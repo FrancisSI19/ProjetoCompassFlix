@@ -113,7 +113,7 @@ const TvShowDetails = ({ navigation, route }) => {
 
         <TouchableOpacity
           style={styles.btnBack}
-          onPress={() => navigation.navigate(requestScreen)}
+          onPress={() => navigation.goBack()}
         >
           <Ionicons name='arrow-back' size={26} color='#000' />
         </TouchableOpacity>

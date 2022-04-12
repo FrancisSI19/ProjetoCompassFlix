@@ -34,7 +34,7 @@ export default function TVShowsList() {
         </View>
       )
     }
-    
+
   return (
     <FlatList
       data={tvshows}
@@ -50,7 +50,7 @@ export default function TVShowsList() {
   function renderItem({ item }) {
     return (
       <Container>
-        <TouchableOpacity onPress={() => navigation.navigate('', { tvshowId: item.id })}>
+        <TouchableOpacity onPress={() => navigation.navigate('TvShowDetails', { tvShowId: item.id })}>
           <Image source={{ uri: `https://image.tmdb.org/t/p/w780${item.poster_path}` }} />
         </TouchableOpacity>
         <ContainerVote>
