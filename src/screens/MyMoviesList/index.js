@@ -59,7 +59,7 @@ function MyMoviesList() {
       console.log(data)
     } catch (error) {
       console.log('createList:',error)
-      
+
     }
   }
 
@@ -76,7 +76,7 @@ function MyMoviesList() {
       {movieList.map(list => {
         return (
           <ContainerList
-              onPress={navigation.navigate('MyMovies', {listId : list.id})}
+              onPress={() => navigation.navigate('MyMovies', {listId : list.id})}
             key={list.id}>
             <Text style={{ color: 'white' }}>{list.name}
             </Text>
