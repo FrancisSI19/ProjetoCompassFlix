@@ -10,9 +10,14 @@ import api from '../../services/api';
 import styles from './styles';
 import Poster from '../../components/Poster';
 import ModalRemove from '../../components/ModalRemove';
+import Switch from '../../components/Switch';
 
-const MyMovies = ({ navigation }) => {
-  const [viewMode, setViewMode] = useState(true);
+const MyMovies = ({ navigation, route }) => {
+  const {listId} = route.params;
+  const [listName, setListName] = useState('');
+  const [listDescription, setListDescription] = useState('');
+
+  const [isEnable, setIsEnable] = useState(false);
   const [movies, setMovies] = useState([]);
 
   const [visible, setVisible] = useState(false);
@@ -20,12 +25,24 @@ const MyMovies = ({ navigation }) => {
 
   const getListDetails = async () => {
     try {
-      const listId = '8197678';
       const queryString = `https://api.themoviedb.org/3/list/${listId}?api_key=${API_KEY}&language=pt-BR`;
 
       const { data } = await api.get(queryString);
-      console.log(data.items);
+      setListName(data.name);
+      setListDescription(data.description);
       setMovies(data.items);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  const removeMovie = async (movieId) => {
+    try {
+      const sessionId = await AsyncStorage.getItem('sessionId');
+      const queryString = `list/${listId}/remove_item?api_key=${API_KEY}&session_id=${sessionId}`;
+
+      const { data } = await api.post(queryString, { media_id: movieId });
+      console.log(data);
     } catch (error) {
       console.log(error);
     }
@@ -34,11 +51,8 @@ const MyMovies = ({ navigation }) => {
   const renderMovieList = ({ item }) => {
     return (
       <>
-        {viewMode
-          ? (<TouchableOpacity>
-              <Poster posterPath={item.poster_path} />
-            </TouchableOpacity>)
-          : (<View>
+        {isEnable
+          ? (<View>
               <Poster posterPath={item.poster_path} />
               <TouchableOpacity style={styles.btnRemove}
                 onPress={() => {
@@ -48,21 +62,12 @@ const MyMovies = ({ navigation }) => {
               >
                 <Entypo name='minus' size={12} color='#EC2626' />
               </TouchableOpacity>
-            </View>)}
+            </View>)
+          : (<TouchableOpacity onPress={() => navigation.navigate('MovieDetails', {movieId: item.id, requestScreen: 'MyMovies'})}>
+              <Poster posterPath={item.poster_path} />
+            </TouchableOpacity>)}
       </>
     );
-  }
-
-  const removeMovie = async (movieId) => {
-    try {
-      const sessionId = await AsyncStorage.getItem('sessionId');
-      const queryString = `list/8197678/remove_item?api_key=${API_KEY}&session_id=${sessionId}`;
-
-      const { data } = await api.post(queryString, { media_id: movieId });
-      console.log(data);
-    } catch (error) {
-      console.log(error);
-    }
   }
 
   useEffect(() => {
@@ -74,23 +79,20 @@ const MyMovies = ({ navigation }) => {
       <View style={styles.btnsContainer}>
         <TouchableOpacity
           style={styles.goBackBtn}
+          onPress={() => navigation.goBack()}
         >
           <Ionicons name='arrow-back' size={22} color='#000' />
         </TouchableOpacity>
 
-        <TouchableOpacity
-          onPress={() => setViewMode(!viewMode)}
-        >
-          <Text style={{ color: '#fff' }}>Switch</Text>
-        </TouchableOpacity>
+        <Switch isEnable={isEnable} setIsEnable={setIsEnable} />
       </View>
 
       <View style={styles.title}>
-        <Text style={styles.titleTxt}>Filmes que mudaram a minha vida</Text>
+        <Text style={styles.titleTxt}>{listName}</Text>
       </View>
 
       <Text style={styles.description}>
-        Essa é uma lista de filmes que vai mudar a sua vida e gerar reflexão sobre diversos temas. Aproveite para unir o útil ao agradável e usar seu tempo livre para conhecer histórias inspiradoras.
+        {listDescription}
       </Text>
 
       <FlatList

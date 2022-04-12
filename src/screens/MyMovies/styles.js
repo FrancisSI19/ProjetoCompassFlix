@@ -7,6 +7,7 @@ const styles = StyleSheet.create({
   },
   btnsContainer: {
     flexDirection: 'row',
+
     justifyContent: 'space-between',
     margin: 20,
   },
@@ -31,7 +32,7 @@ const styles = StyleSheet.create({
     color: '#E9A6A6',
   },
   description: {
-    marginHorizontal: 10,
+    alignSelf: 'center',
     marginTop: 30,
     fontFamily: 'OpenSans-Regular',
     fontSize: 11,
