@@ -27,22 +27,21 @@ function CreateListModal ({visible, setModalVisible, setName, setDescription, na
                                 maxLength={30}
                                 placeholder= 'Nome da lista'
                                 onChangeText={value => setName(value)}
-                                value={name}   
+                                value={name}
                             />
 
                             <TextInput
                                 style={styles.input2}
                                 placeholder = 'Descrição'
-                                maxLength={50}
                                 onChangeText={value => setDescription(value)}
                                 value= {description}
                             />
                         </View>
 
-                       
+
                     </View>
 
-                    
+
                     <View>
                         <TouchableOpacity
                             style={styles.btnCancel}
