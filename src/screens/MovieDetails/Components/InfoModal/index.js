@@ -1,10 +1,9 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Modal, Text, TouchableOpacity, View } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome5';
-import styles from '../ListModal/styles';
+import styles from './styles';
 
 function SucessModal ({ visible, setVisible, listContainsMovie }) {
-
   return (
     <Modal
       transparent
