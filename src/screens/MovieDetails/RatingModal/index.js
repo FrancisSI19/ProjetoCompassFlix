@@ -11,6 +11,7 @@ import { API_KEY } from '../../../constants/constants';
 
 const RatingModal = ({ visible, setModalVisible, movieId, setCurrentRating, setRated }) => {
   const dispatch = useDispatch();
+
   const [rating, setRating] = useState('');
   const [invalidRating, setInvalidRating] = useState(false);
   const [disabled, setDisabled] = useState(false);
@@ -39,7 +40,7 @@ const RatingModal = ({ visible, setModalVisible, movieId, setCurrentRating, setR
             value: userRating
           });
 
-          console.log(data);
+          // console.log(data);
           setRated(true);
           setCurrentRating(rating);
           setModalVisible(false);

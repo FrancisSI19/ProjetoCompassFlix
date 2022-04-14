@@ -10,11 +10,11 @@ import { useSelector } from 'react-redux';
 
 function MoviesFavorites() {
 
-    const favoriteSize = useSelector(state => state.favorite.push() )
-    console.log(favoriteSize)
+    const favoriteSize = useSelector(state => state.favorite )
+
     const navigation = useNavigation()
 
-    const [favoriteMovies, setFavoriteMovies] = useState([...favoriteSize]);
+    const [favoriteMovies, setFavoriteMovies] = useState([]);
 
     const getFavoriteMovies = async () => {
         try {
@@ -33,10 +33,9 @@ function MoviesFavorites() {
 
     }
     useEffect(() => {
+      navigation.addListener('focus', () => getFavoriteMovies())
+    }, [navigation])
 
-        getFavoriteMovies()
-
-    }, [])
     return <>
         <FlatList
             data={favoriteMovies}

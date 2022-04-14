@@ -10,8 +10,7 @@ import {
 } from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-
-import { useSelector } from 'react-redux';
+import {useSelector} from 'react-redux';
 
 import styles from './styles';
 import Loading from '../../components/Loading';
@@ -20,7 +19,9 @@ import api from '../../services/api';
 
 
 const Profile = ({navigation}) => {
-  const ratingSize = useSelector(state => state.rating.length )
+
+  const ratingSize = useSelector(state => state.rating.length);
+  const favoriteSize = useSelector(state => state.favorite.push());
 
   const [ratingLoading, setRatingLoading] = useState(true);
   const [favoritesLoading, setFavoritesLoading] = useState(true);
@@ -32,13 +33,14 @@ const Profile = ({navigation}) => {
 
   const [showMovieList, setShowMovieList] = useState(true);
 
-  const [favoriteMovies, setFavoriteMovies] = useState([]);
   const [ratedMovies, setRatedMovies] = useState([]);
-  const [movieRatingCount, setMovieRatingCount] = useState([]);
+  const [ratedTvShows, setRatedTvShows] = useState([]);
+
+  const [movieRatingCount, setMovieRatingCount] = useState();
+  const [tvShowsRatingCount, setTvShowsRatingCount] = useState([]);
 
   const [favoriteTvShows, setFavoriteTvShows] = useState([]);
-  const [ratedTvShows, setRatedTvShows] = useState([]);
-  const [tvShowsRatingCount, setTvShowsRatingCount] = useState([]);
+  const [favoriteMovies, setFavoriteMovies] = useState([]);
 
   const getUserData = async () => {
     try {
@@ -126,6 +128,7 @@ const Profile = ({navigation}) => {
 
       setRatedTvShows(data.results);
       setTvShowsRatingCount(data.total_results);
+
     } catch (error) {
       console.log(error);
     }
@@ -134,14 +137,17 @@ const Profile = ({navigation}) => {
   };
 
   useEffect(() => {
-    getUserData();
+    navigation.addListener('focus', () => {
+      getUserData();
 
-    getFavoriteMovies();
-    getRatedMovies();
+      getFavoriteMovies();
+      getRatedMovies();
 
-    getFavoriteTvShows();
-    getRatedTvShows();
-  }, []);
+      getFavoriteTvShows();
+      getRatedTvShows();
+    })
+  }, [navigation]);
+
 
   return (
     <View style={styles.root}>
@@ -176,8 +182,9 @@ const Profile = ({navigation}) => {
                   color: '#9C4A8B',
                   fontSize: 24,
                   fontFamily: 'OpenSans-Bold',
+
                 }}>
-                {  ratingSize/* {showMovieList ? movieRatingCount : tvShowsRatingCount} */}
+                {showMovieList ? movieRatingCount : tvShowsRatingCount}
               </Text>
               <Text
                 style={{
@@ -185,7 +192,7 @@ const Profile = ({navigation}) => {
                   fontSize: 12,
                   fontFamily: 'OpenSans-Regular',
                 }}>
-              {} Avaliações
+               Avaliações
               </Text>
             </>
           )}
@@ -305,6 +312,7 @@ const Profile = ({navigation}) => {
                       }}
                     />
                   </TouchableOpacity>
+
                 );
               }
             })

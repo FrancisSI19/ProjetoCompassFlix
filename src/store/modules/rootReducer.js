@@ -5,5 +5,5 @@ import rating from "./rating/reducer";
 
 export default combineReducers({
   favorite,
-  rating
+  rating,
 });
