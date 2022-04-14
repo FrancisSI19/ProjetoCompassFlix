@@ -80,7 +80,7 @@ function MyMoviesList() {
             key={list.id}>
             <Text style={{ color: 'white' }}>{list.name}
             </Text>
-            <Text style={{ color: '#fff', fontFamily:'Open Sans', fontWeight: '400', fontSize: 10, }} > {list.item_count} FILMES</Text>
+            <Text style={{ color: '#fff', fontFamily:'Open Sans', fontWeight: '400', fontSize: 10, top:40 }} > {list.item_count} FILMES</Text>
             <ContainerDel onPress={() => deleteList(list.id)} title='delete' />
             <Image style={{ top: -90, left: 308, }}
               source={require('../../assets/img/Vector.png')}

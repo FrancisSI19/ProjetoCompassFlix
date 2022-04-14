@@ -10,7 +10,7 @@ import api from '../../services/api';
 import styles from './styles';
 import Poster from '../../components/Poster';
 import ModalRemove from '../../components/ModalRemove';
-import Switch from '../../components/Switch';
+import Switch from '../../components/Switch'
 
 const MyMovies = ({ navigation, route }) => {
   const {listId} = route.params;
