@@ -5,7 +5,7 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import RatedMovieList from '../../screens/MoviesRate';
 import { useNavigation } from '@react-navigation/native';
 
-//{ route: {params} , navigation } inserir na função da tela do usuário quando tiver a tela do retorno.
+
 function RatedMovies() {
   const navigation = useNavigation();
   const [name, setName] = useState('');

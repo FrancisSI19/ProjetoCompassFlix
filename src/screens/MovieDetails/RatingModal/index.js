@@ -22,8 +22,6 @@ const RatingModal = ({ visible, setModalVisible, movieId, setCurrentRating, setR
     );
   }
 
-  
-
   const rateMovie = async () => {
     const userRating = rating;
 
@@ -32,7 +30,7 @@ const RatingModal = ({ visible, setModalVisible, movieId, setCurrentRating, setR
       try {
         const sessionId = await AsyncStorage.getItem('sessionId');
         const queryString = `movie/${movieId}/rating?api_key=${API_KEY}&session_id=${sessionId}`;
-        // console.log(queryString);
+        
 
         try {
           const { data } = await api.post(queryString, {

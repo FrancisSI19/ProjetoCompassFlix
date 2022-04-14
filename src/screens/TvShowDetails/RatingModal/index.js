@@ -10,7 +10,8 @@ import api from '../../../services/api';
 
 const RatingModal = ({ visible, setModalVisible, tvShowId, setCurrentRating, setRated }) => {
   const [rating, setRating] = useState('');
-  const [invalidRating, setInvalideRating] = useState(false);
+  const [invalidRating, setInvalidRating] = useState(false);
+  const [disabled, setDisabled] = useState(false);
 
   const ratingIsValid = (userRating) => {
     return (
@@ -25,7 +26,7 @@ const RatingModal = ({ visible, setModalVisible, tvShowId, setCurrentRating, set
     const userRating = rating;
 
     if (ratingIsValid(userRating)) {
-      setInvalideRating(false);
+      setInvalidRating(false);
 
       try {
         const sessionId = await AsyncStorage.getItem('sessionId');
@@ -42,10 +43,22 @@ const RatingModal = ({ visible, setModalVisible, tvShowId, setCurrentRating, set
         console.log(error);
       }
     } else {
-      setInvalideRating(true);
+      setInvalidRating(true);
     }
   }
-
+  const handleChange = (value) => {
+    const disableRating = (value.replace(/[^0-9.]/g, ''))
+    setRating(disableRating)
+    if (ratingIsValid(disableRating)) {
+      setInvalidRating(false)
+      setDisabled(false)
+     
+    } else {
+      setInvalidRating(true)
+      setDisabled(true);
+     
+    }
+  }
   return (
     <Modal
       transparent
@@ -69,7 +82,7 @@ const RatingModal = ({ visible, setModalVisible, tvShowId, setCurrentRating, set
                 style={styles.input}
                 keyboardType='numeric'
                 maxLength={3}
-                onChangeText={value => setRating(value.replace(/[^0-9.]/g, ''))}
+                onChangeText={handleChange}
                 value={rating}
               />
             </View>
@@ -85,7 +98,7 @@ const RatingModal = ({ visible, setModalVisible, tvShowId, setCurrentRating, set
             <TouchableOpacity
               style={styles.btnCancel}
               onPress={() => {
-                setInvalideRating(false);
+                setInvalidRating(false);
                 setModalVisible(false);
                 setRating('');
               }}
@@ -96,7 +109,7 @@ const RatingModal = ({ visible, setModalVisible, tvShowId, setCurrentRating, set
             </TouchableOpacity>
 
             <TouchableOpacity
-            
+              disabled={disabled}
               style={styles.btnOk}
               onPress={() => {
                 rateMovie();
