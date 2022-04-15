@@ -19,7 +19,6 @@ import api from '../../services/api';
 
 
 const Profile = ({navigation}) => {
-
   const ratingSize = useSelector(state => state.rating.length);
   const favoriteSize = useSelector(state => state.favorite.push());
 
@@ -147,7 +146,6 @@ const Profile = ({navigation}) => {
       getRatedTvShows();
     })
   }, [navigation]);
-
 
   return (
     <View style={styles.root}>
