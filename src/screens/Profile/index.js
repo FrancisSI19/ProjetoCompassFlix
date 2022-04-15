@@ -10,6 +10,9 @@ import {
 } from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+
+import { useSelector } from 'react-redux';
+
 import styles from './styles';
 import Loading from '../../components/Loading';
 import {API_KEY} from '../../constants/constants';
@@ -17,6 +20,8 @@ import api from '../../services/api';
 
 
 const Profile = ({navigation}) => {
+  const ratingSize = useSelector(state => state.rating.length )
+
   const [ratingLoading, setRatingLoading] = useState(true);
   const [favoritesLoading, setFavoritesLoading] = useState(true);
   const [ratedsLoading, setRatedsLoading] = useState(true);
@@ -29,7 +34,7 @@ const Profile = ({navigation}) => {
 
   const [favoriteMovies, setFavoriteMovies] = useState([]);
   const [ratedMovies, setRatedMovies] = useState([]);
-  const [movieRatingCount, setMovieRatingCount] = useState('');
+  const [movieRatingCount, setMovieRatingCount] = useState([]);
 
   const [favoriteTvShows, setFavoriteTvShows] = useState([]);
   const [ratedTvShows, setRatedTvShows] = useState([]);
@@ -172,7 +177,7 @@ const Profile = ({navigation}) => {
                   fontSize: 24,
                   fontFamily: 'OpenSans-Bold',
                 }}>
-                {showMovieList ? movieRatingCount : tvShowsRatingCount}
+                {  ratingSize/* {showMovieList ? movieRatingCount : tvShowsRatingCount} */}
               </Text>
               <Text
                 style={{
@@ -180,7 +185,7 @@ const Profile = ({navigation}) => {
                   fontSize: 12,
                   fontFamily: 'OpenSans-Regular',
                 }}>
-                Avaliações
+              {} Avaliações
               </Text>
             </>
           )}

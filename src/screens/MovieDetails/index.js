@@ -4,6 +4,7 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import EvilIcons from 'react-native-vector-icons/EvilIcons';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { useDispatch } from 'react-redux';
 
 import styles from './styles';
 import { API_KEY } from '../../constants/constants';
@@ -15,6 +16,8 @@ import ListModal from './Components/ListModal';
 import InfoModal from './Components/InfoModal';
 
 const MovieDetails = ({ navigation, route }) => {
+  const dispatch = useDispatch();
+
   const [credits, setCredits] = useState(null);
   const [loading, setLoading] = useState(true);
   const [director, setDirector] = useState('');
@@ -133,6 +136,14 @@ const MovieDetails = ({ navigation, route }) => {
     setLoading(false);
   }
 
+  // redux
+  function handleAdd(favorite){
+    dispatch({
+      type: 'ADD_FAVORITE',
+      favorite,
+    });
+  }
+
   return loading ? <Loading size={60} /> : (
     <View style={styles.root}>
       <ScrollView>
@@ -150,7 +161,10 @@ const MovieDetails = ({ navigation, route }) => {
 
         <TouchableOpacity
           style={styles.btnFavorite}
-          onPress={markMovieAsFavorite}
+          onPress={() => {
+            handleAdd(favorite);
+            markMovieAsFavorite();
+          }}
         >
           {
             favorite
@@ -158,7 +172,6 @@ const MovieDetails = ({ navigation, route }) => {
               : <MaterialIcons name='star-border' size={26} color='#000' />
           }
         </TouchableOpacity>
-
         <View style={styles.mainSection}>
           <View style={styles.posterEnvelope}>
             <Image
