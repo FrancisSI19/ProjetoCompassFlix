@@ -5,10 +5,10 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import EvilIcons from 'react-native-vector-icons/EvilIcons';
 
 import styles from './styles';
-import { API_KEY } from '../../../constants/constants';
-import api from '../../../services/api';
+import { API_KEY } from '../../constants/constants';
+import api from '../../services/api';
 
-const RatingModal = ({ visible, setModalVisible, tvShowId, setCurrentRating, setRated }) => {
+const RatingModal = ({ visible, setModalVisible, mediaType, mediaId, setCurrentRating, setRated }) => {
   const [rating, setRating] = useState('');
   const [invalidRating, setInvalidRating] = useState(false);
   const [disabled, setDisabled] = useState(false);
@@ -30,7 +30,32 @@ const RatingModal = ({ visible, setModalVisible, tvShowId, setCurrentRating, set
 
       try {
         const sessionId = await AsyncStorage.getItem('sessionId');
-        const queryString = `tv/${tvShowId}/rating?api_key=${API_KEY}&session_id=${sessionId}`;
+        const queryString = `movie/${mediaId}/rating?api_key=${API_KEY}&session_id=${sessionId}`;
+
+        const { data } = await api.post(queryString, {
+          value: userRating
+        });
+
+        setRated(true);
+        setCurrentRating(rating);
+        setModalVisible(false);
+      } catch (error) {
+        console.log(error);
+      }
+    } else {
+      setInvalidRating(true);
+    }
+  }
+
+  const rateTvShow = async () => {
+    const userRating = rating;
+
+    if (ratingIsValid(userRating)) {
+      setInvalidRating(false);
+
+      try {
+        const sessionId = await AsyncStorage.getItem('sessionId');
+        const queryString = `tv/${mediaId}/rating?api_key=${API_KEY}&session_id=${sessionId}`;
 
         const { data } = await api.post(queryString, {
           value: userRating
@@ -52,11 +77,11 @@ const RatingModal = ({ visible, setModalVisible, tvShowId, setCurrentRating, set
     if (ratingIsValid(disableRating)) {
       setInvalidRating(false)
       setDisabled(false)
-     
+
     } else {
       setInvalidRating(true)
       setDisabled(true);
-     
+
     }
   }
   return (
@@ -112,7 +137,9 @@ const RatingModal = ({ visible, setModalVisible, tvShowId, setCurrentRating, set
               disabled={disabled}
               style={styles.btnOk}
               onPress={() => {
-                rateMovie();
+                mediaType === 'movie'
+                  ? rateMovie()
+                  : rateTvShow();
               }}
             >
               <Text style={styles.textOk}>
