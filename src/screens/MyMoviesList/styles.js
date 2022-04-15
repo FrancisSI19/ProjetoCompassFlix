@@ -3,10 +3,13 @@ import styled from 'styled-components/native';
 export const Container = styled.View`
     flex: 1px;
     background-color: #000000;
-    
     align-items: center;
-   
+`;
 
+export const ScrollList = styled.ScrollView`
+    flex: 1px;
+    background-color: #000000;
+    
 `;
 
 export const Title = styled.Text`
@@ -18,8 +21,6 @@ font-style: normal;
 font-weight: 700;
 font-size: 20px;
 line-height: 27px;
-
-
 color: #FFFFFF;
 `;
 

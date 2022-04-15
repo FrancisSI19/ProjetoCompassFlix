@@ -12,7 +12,7 @@ const Switch = ({ isEnable, setIsEnable }) =>{
     Animated.timing(
       position, {
         toValue: isEnable ? 0 : 36,
-        duration: 500,
+        duration: 400,
         useNativeDriver: false
       }
     ).start();

@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import AntDesing from "react-native-vector-icons/AntDesign";
-import { Text, Image } from 'react-native';
+import { Text, Image, ScrollView } from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
-import { Container, ButtonAdd, IconBack, Title, ContainerList, ContainerDel } from './styles';
+import { Container, ButtonAdd, IconBack, Title, ContainerList, ContainerDel, ScrollList } from './styles';
 import { useNavigation } from '@react-navigation/native';
 import CreateListModal from './CreateListModal';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -71,10 +71,11 @@ function MyMoviesList() {
   return (
 
     <Container>
-
+      
       <Title>Minhas Listas</Title>
       {movieList.map(list => {
         return (
+          
           <ContainerList
               onPress={() => navigation.navigate('MyMovies', {listId : list.id})}
             key={list.id}>
@@ -86,9 +87,10 @@ function MyMoviesList() {
               source={require('../../assets/img/Vector.png')}
             />
           </ContainerList>
-
+         
         )
       })}
+         
       <IconBack onPress={() => navigation.navigate('Profile')}>
         <Ionicons name="arrow-back" size={26} color="#000" />
       </IconBack>

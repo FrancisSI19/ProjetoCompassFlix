@@ -2,9 +2,9 @@ import React, { useEffect, useState } from 'react';
 import { FlatList, TouchableOpacity } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useNavigation } from '@react-navigation/native';
-import api from '../../services/api';
-import { API_KEY } from '../../constants/constants';
-import { Container, Image } from './styles';
+import api from '../../../services/api';
+import { API_KEY } from '../../../constants/constants';
+import { Container, Image } from '../styles';
 
 function SeriesFavorites() {
     const navigation = useNavigation()

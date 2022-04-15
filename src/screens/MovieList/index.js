@@ -40,7 +40,7 @@ export default function MovieList() {
       numColumns={4}
       keyExtractor={( item, index) => String(index)}
       onEndReached={loadMoreItem}
-      onEndReachedThreshold={0.5}
+      onEndReachedThreshold={0.1}
       ListFooterComponent={<FooterList load={loading} />}
       showsVerticalScrollIndicator={false}
       renderItem={({ item }) => {

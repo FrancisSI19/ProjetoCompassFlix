@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
+import { StyleSheet, Text, View, TouchableOpacity, Animated } from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import Accordion from 'react-native-collapsible/Accordion';
 import * as Animatable from 'react-native-animatable';
@@ -11,8 +11,16 @@ import Loading from '../../components/Loading';
 export default function Season({ seasons, tvShowId }) {
 
   const [loading, setLoading] = useState(true);
-
   const [content, setContent] = useState([]);
+  const [position, setPosition] = useState(new Animated.Value(0));
+
+  const animation= () => {
+    Animated.timing(
+      position, {
+        duration: 600
+      }
+    );
+  }
 
   const getSeasonDetails = async () => {
     try {
@@ -48,7 +56,7 @@ export default function Season({ seasons, tvShowId }) {
       >
         <View style={styles.seasonTextContainer}>
           <Text style={styles.seasonText}>{section.title}</Text>
-          <Ionicons name={isActive ? 'chevron-up' : 'chevron-down'} size={14} color='#fff' />
+          <Ionicons Animated={animation} name={isActive ? 'chevron-up' : 'chevron-down'} size={14} color='#fff' />
         </View>
 
         <View style={[styles.seasonBorder, isActive ? styles.active : styles.inactive]} />

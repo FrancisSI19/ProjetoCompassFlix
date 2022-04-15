@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Container, Name, IconBack, Title, ContainerFavorite} from '../styles';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import Ionicons from 'react-native-vector-icons/Ionicons';
-import SeriesFavorites from '../../../screens/SeriesFavorites';
+import SeriesFavorites from '../../../screens/ScreensFavorites/SeriesFavorites';
 import { useNavigation } from '@react-navigation/native';
 
 function FavoriteSeries() {
