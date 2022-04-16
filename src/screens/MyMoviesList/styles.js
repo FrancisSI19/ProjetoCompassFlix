@@ -10,9 +10,6 @@ export const Container = styled.View`
 `;
 
 export const Title = styled.Text`
-position: absolute;
-left: 135px;
-top: 122px;
 font-family: 'Open Sans';
 font-style: normal;
 font-weight: 700;
@@ -59,11 +56,11 @@ export const IconBack = styled.TouchableOpacity`
 export const ContainerList = styled.TouchableOpacity`
 width: 326px;
 height: 79px;
-left: 8px;
-top: 198px;
+padding-left:20px;
+margin-top: 200px;
 margin-Top: 10px;
 background: #8F9AFC;
-border-radius: 5px;
+border-radius: 10px;
 
 
 
@@ -75,9 +72,10 @@ width: 27px;
 height: 79px
 top: -43px;
 margin-Top: 10px;
-left: 300px;
+left: 280px;
 background: #E9A6A6;
-border-radius: 5px;
+border-radius: 8px
+
 `
 export const TextoContagemFilmes = styled.Text`
 left: 62px;

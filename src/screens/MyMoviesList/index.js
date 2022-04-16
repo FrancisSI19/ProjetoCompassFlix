@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import AntDesing from "react-native-vector-icons/AntDesign";
-import { ScrollView, Text, Image } from 'react-native';
+import { Text, Image, ScrollView,View } from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
-import { Container, ButtonAdd, IconBack, Title, ContainerList, ContainerDel, IconDelete, TextoContagemFilmes } from './styles';
+import { Container, ButtonAdd, IconBack, Title, ContainerList, ContainerDel } from './styles';
 import { useNavigation } from '@react-navigation/native';
 import CreateListModal from './CreateListModal';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -66,29 +66,36 @@ function MyMoviesList() {
   useEffect(() => {
     getCreatedLists();
     deleteList();
-  }, []);
+  }, [movieList]);
 
   return (
 
     <Container>
-
+      <View style = {{ width:'100%', height:100, alignItems:'center', justifyContent:'center'}}>
       <Title>Minhas Listas</Title>
-      {movieList.map(list => {
-        return (
+      </View>
+      <View>
+      <ScrollView contentContainerStyle = {{paddingBottom:200}} >
+      {movieList.map(list => (
+        
           <ContainerList
               onPress={() => navigation.navigate('MyMovies', {listId : list.id})}
             key={list.id}>
-            <Text style={{ color: 'white' }}>{list.name}
+            <Text style={{ color: 'white' }}>{list.name.toUpperCase()}
             </Text>
-            <Text style={{ color: '#fff', fontFamily:'Open Sans', fontWeight: '400', fontSize: 10, }} > {list.item_count} FILMES</Text>
-            <ContainerDel onPress={() => deleteList(list.id)} title='delete' />
-            <Image style={{ top: -90, left: 308, }}
+            <Text style={{ color: '#fff', fontFamily:'Open Sans', fontWeight: '400', fontSize: 10, top:40 }} > {list.item_count} FILMES</Text>
+            <ContainerDel style = {{borderBottomRightRadius: 10,borderTopRightRadius: 10,}} onPress={() => deleteList(list.id)} title='delete' />
+            <Image style={{ top: -90, left: 287, }}
               source={require('../../assets/img/Vector.png')}
             />
           </ContainerList>
+        
 
         )
-      })}
+      )}
+    
+      </ScrollView>
+      </View>
       <IconBack onPress={() => navigation.navigate('Profile')}>
         <Ionicons name="arrow-back" size={26} color="#000" />
       </IconBack>
