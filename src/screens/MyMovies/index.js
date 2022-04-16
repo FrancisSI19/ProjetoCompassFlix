@@ -72,7 +72,7 @@ const MyMovies = ({ navigation, route }) => {
 
   useEffect(() => {
     getListDetails();
-  }, []);
+  }, [removeMovie]);
 
   return (
     <View style={styles.container}>
@@ -116,3 +116,4 @@ const MyMovies = ({ navigation, route }) => {
 }
 
 export default MyMovies;
+
