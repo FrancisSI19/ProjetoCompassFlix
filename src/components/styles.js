@@ -35,3 +35,12 @@ export const Name = styled.Text`
   color: #E9A6A6;
   margin-left: 10px;
 `;
+
+export const Perfil = styled.Image`
+  position: absolute;
+  width: 44px;
+  height: 44px;
+  top: 18px;
+  right: 10px;
+  borderRadius: 40px;
+`;

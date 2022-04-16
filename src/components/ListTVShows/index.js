@@ -1,9 +1,9 @@
 import React, {useEffect, useState} from 'react';
-import { Image, StyleSheet, TouchableOpacity} from 'react-native';
+import { TouchableOpacity} from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import TVShowsList from '../../screens/TVShowsList';
-import {Container, Title, SubTitle, TitleList, Name} from '../styles';
+import {Container, Title, SubTitle, TitleList, Name, Perfil} from '../styles';
 
 export default function ListTVShows({navigation}) {
   const [name, setName] = useState('');
@@ -23,8 +23,7 @@ export default function ListTVShows({navigation}) {
   return (
     <Container>
       <TouchableOpacity onPress={() => navigation.navigate('Profile')}>
-        <Image
-          style={Profile.image}
+        <Perfil
           source={{uri: `https://image.tmdb.org/t/p/w300/${avatar}`}}
         />
       </TouchableOpacity>
@@ -38,13 +37,4 @@ export default function ListTVShows({navigation}) {
     </Container>
   );
 }
-const Profile = StyleSheet.create({
-  image: {
-    position: 'absolute',
-    width: 44,
-    height: 44,
-    top: 18,
-    right: 10,
-    borderRadius: 40,
-  },
-});
+
