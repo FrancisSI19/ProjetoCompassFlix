@@ -35,7 +35,7 @@ const styles = StyleSheet.create({
     fontFamily: 'OpenSans-Bold',
     color: '#fff'
   },
-botãoVerLista: {
+botaoVerLista: {
   backgroundColor: '#6C7BFC',
   marginTop: 18,
   borderRadius:5,

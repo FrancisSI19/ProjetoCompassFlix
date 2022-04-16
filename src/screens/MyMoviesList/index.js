@@ -9,13 +9,17 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import api from '../../services/api';
 import { API_KEY } from '../../constants/constants';
 
+import ModalRemove from '../../components/ModalRemove';
+
 function MyMoviesList() {
 
   const navigation = useNavigation();
+  const [visible, setVisible] = useState(false);
   const [modalVisible, setModalVisible] = useState(false);
   const [movieList, setMovieList] = useState([]);
   const [listName, setListName] = useState('')
-  const [listDescription, setListDescription] = useState('')
+  const [listDescription, setListDescription] = useState('');
+  const [listToRemove, setListToRemove] = useState('');
 
 
   const getCreatedLists = async () => {
@@ -77,7 +81,12 @@ function MyMoviesList() {
             <Text style={{ color: 'white' }}>{list.name}
             </Text>
             <Text style={{ color: '#fff', fontFamily:'Open Sans', fontWeight: '400', fontSize: 10, }} > {list.item_count} FILMES</Text>
-            <ContainerDel onPress={() => deleteList(list.id)} title='delete' />
+            <ContainerDel onPress={() => {
+
+              setListToRemove(list.id)
+              setVisible(true)
+            }} title='delete'/>
+
             <Image style={{ top: -90, left: 308, }}
               source={require('../../assets/img/Vector.png')}
             />
@@ -101,6 +110,14 @@ function MyMoviesList() {
         onPress={() => setModalVisible(true)}>
         <AntDesing name="pluscircle" size={50} color="#E9A6A6" />
       </ButtonAdd>
+
+      <ModalRemove
+        description='Deseja mesmo excluir essa lista?'
+        visible={visible}
+        setVisible={setVisible}
+        removeItem={deleteList}
+        itemToRemove={listToRemove}
+      />
     </Container>
   );
 }

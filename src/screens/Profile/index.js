@@ -127,7 +127,6 @@ const Profile = ({navigation}) => {
 
       setRatedTvShows(data.results);
       setTvShowsRatingCount(data.total_results);
-
     } catch (error) {
       console.log(error);
     }
@@ -145,7 +144,7 @@ const Profile = ({navigation}) => {
       getFavoriteTvShows();
       getFavoriteMovies();
     })
-  }, []);
+  }, [navigation]);
 
   return (
     <View style={styles.root}>
@@ -164,7 +163,7 @@ const Profile = ({navigation}) => {
 
           <TouchableOpacity
             onPress={() => navigation.navigate('MyMoviesList')}
-            style={styles.botãoVerLista}
+            style={styles.botaoVerLista}
           >
             <Text style={styles.VerListas}>Ver listas de filmes</Text>
           </TouchableOpacity>

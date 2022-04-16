@@ -55,13 +55,13 @@ function ListModal ({ visible, setVisible, movieId, setShowSuccessModal, setList
         console.log(error);
       }
     }
-  }
+  };
 
   useEffect(() => {
     console.log(movieId);
     getCreatedLists();
 
-  }, [movieList])
+  }, [movieList]);
 
   return (
     <>
