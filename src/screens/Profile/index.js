@@ -139,13 +139,13 @@ const Profile = ({navigation}) => {
     navigation.addListener('focus', () => {
       getUserData();
 
-      getFavoriteMovies();
       getRatedMovies();
+      getRatedTvShows();
 
       getFavoriteTvShows();
-      getRatedTvShows();
+      getFavoriteMovies();
     })
-  }, [navigation]);
+  }, []);
 
   return (
     <View style={styles.root}>

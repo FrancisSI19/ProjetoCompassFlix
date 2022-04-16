@@ -60,7 +60,8 @@ function ListModal ({ visible, setVisible, movieId, setShowSuccessModal, setList
   useEffect(() => {
     console.log(movieId);
     getCreatedLists();
-  }, [])
+
+  }, [movieList])
 
   return (
     <>

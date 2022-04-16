@@ -48,6 +48,12 @@ const MyMovies = ({ navigation, route }) => {
     }
   }
 
+  useEffect(() => {
+    getListDetails()
+    removeMovie();
+
+}, [movies]);
+
   const renderMovieList = ({ item }) => {
     return (
       <>

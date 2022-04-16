@@ -9,8 +9,8 @@ import TabBarIcon from '../components/TabBarIcon';
 import ListTVShows from '../components/ListTVShows';
 import RatedMovies from '../components/ListRatedMovies';
 import Profile from '../screens/Profile';
-import FavoriteSeries from '../components/Favorites/FavoritesSeries';
-import RatedSeries from '../components/ListRatedSeries'
+import FavoritesSeries from '../components/Favorites/FavoritesSeries';
+import ListRatedSeries from '../components/ListRatedSeries'
 import TvShowDetails from '../screens/TvShowDetails';
 import MyMoviesList from '../screens/MyMoviesList';
 import MyMovies from '../screens/MyMovies';
@@ -30,7 +30,10 @@ export default function AppRoutes() {
         name="TabBar"
         component={Tabs}
       />
-
+            <Stack.Screen
+          name="MyMovies"
+          component={MyMovies}
+        />
 
     </Stack.Navigator>
   );
@@ -135,6 +138,11 @@ export default function AppRoutes() {
         />
 
         <Stack.Screen
+          name="MyMoviesList"
+          component={MyMoviesList}
+        />
+
+        <Stack.Screen
           name="RatedMovies"
           component={RatedMovies}
         />
@@ -153,6 +161,7 @@ export default function AppRoutes() {
           name="TvShowDetails"
           component={TvShowDetails}
         />
+
       </Stack.Navigator>
     )
   }

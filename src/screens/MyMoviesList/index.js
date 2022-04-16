@@ -30,7 +30,7 @@ function MyMoviesList() {
       console.log(error);
     }
   };
-  const deleteList = async (id) => {
+  const deleteList = async id => {
     try {
       const sessionId = await AsyncStorage.getItem('sessionId');
 
@@ -58,20 +58,16 @@ function MyMoviesList() {
       );
       console.log(data)
     } catch (error) {
-      console.log('createList:',error)
-
-    }
-  }
+      console.log('createList:',error)}
+  };
 
   useEffect(() => {
-    getCreatedLists();
-    deleteList();
-  }, []);
+      getCreatedLists()
+      deleteList();
+  }, [movieList]);
 
   return (
-
     <Container>
-
       <Title>Minhas Listas</Title>
       {movieList.map(list => {
         return (
@@ -86,7 +82,6 @@ function MyMoviesList() {
               source={require('../../assets/img/Vector.png')}
             />
           </ContainerList>
-
         )
       })}
       <IconBack onPress={() => navigation.navigate('Profile')}>
@@ -102,18 +97,11 @@ function MyMoviesList() {
         setDescription={setListDescription}
         createList={createList}
       />
-
-
       <ButtonAdd
-        onPress={() => setModalVisible(true)}
-      >
-
+        onPress={() => setModalVisible(true)}>
         <AntDesing name="pluscircle" size={50} color="#E9A6A6" />
-
       </ButtonAdd>
     </Container>
-
-
   );
 }
 
