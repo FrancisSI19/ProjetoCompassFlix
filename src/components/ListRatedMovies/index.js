@@ -5,7 +5,6 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import RatedMovieList from '../../screens/MoviesRate';
 import { useNavigation } from '@react-navigation/native';
 
-
 function RatedMovies() {
   const navigation = useNavigation();
   const [name, setName] = useState('');

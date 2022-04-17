@@ -2,7 +2,6 @@ import styled from 'styled-components/native';
 
 export const Container = styled.View`
     background-color: #000000;
-
 `;
 
 export const Vote = styled.Text`
@@ -14,7 +13,6 @@ export const Vote = styled.Text`
 export const ContainerVote = styled.View`
     flex-direction: row;
     margin-left: 12px;
-
 `;
 
 export const Image = styled.Image`
@@ -29,5 +27,4 @@ export const Image = styled.Image`
 export const Icon = styled.View`
     margin-top: 1px;
     font-size: 8px;
-
 `;
