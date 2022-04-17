@@ -3,9 +3,9 @@ import styled from 'styled-components/native';
 export const Container = styled.View`
     flex: 1px;
     background-color: #000000;
-    
+
     align-items: center;
-   
+
 
 `;
 
@@ -36,7 +36,7 @@ export const ButtonAdd = styled.TouchableOpacity`
     justify-content: center;
     right: 30px;
     bottom: 30px;
-   
+
 `;
 
 export const IconBack = styled.TouchableOpacity`
@@ -51,7 +51,7 @@ export const IconBack = styled.TouchableOpacity`
     background-color: #fff;
 
 
-    
+
 `;
 export const ContainerList = styled.TouchableOpacity`
 width: 326px;

@@ -10,6 +10,8 @@ import {
 } from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import {useSelector} from 'react-redux';
+
 import styles from './styles';
 import Loading from '../../components/Loading';
 import {API_KEY} from '../../constants/constants';
@@ -17,6 +19,9 @@ import api from '../../services/api';
 
 
 const Profile = ({navigation}) => {
+  const ratingSize = useSelector(state => state.rating.length);
+  const favoriteSize = useSelector(state => state.favorite.push());
+
   const [ratingLoading, setRatingLoading] = useState(true);
   const [favoritesLoading, setFavoritesLoading] = useState(true);
   const [ratedsLoading, setRatedsLoading] = useState(true);
@@ -27,13 +32,14 @@ const Profile = ({navigation}) => {
 
   const [showMovieList, setShowMovieList] = useState(true);
 
-  const [favoriteMovies, setFavoriteMovies] = useState([]);
   const [ratedMovies, setRatedMovies] = useState([]);
-  const [movieRatingCount, setMovieRatingCount] = useState('');
+  const [ratedTvShows, setRatedTvShows] = useState([]);
+
+  const [movieRatingCount, setMovieRatingCount] = useState();
+  const [tvShowsRatingCount, setTvShowsRatingCount] = useState([]);
 
   const [favoriteTvShows, setFavoriteTvShows] = useState([]);
-  const [ratedTvShows, setRatedTvShows] = useState([]);
-  const [tvShowsRatingCount, setTvShowsRatingCount] = useState([]);
+  const [favoriteMovies, setFavoriteMovies] = useState([]);
 
   const getUserData = async () => {
     try {
@@ -129,14 +135,16 @@ const Profile = ({navigation}) => {
   };
 
   useEffect(() => {
-    getUserData();
+    navigation.addListener('focus', () => {
+      getUserData();
 
-    getFavoriteMovies();
-    getRatedMovies();
+      getRatedMovies();
+      getRatedTvShows();
 
-    getFavoriteTvShows();
-    getRatedTvShows();
-  }, []);
+      getFavoriteTvShows();
+      getFavoriteMovies();
+    })
+  }, [navigation]);
 
   return (
     <View style={styles.root}>
@@ -155,7 +163,7 @@ const Profile = ({navigation}) => {
 
           <TouchableOpacity
             onPress={() => navigation.navigate('MyMoviesList')}
-            style={styles.botãoVerLista}
+            style={styles.botaoVerLista}
           >
             <Text style={styles.VerListas}>Ver listas de filmes</Text>
           </TouchableOpacity>
@@ -171,6 +179,7 @@ const Profile = ({navigation}) => {
                   color: '#9C4A8B',
                   fontSize: 24,
                   fontFamily: 'OpenSans-Bold',
+
                 }}>
                 {showMovieList ? movieRatingCount : tvShowsRatingCount}
               </Text>
@@ -180,7 +189,7 @@ const Profile = ({navigation}) => {
                   fontSize: 12,
                   fontFamily: 'OpenSans-Regular',
                 }}>
-                Avaliações
+               Avaliações
               </Text>
             </>
           )}
@@ -300,6 +309,7 @@ const Profile = ({navigation}) => {
                       }}
                     />
                   </TouchableOpacity>
+
                 );
               }
             })

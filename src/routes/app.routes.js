@@ -9,8 +9,8 @@ import TabBarIcon from '../components/TabBarIcon';
 import ListTVShows from '../components/ListTVShows';
 import RatedMovies from '../components/ListRatedMovies';
 import Profile from '../screens/Profile';
-import FavoriteSeries from '../components/Favorites/FavoritesSeries';
-import RatedSeries from '../components/ListRatedSeries'
+import FavoritesSeries from '../components/Favorites/FavoritesSeries';
+import ListRatedSeries from '../components/ListRatedSeries'
 import TvShowDetails from '../screens/TvShowDetails';
 import MyMoviesList from '../screens/MyMoviesList';
 import MyMovies from '../screens/MyMovies';
@@ -30,162 +30,140 @@ export default function AppRoutes() {
         name="TabBar"
         component={Tabs}
       />
-
+            <Stack.Screen
+          name="MyMovies"
+          component={MyMovies}
+        />
 
     </Stack.Navigator>
   );
-}
 
-function Tabs() {
-  return (
-    <Tab.Navigator
-      initialRouteName='HomeStack'
-      screenOptions={({ route }) => ({
-        tabBarShowLabel: false,
-        headerShown: false,
-        tabBarStyle: {
-          backgroundColor: '#454545'
-        },
-        tabBarIcon: ({ focused }) => {
-          let tabName;
-          let bgColor;
+  function Tabs() {
+    return (
+      <Tab.Navigator
+        initialRouteName='HomeStack'
+        screenOptions={({ route }) => ({
+          tabBarShowLabel: false,
+          headerShown: false,
+          tabBarStyle: {
+            backgroundColor: '#454545'
+          },
+          tabBarIcon: ({ focused }) => {
+            let tabName;
+            let bgColor;
 
-          if (route.name === 'TVShowListStack') {
-            tabName = 'tvShowsList'
+            if (route.name === 'TVShowListStack') {
+              tabName = 'tvShowsList'
+            }
+            else if (route.name === 'HomeStack') {
+              tabName = 'home';
+            } else if (route.name === 'ProfileStack') {
+              tabName = 'profile';
+            }
+
+            if (focused) {
+              bgColor = '#E9A6A6';
+            } else {
+              bgColor = '#454545';
+            }
+
+            return <TabBarIcon tabName={tabName} bgColor={bgColor} />
           }
-          else if (route.name === 'HomeStack') {
-            tabName = 'home';
-          } else if (route.name === 'ProfileStack') {
-            tabName = 'profile';
-          }
+        })}
+      >
+        <Tab.Screen
+          name="TVShowListStack"
+          component={TVShowListStack}
+        />
+        <Tab.Screen
+          name="HomeStack"
+          component={HomeStack}
+        />
+        <Tab.Screen
+          name="ProfileStack"
+          component={ProfileStack}
+        />
+      </Tab.Navigator>
+    );
+  }
 
-          if (focused) {
-            bgColor = '#E9A6A6';
-          } else {
-            bgColor = '#454545';
-          }
+  function TVShowListStack() {
+    return (
+      <Stack.Navigator screenOptions={{ headerShown: false }}>
+        <Stack.Screen
+          name="TVShowList"
+          component={ListTVShows}
+        />
 
-          return <TabBarIcon tabName={tabName} bgColor={bgColor} />
-        }
-      })}
-    >
-      <Tab.Screen
-        name="TVShowListStack"
-        component={TVShowListStack}
-      />
-      <Tab.Screen
-        name="HomeStack"
-        component={HomeStack}
-      />
-      <Tab.Screen
-        name="ProfileStack"
-        component={ProfileStack}
-      />
-    </Tab.Navigator>
-  );
+        <Stack.Screen
+          name="TvShowDetails"
+          component={TvShowDetails}
+        />
+      </Stack.Navigator>
+    );
+  }
+
+  function HomeStack() {
+    return (
+      <Stack.Navigator screenOptions={{ headerShown: false }}>
+        <Stack.Screen
+          name="ListMovies"
+          component={ListMovies}
+        />
+
+        <Stack.Screen
+          name="MovieDetails"
+          component={MovieDetails}
+        />
+      </Stack.Navigator>
+    );
+  }
+
+  function ProfileStack() {
+    return (
+      <Stack.Navigator screenOptions={{ headerShown: false }}>
+        <Stack.Screen
+          name="Profile"
+          component={Profile}
+        />
+
+        <Stack.Screen
+          name="MovieDetails"
+          component={MovieDetails}
+        />
+
+        <Stack.Screen
+          name="FavoriteMovies"
+          component={FavoriteMovies}
+        />
+
+        <Stack.Screen
+          name="MyMoviesList"
+          component={MyMoviesList}
+        />
+
+        <Stack.Screen
+          name="RatedMovies"
+          component={RatedMovies}
+        />
+
+        <Stack.Screen
+          name="FavoritesSeries"
+          component={FavoritesSeries}
+        />
+
+        <Stack.Screen
+          name="RatedSeries"
+          component={ListRatedSeries}
+        />
+
+        <Stack.Screen
+          name="TvShowDetails"
+          component={TvShowDetails}
+        />
+
+      </Stack.Navigator>
+    )
+  }
 }
 
-function TVShowListStack() {
-  return (
-    <Stack.Navigator screenOptions={{ headerShown: false }}>
-      <Stack.Screen
-        name="TVShowList"
-        component={ListTVShows}
-      />
-
-      <Stack.Screen
-        name="TvShowDetails"
-        component={TvShowDetails}
-      />
-    </Stack.Navigator>
-  );
-}
-
-function HomeStack() {
-  return (
-    <Stack.Navigator screenOptions={{ headerShown: false }}>
-      <Stack.Screen
-        name="ListMovies"
-        component={ListMovies}
-      />
-
-      <Stack.Screen
-        name="MovieDetails"
-        component={MovieDetails}
-      />
-
-
-      <Stack.Screen
-        name="TvShowDetails"
-        component={TvShowDetails}
-      />
-
-      <Stack.Screen
-        name="FavoriteMovies"
-        component={FavoriteMovies}
-      />
-      <Stack.Screen
-        name="FavoritesSeries"
-        component={FavoriteSeries}
-        TabBarcolor='#454545'
-      />
-      <Stack.Screen
-        name="RatedMovies"
-        component={RatedMovies}
-        TabBarcolor='#454545'
-      />
-
-      <Stack.Screen
-        name="SeriesRated"
-        component={RatedSeries}
-        TabBarcolor='#454545'
-      />
-
-    </Stack.Navigator>
-  )
-}
-
-function ProfileStack() {
-  return (
-    <Stack.Navigator screenOptions={{ headerShown: false }}>
-      <Stack.Screen
-        name="Profile"
-        component={Profile}
-      />
-
-      <Stack.Screen
-        name="MovieDetails"
-        component={MovieDetails}
-      />
-
-      <Stack.Screen
-        name="FavoriteMovies"
-        component={FavoriteMovies}
-      />
-
-      <Stack.Screen
-        name="RatedMovies"
-        component={RatedMovies}
-      />
-      <Stack.Screen
-        name="RatedSeries"
-        component={RatedSeries}
-      />
-
-      <Stack.Screen
-        name="TvShowDetails"
-        component={TvShowDetails}
-      />
-
-      <Stack.Screen
-        name="MyMoviesList"
-        component={MyMoviesList}
-      />
-
-      <Stack.Screen
-        name="MyMovies"
-        component= {MyMovies}
-      />
-    </Stack.Navigator>
-  )
-}

@@ -3,12 +3,15 @@ import { useState } from 'react';
 import { Modal, Text, TextInput, TouchableOpacity, View } from 'react-native';
 import EvilIcons from 'react-native-vector-icons/EvilIcons';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { useDispatch } from 'react-redux';
 
 import styles from './styles';
 import api from '../../../services/api';
 import { API_KEY } from '../../../constants/constants';
 
 const RatingModal = ({ visible, setModalVisible, movieId, setCurrentRating, setRated }) => {
+  const dispatch = useDispatch();
+
   const [rating, setRating] = useState('');
   const [invalidRating, setInvalidRating] = useState(false);
   const [disabled, setDisabled] = useState(false);
@@ -30,14 +33,14 @@ const RatingModal = ({ visible, setModalVisible, movieId, setCurrentRating, setR
       try {
         const sessionId = await AsyncStorage.getItem('sessionId');
         const queryString = `movie/${movieId}/rating?api_key=${API_KEY}&session_id=${sessionId}`;
-        
+
 
         try {
           const { data } = await api.post(queryString, {
             value: userRating
           });
 
-          console.log(data);
+          // console.log(data);
           setRated(true);
           setCurrentRating(rating);
           setModalVisible(false);
@@ -59,13 +62,21 @@ const RatingModal = ({ visible, setModalVisible, movieId, setCurrentRating, setR
     if (ratingIsValid(disableRating)) {
       setInvalidRating(false)
       setDisabled(false)
-     
+
     } else {
       setInvalidRating(true)
       setDisabled(true);
-     
+
     }
   }
+  function handleRating(rating){
+    dispatch({
+      type: 'ADD_RATING',
+      rating,
+    });
+  }
+
+
   return (
     <Modal
       transparent
@@ -120,6 +131,7 @@ const RatingModal = ({ visible, setModalVisible, movieId, setCurrentRating, setR
               style={styles.btnOk}
               onPress={() => {
                 rateMovie();
+                handleRating(rating);
               }}
             >
               <Text style={styles.textOk}>

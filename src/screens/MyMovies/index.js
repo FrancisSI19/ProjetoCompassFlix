@@ -36,7 +36,7 @@ const MyMovies = ({ navigation, route }) => {
     }
   }
 
-  const removeMovie = async (movieId) => {
+  const removeMovie = async movieId => {
     try {
       const sessionId = await AsyncStorage.getItem('sessionId');
       const queryString = `list/${listId}/remove_item?api_key=${API_KEY}&session_id=${sessionId}`;
@@ -48,6 +48,12 @@ const MyMovies = ({ navigation, route }) => {
     }
   }
 
+  useEffect(() => {
+    getListDetails()
+    removeMovie();
+
+}, [movies]);
+
   const renderMovieList = ({ item }) => {
     return (
       <>
@@ -57,12 +63,12 @@ const MyMovies = ({ navigation, route }) => {
               <TouchableOpacity style={styles.btnRemove}
                 onPress={() => {
                   setMovieToRemove(item.id)
-                  setVisible(true);
-                }}
-              >
+                  setVisible(true)}}>
+
                 <Entypo name='minus' size={12} color='#EC2626' />
               </TouchableOpacity>
             </View>)
+
           : (<TouchableOpacity onPress={() => navigation.navigate('MovieDetails', {movieId: item.id, requestScreen: 'MyMovies'})}>
               <Poster posterPath={item.poster_path} />
             </TouchableOpacity>)}

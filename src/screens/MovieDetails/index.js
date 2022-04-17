@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Image, ScrollView, Text, View } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { useDispatch } from 'react-redux';
 
 import styles from './styles';
 import { API_KEY } from '../../constants/constants';
@@ -13,7 +14,9 @@ import InfoModal from './Components/InfoModal';
 import MediaDetails from '../../components/MediaDetails';
 
 const MovieDetails = ({ navigation, route }) => {
-  const { movieId } = route.params;
+  const dispatch = useDispatch();
+
+  const [credits, setCredits] = useState(null);
   const [loading, setLoading] = useState(true);
 
   const [credits, setCredits] = useState(null);
@@ -102,6 +105,42 @@ const MovieDetails = ({ navigation, route }) => {
     }
   }
 
+  const isRated = async () => {
+    setLoading(true);
+    try {
+      const sessionId = await AsyncStorage.getItem('sessionId');
+      const accountId = await AsyncStorage.getItem('accountId');
+
+      try {
+        const queryString = `account/${accountId}/rated/movies?api_key=${API_KEY}&language=pt-BR&session_id=${sessionId}&sort_by=created_at.desc`;
+
+        const { data } = await api.get(queryString);
+        const movie = data.results.find(movie => movie.id === movieId);
+
+        if (movie) {
+          setRated(true);
+          setRating(movie.rating);
+        } else {
+          setRated(false);
+        }
+      } catch (error) {
+        console.log(error);
+      }
+
+    } catch (error) {
+      console.log(error);
+    }
+    setLoading(false);
+  }
+
+  // redux
+  function handleAdd(favorite){
+    dispatch({
+      type: 'ADD_FAVORITE',
+      favorite,
+    });
+  }
+
   return loading ? <Loading size={60} /> : (
     <View style={styles.root}>
       <ScrollView>
@@ -118,14 +157,122 @@ const MovieDetails = ({ navigation, route }) => {
           setShowListModal={setShowListModal}
         />
 
-        <ModalRating
-          visible={modalVisible}
-          setModalVisible={setModalVisible}
-          mediaId={movieId}
-          mediaType='movie'
-          setCurrentRating={setRating}
-          setRated={setRated}
-        />
+        <TouchableOpacity
+          style={styles.btnBack}
+          onPress={() => navigation.goBack()}
+        >
+          <Ionicons name='arrow-back' size={26} color='#000' />
+        </TouchableOpacity>
+
+        <TouchableOpacity
+          style={styles.btnFavorite}
+          onPress={() => {
+            handleAdd(favorite);
+            markMovieAsFavorite();
+          }}
+        >
+          {
+            favorite
+              ? <MaterialIcons name='star' size={26} color='#EC2626' />
+              : <MaterialIcons name='star-border' size={26} color='#000' />
+          }
+        </TouchableOpacity>
+        <View style={styles.mainSection}>
+          <View style={styles.posterEnvelope}>
+            <Image
+              style={styles.poster}
+              source={{ uri: `https://image.tmdb.org/t/p/w780${poster}` }}
+            />
+
+            {
+              rated
+                ? (
+                  <TouchableOpacity
+                    style={styles.btnRated}
+                    onPress={() => {
+                      setModalVisible(true)
+                    }}
+                  >
+                    <Text style={styles.txtRated}>Sua nota: {rating}/10</Text>
+
+                    <View style={styles.icon}>
+                      <EvilIcons
+                        name='pencil'
+                        size={10}
+                      />
+                    </View>
+                  </TouchableOpacity>
+                )
+                : (
+                  <TouchableOpacity
+                    style={styles.btnRate}
+                    onPress={() => {
+                      setModalVisible(true)
+                    }}
+                  >
+                    <Text style={styles.txtRate}>Avalie agora</Text>
+                  </TouchableOpacity>
+                )
+            }
+
+          </View>
+
+          <RatingModal
+            visible={modalVisible}
+            setModalVisible={setModalVisible}
+            movieId={movieId}
+            setCurrentRating={setRating}
+            setRated={setRated}
+          />
+
+          <View style={[styles.mediaInfoEnvelope]}>
+            <Text style={styles.title}>
+              {title}
+            </Text>
+            <View style={styles.timeInfoEnvelope}>
+              <Text style={styles.releaseYear}>{releaseYear} | </Text>
+              <Text style={styles.runtime}>{runtime} min</Text>
+            </View>
+
+            <Text style={styles.directionText}>
+              Direção por
+              <Text style={styles.directorName}> {director?.name} </Text>
+            </Text>
+
+            <View style={styles.ratingEnvelope}>
+              <Text style={styles.voteAverage}>
+                {voteAverage}/10
+              </Text>
+
+              <View style={styles.voteCountEnvelope}>
+                <Ionicons name='heart' size={24} color='#EC2626' />
+                <Text style={styles.voteCount}>
+                  {
+                    voteCount >= 1000
+                      ? `${(voteCount / 1000).toFixed(0)}k`
+                      : voteCount
+                  }
+                </Text>
+              </View>
+            </View>
+
+            <TouchableOpacity
+              style={styles.containerAddMovie}
+              onPress={() => setShowListModal(true)}
+            >
+              <View style={styles.btnAddMovie}>
+                <MaterialIcons name='add' size={20} color='#000' />
+              </View>
+              <Text style={styles.txtAddMovie}>Adicionar a uma lista</Text>
+            </TouchableOpacity>
+
+            <ListModal
+              visible={showListModal}
+              setVisible={setShowListModal}
+              movieId={movieId}
+              setShowSuccessModal={setShowSuccessModal}
+              setListContainsMovie={setListContainsMovie}
+            />
 
         <ListModal
           visible={showListModal}

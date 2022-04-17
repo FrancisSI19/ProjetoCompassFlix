@@ -27,10 +27,9 @@ function SeriesFavorites() {
 
     }
     useEffect(() => {
+      navigation.addListener('focus', () => getFavoriteSeries())
+    }, [navigation])
 
-        getFavoriteSeries()
-
-    }, [])
     return <>
         <FlatList
             data={favoriteSeries}

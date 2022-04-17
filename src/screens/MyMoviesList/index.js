@@ -9,13 +9,17 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import api from '../../services/api';
 import { API_KEY } from '../../constants/constants';
 
+import ModalRemove from '../../components/ModalRemove';
+
 function MyMoviesList() {
 
   const navigation = useNavigation();
+  const [visible, setVisible] = useState(false);
   const [modalVisible, setModalVisible] = useState(false);
   const [movieList, setMovieList] = useState([]);
   const [listName, setListName] = useState('')
-  const [listDescription, setListDescription] = useState('')
+  const [listDescription, setListDescription] = useState('');
+  const [listToRemove, setListToRemove] = useState('');
 
 
   const getCreatedLists = async () => {
@@ -30,7 +34,7 @@ function MyMoviesList() {
       console.log(error);
     }
   };
-  const deleteList = async (id) => {
+  const deleteList = async id => {
     try {
       const sessionId = await AsyncStorage.getItem('sessionId');
 
@@ -58,20 +62,16 @@ function MyMoviesList() {
       );
       console.log(data)
     } catch (error) {
-      console.log('createList:',error)
-
-    }
-  }
+      console.log('createList:',error)}
+  };
 
   useEffect(() => {
-    getCreatedLists();
-    deleteList();
+      getCreatedLists()
+      deleteList();
   }, [movieList]);
 
   return (
-
     <Container>
-      <View style = {{ width:'100%', height:100, alignItems:'center', justifyContent:'center'}}>
       <Title>Minhas Listas</Title>
       </View>
       <View>
@@ -83,14 +83,17 @@ function MyMoviesList() {
             key={list.id}>
             <Text style={{ color: 'white' }}>{list.name.toUpperCase()}
             </Text>
-            <Text style={{ color: '#fff', fontFamily:'Open Sans', fontWeight: '400', fontSize: 10, top:40 }} > {list.item_count} FILMES</Text>
-            <ContainerDel style = {{borderBottomRightRadius: 10,borderTopRightRadius: 10,}} onPress={() => deleteList(list.id)} title='delete' />
-            <Image style={{ top: -90, left: 287, }}
+            <Text style={{ color: '#fff', fontFamily:'Open Sans', fontWeight: '400', fontSize: 10, }} > {list.item_count} FILMES</Text>
+            <ContainerDel onPress={() => {
+
+              setListToRemove(list.id)
+              setVisible(true)
+            }} title='delete'/>
+
+            <Image style={{ top: -90, left: 308, }}
               source={require('../../assets/img/Vector.png')}
             />
           </ContainerList>
-        
-
         )
       )}
     
@@ -109,18 +112,19 @@ function MyMoviesList() {
         setDescription={setListDescription}
         createList={createList}
       />
-
-
       <ButtonAdd
-        onPress={() => setModalVisible(true)}
-      >
-
+        onPress={() => setModalVisible(true)}>
         <AntDesing name="pluscircle" size={50} color="#E9A6A6" />
-
       </ButtonAdd>
+
+      <ModalRemove
+        description='Deseja mesmo excluir essa lista?'
+        visible={visible}
+        setVisible={setVisible}
+        removeItem={deleteList}
+        itemToRemove={listToRemove}
+      />
     </Container>
-
-
   );
 }
 

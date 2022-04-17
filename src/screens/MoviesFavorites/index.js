@@ -6,8 +6,14 @@ import { useNavigation } from '@react-navigation/native';
 import api from '../../services/api';
 import { API_KEY } from '../../constants/constants';
 
+import { useSelector } from 'react-redux';
+
 function MoviesFavorites() {
+
+    const favoriteSize = useSelector(state => state.favorite )
+
     const navigation = useNavigation()
+
     const [favoriteMovies, setFavoriteMovies] = useState([]);
 
     const getFavoriteMovies = async () => {
@@ -27,10 +33,9 @@ function MoviesFavorites() {
 
     }
     useEffect(() => {
+      navigation.addListener('focus', () => getFavoriteMovies())
+    }, [navigation])
 
-        getFavoriteMovies()
-
-    }, [])
     return <>
         <FlatList
             data={favoriteMovies}
@@ -41,8 +46,8 @@ function MoviesFavorites() {
             renderItem={({ item }) => {
                 return (
                     <Container>
-
                         <TouchableOpacity
+
                             onPress={() => {
                                 navigation.navigate('MovieDetails', { movieId: item.id, requestScreen: 'FavoriteMovies' });
                             }}>
