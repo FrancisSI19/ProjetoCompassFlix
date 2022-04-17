@@ -1,20 +1,22 @@
 import React, { useEffect, useState } from 'react';
-import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
+import { Text, View, TouchableOpacity } from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import Accordion from 'react-native-collapsible/Accordion';
 import * as Animatable from 'react-native-animatable';
 
-import { API_KEY } from '../../constants/constants';
-import api from '../../services/api';
-import Loading from '../../components/Loading';
+import styles from './styles';
+import { API_KEY } from '../../../../constants/constants';
+import api from '../../../../services/api';
+import Loading from '../../../../components/Loading';
 
-export default function Season({ seasons, tvShowId }) {
-
+export default function Seasons({ seasons, tvShowId }) {
   const [loading, setLoading] = useState(true);
 
   const [content, setContent] = useState([]);
 
   const getSeasonDetails = async () => {
+    console.log(tvShowId);
+    console.log(seasons);
     try {
       for (let index = 0; index < seasons.length; index++) {
         const queryString = `tv/${tvShowId}/season/${seasons[index].season_number}?api_key=${API_KEY}&language=pt-BR`;
@@ -101,103 +103,3 @@ export default function Season({ seasons, tvShowId }) {
     />
   );
 }
-
-const styles = StyleSheet.create({
-  season: {
-    marginBottom: 10,
-    borderRadius: 5,
-    backgroundColor: 'rgba(255, 255, 255, 0.5)',
-  },
-  seasonTextContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    paddingHorizontal: 16,
-    paddingTop: 13,
-    paddingBottom: 9,
-  },
-  seasonText: {
-    marginRight: 5,
-    fontFamily: 'OpenSans-Bold',
-    fontSize: 14,
-    color: '#fff',
-  },
-  seasonBorder: {
-    width: '100%',
-    height: 4,
-    borderBottomStartRadius: 5,
-    borderBottomEndRadius: 5,
-  },
-  episode: {
-    paddingVertical: 8,
-    paddingHorizontal: 14,
-    marginBottom: 10,
-    borderRadius: 5,
-    backgroundColor: 'rgba(255, 255, 255, 0.5)',
-  },
-  episodeText: {
-    fontFamily: 'OpenSans-Bold',
-    fontSize: 12,
-    color: '#fff',
-  },
-  episodeName: {
-    fontFamily: 'OpenSans-SemiBold',
-    fontSize: 10,
-    color: '#fff',
-  },
-  active: {
-    backgroundColor: '#E9A6A6',
-  },
-  inactive: {
-    backgroundColor: 'rgba(255, 255, 255, 0.5)',
-  }
-});
-
-// const styles = StyleSheet.create({
-//   seasonContainer: {
-//     width: '100%',
-//     alignSelf: 'center',
-//     marginBottom: 10,
-//     borderRadius: 5,
-//     backgroundColor: 'rgba(255, 255, 255, 0.5)'
-//   },
-//   seasonTextContainer: {
-//     flexDirection: 'row',
-//     alignItems: 'center',
-//     marginLeft: 14,
-//     marginTop: 12
-//   },
-//   seasonText: {
-//     marginRight: 8,
-//     color: '#fff',
-//     fontFamily: 'OpenSans-Bold'
-//   },
-//   seasonBorder: {
-//     width: '100%',
-//     height: 5,
-//     marginTop: 8,
-//     borderBottomStartRadius: 5,
-//     borderBottomEndRadius: 5
-//   },
-//   episodeContainer: {
-//     width: '100%',
-//     alignSelf: 'center',
-//     paddingHorizontal: 14,
-//     paddingVertical: 8,
-//     marginBottom: 10,
-//     borderRadius: 5,
-//     backgroundColor: 'rgba(255, 255, 255, 0.5)'
-//   },
-//   episodeNumberContainer: {
-//     flexDirection: 'row'
-//   },
-//   episodeNumberText: {
-//     fontFamily: 'OpenSans-Bold',
-//     fontSize: 12,
-//     color: '#fff'
-//   },
-//   episodeDescription: {
-//     fontFamily: 'OpenSans-SemiBold',
-//     fontSize: 9,
-//     color: '#fff'
-//   }
-// });

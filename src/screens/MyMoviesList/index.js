@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import AntDesing from "react-native-vector-icons/AntDesign";
-import { Text, Image } from 'react-native';
+import { Text, Image, ScrollView,View } from 'react-native'
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import { Container, ButtonAdd, IconBack, Title, ContainerList, ContainerDel } from './styles';
 import { useNavigation } from '@react-navigation/native';
@@ -73,12 +73,15 @@ function MyMoviesList() {
   return (
     <Container>
       <Title>Minhas Listas</Title>
-      {movieList.map(list => {
-        return (
+      </View>
+      <View>
+      <ScrollView contentContainerStyle = {{paddingBottom:200}} >
+      {movieList.map(list => (
+        
           <ContainerList
               onPress={() => navigation.navigate('MyMovies', {listId : list.id})}
             key={list.id}>
-            <Text style={{ color: 'white' }}>{list.name}
+            <Text style={{ color: 'white' }}>{list.name.toUpperCase()}
             </Text>
             <Text style={{ color: '#fff', fontFamily:'Open Sans', fontWeight: '400', fontSize: 10, }} > {list.item_count} FILMES</Text>
             <ContainerDel onPress={() => {
@@ -92,7 +95,10 @@ function MyMoviesList() {
             />
           </ContainerList>
         )
-      })}
+      )}
+    
+      </ScrollView>
+      </View>
       <IconBack onPress={() => navigation.navigate('Profile')}>
         <Ionicons name="arrow-back" size={26} color="#000" />
       </IconBack>

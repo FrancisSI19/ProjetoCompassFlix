@@ -1,92 +1,89 @@
 import React, { useEffect, useState } from 'react';
-import { Image, ScrollView, Text, TouchableOpacity, View } from 'react-native';
-import Ionicons from 'react-native-vector-icons/Ionicons';
-import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
-import EvilIcons from 'react-native-vector-icons/EvilIcons';
+import { Image, ScrollView, Text, View } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useDispatch } from 'react-redux';
 
 import styles from './styles';
 import { API_KEY } from '../../constants/constants';
 import api from '../../services/api';
-import { fetchCredits, fetchDetails } from '../../services/api';
+import { fetchCredits } from '../../services/api';
 import Loading from '../../components/Loading';
-import RatingModal from './RatingModal';
+import ModalRating from '../../components/ModalRating';
 import ListModal from './Components/ListModal';
 import InfoModal from './Components/InfoModal';
+import MediaDetails from '../../components/MediaDetails';
 
 const MovieDetails = ({ navigation, route }) => {
   const dispatch = useDispatch();
 
   const [credits, setCredits] = useState(null);
   const [loading, setLoading] = useState(true);
+
+  const [credits, setCredits] = useState(null);
   const [director, setDirector] = useState('');
 
-  const [backdrop, setBackdrop] = useState('');
-  const [poster, setPoster] = useState('');
-  const [title, setTitle] = useState('');
-  const [releaseYear, setReleaseYear] = useState('');
-  const [runtime, setRuntime] = useState('');
-  const [voteAverage, setVoteAverage] = useState('');
-  const [voteCount, setVoteCount] = useState('');
-  const [overview, setOverview] = useState('');
   const [cast, setCast] = useState([]);
 
-  const { movieId, requestScreen } = route.params;
-
-  const [favorite, setFavorite] = useState(false);
   const [modalVisible, setModalVisible] = useState(false);
-  const [rated, setRated] = useState(false);
   const [rating, setRating] = useState(0);
 
   const [showListModal, setShowListModal] = useState(false);
   const [showSuccessModal, setShowSuccessModal] = useState(false);
   const [listContainsMovie, setListContainsMovie] = useState(false);
 
-  useEffect(() => {
-    fetchDetails(movieId).then((data) => {
-      setBackdrop(data.backdrop);
-      setPoster(data.poster);
-      setTitle(data.title);
-      setReleaseYear(new Date(data.releaseDate).getFullYear());
-      setRuntime(data.runtime);
-      setVoteAverage(data.voteAverage);
-      setVoteCount(data.voteCount);
-      setOverview(data.overview);
-    });
+  const [details, setDetails] = useState();
+  const getDetails = async () => {
+    try {
+      const queryString = `movie/${movieId}?api_key=${API_KEY}&language=pt-BR`;
+      const { data } = await api.get(queryString);
 
+      setDetails(data);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  const [favorite, setFavorite] = useState(false);
+  const [rated, setRated] = useState(false);
+  const getStates = async () => {
+    try {
+      const accountId = await AsyncStorage.getItem('accountId');
+      const sessionId = await AsyncStorage.getItem('sessionId');
+
+      const queryString = `movie/${movieId}/account_states?api_key=${API_KEY}&session_id=${sessionId}`;
+      const { data } = await api.get(queryString);
+
+      setFavorite(data.favorite);
+      setRated(data.rated);
+
+      if (data.rated) {
+        const queryString = `account/${accountId}/rated/movies?api_key=${API_KEY}&language=pt-BR&session_id=${sessionId}&sort_by=created_at.desc`;
+
+        const { data } = await api.get(queryString);
+        const { rating } = data.results.find(movie => movie.id === movieId);
+
+        setRating(rating);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+    setLoading(false);
+  }
+
+  const goBack = () => navigation.goBack();
+
+  useEffect(() => {
     fetchCredits(movieId).then((data) => {
       setCredits(data.credits);
       setDirector(data.director);
       setCast(data.cast);
     });
 
-    isFavorite();
-    isRated();
+    getDetails();
+    getStates();
   }, []);
 
-  const isFavorite = async () => {
-    try {
-      const sessionId = await AsyncStorage.getItem('sessionId');
-      const accountId = await AsyncStorage.getItem('accountId');
-
-      const queryString = `account/${accountId}/favorite/movies?api_key=${API_KEY}&session_id=${sessionId}&language=pt-BR&sort_by=created_at.desc`;
-      try {
-        const { data } = await api.get(queryString);
-
-        data.results.find(movie => movie.id === movieId)
-          ? setFavorite(true)
-          : setFavorite(false);
-
-      } catch (error) {
-        console.log(error);
-      }
-    } catch (error) {
-      console.log(error);
-    }
-  }
-
-  const markMovieAsFavorite = async () => {
+  const markAsFavorite = async () => {
     try {
       const sessionId = await AsyncStorage.getItem('sessionId');
       const accountId = await AsyncStorage.getItem('accountId');
@@ -147,9 +144,17 @@ const MovieDetails = ({ navigation, route }) => {
   return loading ? <Loading size={60} /> : (
     <View style={styles.root}>
       <ScrollView>
-        <Image
-          style={styles.backdrop}
-          source={{ uri: `https://image.tmdb.org/t/p/w780${backdrop}` }}
+        <MediaDetails
+          type='movie'
+          favorite={favorite}
+          rated={rated}
+          rating={rating}
+          details={details}
+          markAsFavorite={markAsFavorite}
+          goBack={goBack}
+          setModalVisible={setModalVisible}
+          director={director}
+          setShowListModal={setShowListModal}
         />
 
         <TouchableOpacity
@@ -269,45 +274,47 @@ const MovieDetails = ({ navigation, route }) => {
               setListContainsMovie={setListContainsMovie}
             />
 
-            <InfoModal
-              visible={showSuccessModal}
-              setVisible={setShowSuccessModal}
-              listContainsMovie={listContainsMovie}
-            />
-          </View>
+        <ListModal
+          visible={showListModal}
+          setVisible={setShowListModal}
+          movieId={movieId}
+          setShowSuccessModal={setShowSuccessModal}
+          setListContainsMovie={setListContainsMovie}
+        />
 
-          <Text style={styles.overview}>
-            {overview}
-          </Text>
+        <InfoModal
+          visible={showSuccessModal}
+          setVisible={setShowSuccessModal}
+          listContainsMovie={listContainsMovie}
+        />
 
+        <View style={styles.castContainer}>
           <View style={styles.castTag}>
             <Text style={styles.castText}>Elenco</Text>
-            {/* <View style={styles.castBorder} /> */}
+            <View style={styles.castBorder} />
           </View>
 
-          {
-            cast.map(item => {
-              return (
-                <View
-                  style={styles.castEnvelope}
-                  key={item.id}
-                >
-                  <Image
-                    style={styles.castProfile}
-                    source={{ uri: `https://image.tmdb.org/t/p/w780${item.profilePath}` }}
-                  />
-                  <View style={styles.castInfoEnvelope}>
-                    <Text style={styles.castName}>
-                      {item.originalName}
-                    </Text>
-                    <Text style={styles.characterName}>
-                      {item.characterName}
-                    </Text>
-                  </View>
+          {cast.map(item => {
+            return (
+              <View
+                style={styles.castInfoContainer}
+                key={item.id}
+              >
+                <Image
+                  style={styles.castProfile}
+                  source={{ uri: `https://image.tmdb.org/t/p/w780${item.profilePath}` }}
+                />
+                <View style={styles.castNameContainer}>
+                  <Text style={styles.castName}>
+                    {item.originalName}
+                  </Text>
+                  <Text style={styles.characterName}>
+                    {item.characterName}
+                  </Text>
                 </View>
-              );
-            })
-          }
+              </View>
+            );
+          })}
         </View>
       </ScrollView>
     </View>
