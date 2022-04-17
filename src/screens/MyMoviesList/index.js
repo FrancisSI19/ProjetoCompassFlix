@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import AntDesing from "react-native-vector-icons/AntDesign";
-import { Text, Image, ScrollView,View } from 'react-native'
+import { Text, Image, ScrollView, View } from 'react-native'
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import { Container, ButtonAdd, IconBack, Title, ContainerList, ContainerDel } from './styles';
 import { useNavigation } from '@react-navigation/native';
@@ -50,10 +50,10 @@ function MyMoviesList() {
   const createList = async () => {
     try {
       const sessionId = await AsyncStorage.getItem('sessionId');
-      console.log('id:',sessionId)
+      console.log('id:', sessionId)
 
       const queryString = `list?api_key=${API_KEY}&session_id=${sessionId}`
-      const {data} = await api.post(queryString,
+      const { data } = await api.post(queryString,
         {
           name: listName,
           description: listDescription,
@@ -62,42 +62,42 @@ function MyMoviesList() {
       );
       console.log(data)
     } catch (error) {
-      console.log('createList:',error)}
+      console.log('createList:', error)
+    }
   };
 
   useEffect(() => {
-      getCreatedLists()
-      deleteList();
+    getCreatedLists()
+    deleteList();
   }, [movieList]);
 
   return (
     <Container>
       <Title>Minhas Listas</Title>
-      </View>
       <View>
-      <ScrollView contentContainerStyle = {{paddingBottom:200}} >
-      {movieList.map(list => (
-        
-          <ContainerList
-              onPress={() => navigation.navigate('MyMovies', {listId : list.id})}
-            key={list.id}>
-            <Text style={{ color: 'white' }}>{list.name.toUpperCase()}
-            </Text>
-            <Text style={{ color: '#fff', fontFamily:'Open Sans', fontWeight: '400', fontSize: 10, }} > {list.item_count} FILMES</Text>
-            <ContainerDel onPress={() => {
+        <ScrollView contentContainerStyle={{ paddingBottom: 200 }} >
+          {movieList.map(list => (
 
-              setListToRemove(list.id)
-              setVisible(true)
-            }} title='delete'/>
+            <ContainerList
+              onPress={() => navigation.navigate('MyMovies', { listId: list.id })}
+              key={list.id}>
+              <Text style={{ color: 'white' }}>{list.name.toUpperCase()}
+              </Text>
+              <Text style={{ color: '#fff', fontFamily: 'Open Sans', fontWeight: '400', fontSize: 10, }} > {list.item_count} FILMES</Text>
+              <ContainerDel onPress={() => {
 
-            <Image style={{ top: -90, left: 308, }}
-              source={require('../../assets/img/Vector.png')}
-            />
-          </ContainerList>
-        )
-      )}
-    
-      </ScrollView>
+                setListToRemove(list.id)
+                setVisible(true)
+              }} title='delete' />
+
+              <Image style={{ top: -90, left: 308, }}
+                source={require('../../assets/img/Vector.png')}
+              />
+            </ContainerList>
+          )
+          )}
+
+        </ScrollView>
       </View>
       <IconBack onPress={() => navigation.navigate('Profile')}>
         <Ionicons name="arrow-back" size={26} color="#000" />
