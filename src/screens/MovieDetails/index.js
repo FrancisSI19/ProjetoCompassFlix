@@ -1,5 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import { Image, ScrollView, Text, View } from 'react-native';
+import { Image, ScrollView, Text, View, TouchableOpacity } from 'react-native';
+import Ionicons from 'react-native-vector-icons/Ionicons';
+import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
+import EvilIcons from 'react-native-vector-icons/EvilIcons';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useDispatch } from 'react-redux';
 
@@ -8,9 +11,9 @@ import { API_KEY } from '../../constants/constants';
 import api from '../../services/api';
 import { fetchCredits } from '../../services/api';
 import Loading from '../../components/Loading';
-import ModalRating from '../../components/ModalRating';
 import ListModal from './Components/ListModal';
 import InfoModal from './Components/InfoModal';
+import RatingModal from './RatingModal';
 import MediaDetails from '../../components/MediaDetails';
 
 const MovieDetails = ({ navigation, route }) => {
@@ -19,11 +22,17 @@ const MovieDetails = ({ navigation, route }) => {
   const [credits, setCredits] = useState(null);
   const [loading, setLoading] = useState(true);
 
-  const [credits, setCredits] = useState(null);
   const [director, setDirector] = useState('');
 
   const [cast, setCast] = useState([]);
-
+  const [backdrop, setBackdrop] = useState('');
+  const [poster, setPoster] = useState('');
+  const [title, setTitle] = useState('');
+  const [releaseYear, setReleaseYear] = useState('');
+  const [runtime, setRuntime] = useState('');
+  const [voteAverage, setVoteAverage] = useState('');
+  const [voteCount, setVoteCount] = useState('');
+  const [overview, setOverview] = useState('');
   const [modalVisible, setModalVisible] = useState(false);
   const [rating, setRating] = useState(0);
 
@@ -31,6 +40,7 @@ const MovieDetails = ({ navigation, route }) => {
   const [showSuccessModal, setShowSuccessModal] = useState(false);
   const [listContainsMovie, setListContainsMovie] = useState(false);
 
+  const { movieId, requestScreen } = route.params;
   const [details, setDetails] = useState();
   const getDetails = async () => {
     try {
@@ -74,9 +84,17 @@ const MovieDetails = ({ navigation, route }) => {
 
   useEffect(() => {
     fetchCredits(movieId).then((data) => {
+      setPoster(data.poster);
       setCredits(data.credits);
       setDirector(data.director);
       setCast(data.cast);
+      setBackdrop(data.backdrop);
+      setTitle(data.title);
+      setReleaseYear(new Date(data.releaseDate).getFullYear());
+      setRuntime(data.runtime);
+      setVoteAverage(data.voteAverage);
+      setVoteCount(data.voteCount);
+      setOverview(data.overview);
     });
 
     getDetails();
@@ -140,7 +158,6 @@ const MovieDetails = ({ navigation, route }) => {
       favorite,
     });
   }
-
   return loading ? <Loading size={60} /> : (
     <View style={styles.root}>
       <ScrollView>
@@ -156,14 +173,14 @@ const MovieDetails = ({ navigation, route }) => {
           director={director}
           setShowListModal={setShowListModal}
         />
-
+      
         <TouchableOpacity
           style={styles.btnBack}
           onPress={() => navigation.goBack()}
         >
           <Ionicons name='arrow-back' size={26} color='#000' />
         </TouchableOpacity>
-
+      
         <TouchableOpacity
           style={styles.btnFavorite}
           onPress={() => {
@@ -224,8 +241,8 @@ const MovieDetails = ({ navigation, route }) => {
             setCurrentRating={setRating}
             setRated={setRated}
           />
-
           <View style={[styles.mediaInfoEnvelope]}>
+        
             <Text style={styles.title}>
               {title}
             </Text>
@@ -274,51 +291,45 @@ const MovieDetails = ({ navigation, route }) => {
               setListContainsMovie={setListContainsMovie}
             />
 
-        <ListModal
-          visible={showListModal}
-          setVisible={setShowListModal}
-          movieId={movieId}
-          setShowSuccessModal={setShowSuccessModal}
-          setListContainsMovie={setListContainsMovie}
-        />
-
-        <InfoModal
-          visible={showSuccessModal}
-          setVisible={setShowSuccessModal}
-          listContainsMovie={listContainsMovie}
-        />
-
-        <View style={styles.castContainer}>
-          <View style={styles.castTag}>
-            <Text style={styles.castText}>Elenco</Text>
-            <View style={styles.castBorder} />
-          </View>
-
-          {cast.map(item => {
-            return (
-              <View
-                style={styles.castInfoContainer}
-                key={item.id}
-              >
-                <Image
-                  style={styles.castProfile}
-                  source={{ uri: `https://image.tmdb.org/t/p/w780${item.profilePath}` }}
-                />
-                <View style={styles.castNameContainer}>
-                  <Text style={styles.castName}>
-                    {item.originalName}
-                  </Text>
-                  <Text style={styles.characterName}>
-                    {item.characterName}
-                  </Text>
-                </View>
+            <InfoModal
+              visible={showSuccessModal}
+              setVisible={setShowSuccessModal}
+              listContainsMovie={listContainsMovie}
+            />
+            <View style={styles.castContainer}>
+              <View style={styles.castTag}>
+                <Text style={styles.castText}>Elenco</Text>
+                <View style={styles.castBorder} />
               </View>
-            );
-          })}
+
+              {cast.map(item => {
+                return (
+                  <View
+                    style={styles.castInfoContainer}
+                    key={item.id}
+                  >
+                    <Image
+                      style={styles.castProfile}
+                      source={{ uri: `https://image.tmdb.org/t/p/w780${item.profilePath}` }}
+                    />
+                    <View style={styles.castNameContainer}>
+                      <Text style={styles.castName}>
+                        {item.originalName}
+                      </Text>
+                      <Text style={styles.characterName}>
+                        {item.characterName}
+                      </Text>
+                    </View>
+                  </View>
+                );
+              })}
+            </View>
+          </View>
         </View>
       </ScrollView>
     </View>
   );
 };
+
 
 export default MovieDetails;

@@ -5,7 +5,7 @@ import EvilIcons from 'react-native-vector-icons/EvilIcons';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useDispatch } from 'react-redux';
 
-import styles from './styles';
+import styles from '../styles';
 import api from '../../../services/api';
 import { API_KEY } from '../../../constants/constants';
 
