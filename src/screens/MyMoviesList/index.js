@@ -44,7 +44,6 @@ function MyMoviesList() {
       console.log(data)
     } catch (error) {
       console.log(error.response.data)
-
     }
   }
   const createList = async () => {
@@ -60,15 +59,15 @@ function MyMoviesList() {
           language: "pt"
         }
       );
-      console.log(data)
+      console.log(data);
     } catch (error) {
-      console.log('createList:', error)
+      console.log('createList:', error);
     }
   };
 
   useEffect(() => {
-    getCreatedLists()
-    deleteList();
+    getCreatedLists();
+    // deleteList();
   }, [movieList]);
 
   return (

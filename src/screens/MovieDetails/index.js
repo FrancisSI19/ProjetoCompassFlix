@@ -144,6 +144,7 @@ const MovieDetails = ({ navigation, route }) => {
         <View style={styles.castContainer}>
           <View style={styles.castTag}>
             <Text style={styles.castText}>Elenco</Text>
+            <View style={styles.castBorder} />
           </View>
 
           {cast.map(item => {
