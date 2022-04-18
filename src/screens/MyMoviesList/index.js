@@ -31,7 +31,7 @@ function MyMoviesList() {
       const { data } = await api.get(queryString);
       setMovieList(data.results);
     } catch (error) {
-      console.log(error);
+      // console.log(error);
     }
   };
   const deleteList = async id => {
@@ -43,7 +43,11 @@ function MyMoviesList() {
       const { data } = await api.delete(queryString);
       console.log(data)
     } catch (error) {
+<<<<<<< HEAD
       console.log(error.response.data)
+=======
+      // console.log(error.response.data)
+>>>>>>> 02e299b (Comentando consoles da aplicacao)
     }
   }
   const createList = async () => {
@@ -59,20 +63,31 @@ function MyMoviesList() {
           language: "pt"
         }
       );
+<<<<<<< HEAD
       console.log(data);
     } catch (error) {
       console.log('createList:', error);
+=======
+      // console.log(data)
+    } catch (error) {
+      // console.log('createList:',error)
+>>>>>>> 02e299b (Comentando consoles da aplicacao)
     }
   };
 
   useEffect(() => {
     getCreatedLists();
+<<<<<<< HEAD
     // deleteList();
+=======
+    deleteList();
+>>>>>>> 02e299b (Comentando consoles da aplicacao)
   }, [movieList]);
 
   return (
     <Container>
       <Title>Minhas Listas</Title>
+<<<<<<< HEAD
       <View>
         <ScrollView contentContainerStyle={{ paddingBottom: 200 }} >
           {movieList.map(list => (
@@ -98,6 +113,27 @@ function MyMoviesList() {
 
         </ScrollView>
       </View>
+=======
+      {movieList.map(list => {
+        return (
+          <ContainerList
+              onPress={() => navigation.navigate('MyMovies', {listId : list.id})}
+            key={list.id}>
+            <Text style={{ color: 'white' }}>{list.name}
+            </Text>
+            <Text style={{ color: '#fff', fontFamily:'Open Sans', fontWeight: '400', fontSize: 10, }} > {list.item_count} FILMES</Text>
+            <ContainerDel onPress={() => {
+              setListToRemove(list.id)
+              setVisible(true)
+            }} title='delete'/>
+
+            <Image style={{ top: -90, left: 308, }}
+              source={require('../../assets/img/Vector.png')}
+            />
+          </ContainerList>
+        )
+      })}
+>>>>>>> 02e299b (Comentando consoles da aplicacao)
       <IconBack onPress={() => navigation.navigate('Profile')}>
         <Ionicons name="arrow-back" size={26} color="#000" />
       </IconBack>
@@ -117,7 +153,11 @@ function MyMoviesList() {
       </ButtonAdd>
 
       <ModalRemove
+<<<<<<< HEAD
         description='Deseja mesmo excluir essa lista?'
+=======
+        description='Deseja mesmo remover essa lista?'
+>>>>>>> 02e299b (Comentando consoles da aplicacao)
         visible={visible}
         setVisible={setVisible}
         removeItem={deleteList}

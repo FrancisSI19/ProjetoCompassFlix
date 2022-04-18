@@ -30,7 +30,7 @@ const TvShowDetails = ({ navigation, route }) => {
 
       setDetails(data);
     } catch (error) {
-      console.log(error);
+      // console.log(error);
     }
   }
 
@@ -42,7 +42,7 @@ const TvShowDetails = ({ navigation, route }) => {
       const accountId = await AsyncStorage.getItem('accountId');
 
       const queryString = `account/${accountId}/favorite?api_key=${API_KEY}&session_id=${sessionId}`;
-      const { data } = await api.post(queryString, {
+      await api.post(queryString, {
         media_type: 'tv',
         media_id: tvShowId,
         favorite: !favorite
@@ -50,7 +50,7 @@ const TvShowDetails = ({ navigation, route }) => {
 
     } catch (error) {
       setFavorite(!favorite);
-      console.log(error);
+      // console.log(error);
     }
   }
 
