@@ -73,6 +73,7 @@ function MyMoviesList() {
   return (
     <Container>
       <Title>Minhas Listas</Title>
+      
       <View>
         <ScrollView contentContainerStyle={{ paddingBottom: 200 }} >
           {movieList.map(list => (
