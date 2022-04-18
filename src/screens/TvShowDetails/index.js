@@ -26,6 +26,7 @@ const TvShowDetails = ({ navigation, route }) => {
     try {
       const queryString = `tv/${tvShowId}?api_key=${API_KEY}&language=pt-BR`;
       const { data } = await api.get(queryString);
+      console.log(data.seasons);
 
       setDetails(data);
     } catch (error) {
