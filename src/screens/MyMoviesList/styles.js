@@ -3,7 +3,7 @@ import styled from 'styled-components/native';
 export const Container = styled.View`
     flex: 1px;
     background-color: #000000;
-
+  padding-top: 75px ;
     align-items: center;
 
 
@@ -15,6 +15,7 @@ font-style: normal;
 font-weight: 700;
 font-size: 20px;
 line-height: 27px;
+margin-bottom: 40px
 
 
 color: #FFFFFF;
@@ -57,13 +58,10 @@ export const ContainerList = styled.TouchableOpacity`
 width: 326px;
 height: 79px;
 padding-left:20px;
-margin-top: 200px;
-margin-Top: 10px;
+/* margin-top: 250px; */
+margin-Top: 15px;
 background: #8F9AFC;
 border-radius: 10px;
-
-
-
 `;
 
 

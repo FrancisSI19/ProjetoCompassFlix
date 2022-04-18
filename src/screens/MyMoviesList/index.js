@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import AntDesing from "react-native-vector-icons/AntDesign";
-import { Text, Image, ScrollView, View } from 'react-native'
+import { Text, Image } from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import { Container, ButtonAdd, IconBack, Title, ContainerList, ContainerDel } from './styles';
 import { useNavigation } from '@react-navigation/native';
@@ -43,77 +43,35 @@ function MyMoviesList() {
       const { data } = await api.delete(queryString);
       console.log(data)
     } catch (error) {
-<<<<<<< HEAD
-      console.log(error.response.data)
-=======
       // console.log(error.response.data)
->>>>>>> 02e299b (Comentando consoles da aplicacao)
     }
   }
   const createList = async () => {
     try {
       const sessionId = await AsyncStorage.getItem('sessionId');
-      console.log('id:', sessionId)
+      console.log('id:',sessionId)
 
       const queryString = `list?api_key=${API_KEY}&session_id=${sessionId}`
-      const { data } = await api.post(queryString,
+      const {data} = await api.post(queryString,
         {
           name: listName,
           description: listDescription,
           language: "pt"
         }
       );
-<<<<<<< HEAD
-      console.log(data);
-    } catch (error) {
-      console.log('createList:', error);
-=======
       // console.log(data)
     } catch (error) {
       // console.log('createList:',error)
->>>>>>> 02e299b (Comentando consoles da aplicacao)
     }
   };
-
   useEffect(() => {
     getCreatedLists();
-<<<<<<< HEAD
-    // deleteList();
-=======
     deleteList();
->>>>>>> 02e299b (Comentando consoles da aplicacao)
   }, [movieList]);
 
   return (
     <Container>
       <Title>Minhas Listas</Title>
-<<<<<<< HEAD
-      <View>
-        <ScrollView contentContainerStyle={{ paddingBottom: 200 }} >
-          {movieList.map(list => (
-
-            <ContainerList
-              onPress={() => navigation.navigate('MyMovies', { listId: list.id })}
-              key={list.id}>
-              <Text style={{ color: 'white' }}>{list.name.toUpperCase()}
-              </Text>
-              <Text style={{ color: '#fff', fontFamily: 'Open Sans', fontWeight: '400', fontSize: 10, }} > {list.item_count} FILMES</Text>
-              <ContainerDel onPress={() => {
-
-                setListToRemove(list.id)
-                setVisible(true)
-              }} title='delete' />
-
-              <Image style={{ top: -90, left: 308, }}
-                source={require('../../assets/img/Vector.png')}
-              />
-            </ContainerList>
-          )
-          )}
-
-        </ScrollView>
-      </View>
-=======
       {movieList.map(list => {
         return (
           <ContainerList
@@ -127,13 +85,12 @@ function MyMoviesList() {
               setVisible(true)
             }} title='delete'/>
 
-            <Image style={{ top: -90, left: 308, }}
+            <Image style={{ top: -90, left: 288, }}
               source={require('../../assets/img/Vector.png')}
             />
           </ContainerList>
         )
       })}
->>>>>>> 02e299b (Comentando consoles da aplicacao)
       <IconBack onPress={() => navigation.navigate('Profile')}>
         <Ionicons name="arrow-back" size={26} color="#000" />
       </IconBack>
@@ -153,11 +110,7 @@ function MyMoviesList() {
       </ButtonAdd>
 
       <ModalRemove
-<<<<<<< HEAD
-        description='Deseja mesmo excluir essa lista?'
-=======
         description='Deseja mesmo remover essa lista?'
->>>>>>> 02e299b (Comentando consoles da aplicacao)
         visible={visible}
         setVisible={setVisible}
         removeItem={deleteList}
