@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import AntDesing from "react-native-vector-icons/AntDesign";
-import { Text, Image, ScrollView, View } from 'react-native'
+import { Text, Image, View, ScrollView } from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
-import { Container, ButtonAdd, IconBack, Title, ContainerList, ContainerDel } from './styles';
+import { Container, ButtonAdd, IconBack, Title, ContainerList, ContainerDel, TextCounter, TextName } from './styles';
 import { useNavigation } from '@react-navigation/native';
 import CreateListModal from './CreateListModal';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -31,7 +31,7 @@ function MyMoviesList() {
       const { data } = await api.get(queryString);
       setMovieList(data.results);
     } catch (error) {
-      console.log(error);
+      // console.log(error);
     }
   };
   const deleteList = async id => {
@@ -43,31 +43,30 @@ function MyMoviesList() {
       const { data } = await api.delete(queryString);
       console.log(data)
     } catch (error) {
-      console.log(error.response.data)
+      // console.log(error.response.data)
     }
   }
   const createList = async () => {
     try {
       const sessionId = await AsyncStorage.getItem('sessionId');
-      console.log('id:', sessionId)
+      console.log('id:',sessionId)
 
       const queryString = `list?api_key=${API_KEY}&session_id=${sessionId}`
-      const { data } = await api.post(queryString,
+      const {data} = await api.post(queryString,
         {
           name: listName,
           description: listDescription,
           language: "pt"
         }
       );
-      console.log(data);
+      // console.log(data)
     } catch (error) {
       // console.log('createList:', error);
     }
   };
-
   useEffect(() => {
     getCreatedLists();
-    // deleteList();
+    deleteList();
   }, [movieList]);
 
   return (
@@ -81,16 +80,16 @@ function MyMoviesList() {
             <ContainerList
               onPress={() => navigation.navigate('MyMovies', { listId: list.id })}
               key={list.id}>
-              <Text style={{ color: 'white' }}>{list.name.toUpperCase()}
-              </Text>
-              <Text style={{ color: '#fff', fontFamily: 'Open Sans', fontWeight: '400', fontSize: 10, }} > {list.item_count} FILMES</Text>
+              <TextName>{list.name.toUpperCase()}
+              </TextName>
+              <TextCounter> {list.item_count} FILMES</TextCounter>
               <ContainerDel onPress={() => {
 
                 setListToRemove(list.id)
                 setVisible(true)
               }} title='delete' />
-
-              <Image style={{ top: -90, left: 308, }}
+              
+              <Image style={{ top: -90, left: 290 }}
                 source={require('../../assets/img/Vector.png')}
               />
             </ContainerList>
@@ -100,7 +99,7 @@ function MyMoviesList() {
         </ScrollView>
       </View>
       <IconBack onPress={() => navigation.navigate('Profile')}>
-        <Ionicons name="arrow-back" size={26} color="#000" />
+        <Ionicons name="arrow-back" size={20} color="#000" />
       </IconBack>
 
       <CreateListModal
@@ -114,11 +113,11 @@ function MyMoviesList() {
       />
       <ButtonAdd
         onPress={() => setModalVisible(true)}>
-        <AntDesing name="pluscircle" size={50} color="#E9A6A6" />
+        <AntDesing name="plus" size={30} color="#fff"/>
       </ButtonAdd>
 
       <ModalRemove
-        description='Deseja mesmo excluir essa lista?'
+        description='Deseja mesmo remover essa lista?'
         visible={visible}
         setVisible={setVisible}
         removeItem={deleteList}

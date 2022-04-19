@@ -36,7 +36,7 @@ const RatingModal = ({ visible, setModalVisible, movieId, setCurrentRating, setR
 
 
         try {
-          const { data } = await api.post(queryString, {
+            await api.post(queryString, {
             value: userRating
           });
 
@@ -45,11 +45,11 @@ const RatingModal = ({ visible, setModalVisible, movieId, setCurrentRating, setR
           setCurrentRating(rating);
           setModalVisible(false);
         } catch (error) {
-          console.log(error);
+          // console.log(error);
         }
 
       } catch (error) {
-        console.log(error);
+        // console.log(error);
       }
     } else {
       setInvalidRating(true);
@@ -131,7 +131,7 @@ const RatingModal = ({ visible, setModalVisible, movieId, setCurrentRating, setR
               style={styles.btnOk}
               onPress={() => {
                 rateMovie();
-                handleRating(rating);
+                // handleRating(rating);
               }}
             >
               <Text style={styles.textOk}>

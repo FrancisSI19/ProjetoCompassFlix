@@ -32,7 +32,7 @@ const MyMovies = ({ navigation, route }) => {
       setListDescription(data.description);
       setMovies(data.items);
     } catch (error) {
-      console.log(error);
+      // console.log(error);
     }
   }
 
@@ -44,7 +44,7 @@ const MyMovies = ({ navigation, route }) => {
       const { data } = await api.post(queryString, { media_id: movieId });
       console.log(data);
     } catch (error) {
-      console.log(error);
+      // console.log(error);
     }
   }
 

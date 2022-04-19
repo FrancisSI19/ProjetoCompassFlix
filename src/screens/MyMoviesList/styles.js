@@ -15,22 +15,19 @@ export const Title = styled.Text`
     color: #FFFFFF;
 `;
 
-export const ContainerLista = styled.View`
-    flex-direction: row;
-    margin-left: 12px;
-`;
-
 export const ButtonAdd = styled.TouchableOpacity`
     margin-top: 15px;
     width: 51px;
     height: 51px;
     border-radius: 30px;
+    border: 1px;
+    border-color: #FFFF;
+    background-color: #E9A6A6;
     position: absolute;
     align-items: center;
     justify-content: center;
     right: 30px;
     bottom: 30px;
-    color: #fff;
 `;
 
 export const IconBack = styled.TouchableOpacity`
@@ -47,9 +44,8 @@ export const IconBack = styled.TouchableOpacity`
 
 export const ContainerList = styled.TouchableOpacity`
     width: 326px;
-    height: 79px;
+    height: 80px;
     padding-left:20px;
-    margin-top: 200px;
     margin-Top: 10px;
     background: #8F9AFC;
     border-radius: 10px;
@@ -65,12 +61,21 @@ export const ContainerDel = styled.TouchableOpacity`
     border-radius: 8px
 `;
 
-export const TextoContagemFilmes = styled.Text`
-    left: 62px;
-    top: 211px;
+export const TextCounter = styled.Text`
+    top: 38px;
+    font-family: 'Open Sans';
+    font-weight: 700, bold;
+    font-size: 8px;
+    line-height: 14px;
+    color: #FFFFFF;
+    weight: bold;
+`;
+
+export const TextName = styled.Text`
+    top: 15px;
     font-family: 'Open Sans';
     font-weight: 400;
-    font-size: 10px;
+    font-size: 12px;
     line-height: 14px;
     color: #FFFFFF;
 `;
