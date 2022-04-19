@@ -61,7 +61,7 @@ function MyMoviesList() {
       );
       console.log(data);
     } catch (error) {
-      console.log('createList:', error);
+      // console.log('createList:', error);
     }
   };
 
