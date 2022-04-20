@@ -24,7 +24,7 @@ function CreateListModal ({visible, setModalVisible, setName, setDescription, na
 
                             <TextInput
                                 style={styles.input}
-                                maxLength={30}
+                                maxLength={50}
                                 placeholder= 'Nome da lista'
                                 onChangeText={value => setName(value)}
                                 value={name}

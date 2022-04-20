@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import AntDesing from "react-native-vector-icons/AntDesign";
-import { Text, Image, View, ScrollView } from 'react-native';
+import { Image, ScrollView } from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
-import { Container, ButtonAdd, IconBack, Title, ContainerList, ContainerDel, TextCounter, TextName } from './styles';
+import { Container, ButtonAdd, IconBack, Title, ListContainer, ListContentContainer, ListContent, ListName, ListMovieText, ListButtonDelete } from './styles';
 import { useNavigation } from '@react-navigation/native';
 import CreateListModal from './CreateListModal';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -71,36 +71,44 @@ function MyMoviesList() {
 
   return (
     <Container>
-      <Title>Minhas Listas</Title>
-      
-      <View>
-        <ScrollView contentContainerStyle={{ paddingBottom: 200 }} >
+      <ScrollView showsVerticalScrollIndicator={false}>
+        <IconBack onPress={() => navigation.goBack()}>
+          <Ionicons name="arrow-back" size={20} color="#000" />
+        </IconBack>
+
+        <Title>Minhas Listas</Title>
           {movieList.map(list => (
+            <ListContainer key={list.id}>
+              <ListContentContainer
+                onPress={() => navigation.navigate('MyMovies', { listId: list.id })}
+              >
+                <ListContent>
+                  <ListName>{list.name}</ListName>
+                  <ListMovieText>
+                    {list.item_count}
+                    {list.item_count === 1 ? ' Filme' : ' Filmes'}
+                  </ListMovieText>
+                </ListContent>
+              </ListContentContainer>
 
-            <ContainerList
-              onPress={() => navigation.navigate('MyMovies', { listId: list.id })}
-              key={list.id}>
-              <TextName>{list.name.toUpperCase()}
-              </TextName>
-              <TextCounter> {list.item_count} FILMES</TextCounter>
-              <ContainerDel onPress={() => {
-
-                setListToRemove(list.id)
-                setVisible(true)
-              }} title='delete' />
-              
-              <Image style={{ top: -90, left: 290 }}
-                source={require('../../assets/img/Vector.png')}
-              />
-            </ContainerList>
+              <ListButtonDelete
+                onPress={() => {
+                  setListToRemove(list.id);
+                  setVisible(true);
+                }}
+              >
+                <Image source={require('../../assets/img/thrash.png')} />
+              </ListButtonDelete>
+            </ListContainer>
           )
-          )}
+        )}
+      </ScrollView>
 
-        </ScrollView>
-      </View>
-      <IconBack onPress={() => navigation.navigate('Profile')}>
-        <Ionicons name="arrow-back" size={20} color="#000" />
-      </IconBack>
+      <ButtonAdd
+        onPress={() => setModalVisible(true)}
+      >
+        <AntDesing name="plus" size={30} color="#fff"/>
+      </ButtonAdd>
 
       <CreateListModal
         visible={modalVisible}
@@ -111,10 +119,6 @@ function MyMoviesList() {
         setDescription={setListDescription}
         createList={createList}
       />
-      <ButtonAdd
-        onPress={() => setModalVisible(true)}>
-        <AntDesing name="plus" size={30} color="#fff"/>
-      </ButtonAdd>
 
       <ModalRemove
         description='Deseja mesmo remover essa lista?'
