@@ -59,10 +59,10 @@ function CreateListModal ({visible, setModalVisible, setName, setDescription, na
                         <TouchableOpacity
                             style={styles.btnOk}
                             onPress={() => {
-                                setModalVisible(false);
-                                createList();
-                                setDescription('');
-                                setName('');
+                              setName(listName);
+                              setDescription(listDescription);
+                              createList();
+                              setModalVisible(false);
                             }}
 
                         >

@@ -31,7 +31,7 @@ function MyMoviesList() {
       const { data } = await api.get(queryString);
       setMovieList(data.results);
     } catch (error) {
-      // console.log(error);
+      console.log(error);
     }
   };
   const deleteList = async id => {
@@ -43,7 +43,7 @@ function MyMoviesList() {
       const { data } = await api.delete(queryString);
       console.log(data)
     } catch (error) {
-      // console.log(error.response.data)
+      console.log(error.response.data)
     }
   }
   const createList = async () => {
@@ -59,14 +59,13 @@ function MyMoviesList() {
           language: "pt"
         }
       );
-      // console.log(data)
+      console.log(data)
     } catch (error) {
-      // console.log('createList:', error);
+      console.log('createList:', error);
     }
   };
   useEffect(() => {
     getCreatedLists();
-    deleteList();
   }, [movieList]);
 
   return (
