@@ -71,8 +71,7 @@ function MyMoviesList() {
 
   return (
     <Container>
-<<<<<<< HEAD
-      <ScrollView showsVerticalScrollIndicator={false}>
+       <ScrollView showsVerticalScrollIndicator={false}>
         <IconBack onPress={() => navigation.goBack()}>
           <Ionicons name="arrow-back" size={20} color="#000" />
         </IconBack>
@@ -103,33 +102,6 @@ function MyMoviesList() {
             </ListContainer>
           )
         )}
-=======
-      <Title>Minhas Listas</Title>
-      
-      <View>
-      <ScrollView contentContainerStyle = {{paddingBottom:200}} >
-      {movieList.map(list => (
-        
-          <ContainerList
-              onPress={() => navigation.navigate('MyMovies', {listId : list.id})}
-            key={list.id}>
-            <Text style={{ color: 'white' }}>{list.name.toUpperCase()}
-            </Text>
-            <Text style={{ color: '#fff', fontFamily:'Open Sans', fontWeight: '400', fontSize: 10, }} > {list.item_count} FILMES</Text>
-            <ContainerDel onPress={() => {
-
-              setListToRemove(list.id)
-              setVisible(true)
-            }} title='delete'/>
-
-            <Image style={{ top: -90, left: 308, }}
-              source={require('../../assets/img/Vector.png')}
-            />
-          </ContainerList>
-        )
-      )}
-    
->>>>>>> ba45ee0 (Corrigindo erro no MovieDetails e MyMovieList)
       </ScrollView>
 
       <ButtonAdd
@@ -160,3 +132,4 @@ function MyMoviesList() {
 }
 
 export default MyMoviesList;
+
