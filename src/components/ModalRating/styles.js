@@ -50,7 +50,8 @@ const styles = StyleSheet.create({
     marginTop: 6,
     fontSize: 12,
     fontFamily: 'OpenSans-Regular',
-    color: '#EC2626'
+    color: '#EC2626',
+    textAlign: 'center'
   },
   btnsEnvelope: {
     width: '64%',
