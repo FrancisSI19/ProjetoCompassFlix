@@ -76,13 +76,11 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     borderRadius: 5,
-    backgroundColor: '#000'
   },
   textOk: {
     textTransform: 'uppercase',
     fontSize: 10,
     fontFamily: 'OpenSans-Bold',
-    color: '#fff'
   }
 });
 

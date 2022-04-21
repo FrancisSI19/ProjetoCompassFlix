@@ -15,7 +15,7 @@ const RatingModal = ({ visible, setModalVisible, mediaType, mediaId, setCurrentR
 
   const ratingIsValid = (userRating) => {
     return (
-      (userRating >= 0.5 && userRating <= 10)
+      (userRating >= 0.5 && userRating <= 10 && userRating % 0.5 === 0)
         && (userRating[0] !== '.' && userRating[userRating.length - 1] !== '.')
         ? true
         : false
@@ -116,7 +116,7 @@ const RatingModal = ({ visible, setModalVisible, mediaType, mediaId, setCurrentR
           </View>
 
           {
-            invalidRating && <Text style={styles.invalidRating}>A nota deve ser entre 0.5 e 10</Text>
+            invalidRating && <Text style={styles.invalidRating}>A nota deve ser entre 0.5 e 10 e múltipla de 0.5</Text>
           }
 
           <View style={[styles.btnsEnvelope, { marginTop: invalidRating ? 10 : 32 }]}>
@@ -135,14 +135,14 @@ const RatingModal = ({ visible, setModalVisible, mediaType, mediaId, setCurrentR
 
             <TouchableOpacity
               disabled={disabled}
-              style={styles.btnOk}
+              style={[styles.btnOk, {backgroundColor: !invalidRating ? '#000' : '#C4C4C4'}]}
               onPress={() => {
                 mediaType === 'movie'
                   ? rateMovie()
                   : rateTvShow();
               }}
             >
-              <Text style={styles.textOk}>
+              <Text style={[styles.textOk, {color: !invalidRating ? '#fff' : '#8E8E8E'}]}>
                 OK
               </Text>
             </TouchableOpacity>
