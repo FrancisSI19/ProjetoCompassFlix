@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {Button, Image, StyleSheet, TouchableOpacity} from 'react-native';
+import { Image, StyleSheet, TouchableOpacity} from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import TVShowsList from '../../screens/TVShowsList';

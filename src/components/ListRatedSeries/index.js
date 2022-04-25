@@ -10,7 +10,6 @@ function RatedSeries() {
   const navigation = useNavigation();
   const [name, setName] = useState('');
   const [username, setUsername] = useState('');
-
   useEffect(() => {
     try {
       AsyncStorage.getItem('username').then(value => setUsername(value));

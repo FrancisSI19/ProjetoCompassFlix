@@ -2,10 +2,8 @@
 import React, { useEffect, useState } from 'react';
 import { ActivityIndicator, FlatList, TouchableOpacity, View } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-
 import { ContainerVote, Vote, Image, Container } from '../styles';
 import {fetchMovies} from "../../services/api";
-import Loading from '../../components/Loading';
 import IconStar from '../../components/IconStar';
 import VoteAverage from '../../components/VoteAverage';
 
@@ -13,18 +11,18 @@ export default function MovieList() {
   const navigation = useNavigation();
 
   const [movies, setMovies] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
   const [pageNumber, setPageNumber] = useState(1);
 
   useEffect(() => {
     setLoading(true);
     fetchMovies(pageNumber)
-      .then((data) => {
+      .then(data => {
         setMovies([...movies, ...data]);
         setLoading(false);
-
-      }).catch(error => error)
-  }, [pageNumber])
+      })
+      .catch(error => error);
+  }, [pageNumber]);
 
   const loadMoreItem = () => setPageNumber(pageNumber + 1);
 

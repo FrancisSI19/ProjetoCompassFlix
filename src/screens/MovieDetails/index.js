@@ -11,6 +11,8 @@ import api from '../../services/api';
 import { fetchCredits, fetchDetails } from '../../services/api';
 import Loading from '../../components/Loading';
 import RatingModal from './RatingModal';
+import ListModal from './Components/ListModal';
+import InfoModal from './Components/InfoModal';
 
 const MovieDetails = ({ navigation, route }) => {
   const [credits, setCredits] = useState(null);
@@ -33,6 +35,10 @@ const MovieDetails = ({ navigation, route }) => {
   const [modalVisible, setModalVisible] = useState(false);
   const [rated, setRated] = useState(false);
   const [rating, setRating] = useState(0);
+
+  const [showListModal, setShowListModal] = useState(false);
+  const [showSuccessModal, setShowSuccessModal] = useState(false);
+  const [listContainsMovie, setListContainsMovie] = useState(false);
 
   useEffect(() => {
     fetchDetails(movieId).then((data) => {
@@ -137,7 +143,7 @@ const MovieDetails = ({ navigation, route }) => {
 
         <TouchableOpacity
           style={styles.btnBack}
-          onPress={() => navigation.navigate(requestScreen)}
+          onPress={() => navigation.goBack()}
         >
           <Ionicons name='arrow-back' size={26} color='#000' />
         </TouchableOpacity>
@@ -231,6 +237,30 @@ const MovieDetails = ({ navigation, route }) => {
                 </Text>
               </View>
             </View>
+
+            <TouchableOpacity
+              style={styles.containerAddMovie}
+              onPress={() => setShowListModal(true)}
+            >
+              <View style={styles.btnAddMovie}>
+                <MaterialIcons name='add' size={20} color='#000' />
+              </View>
+              <Text style={styles.txtAddMovie}>Adicionar a uma lista</Text>
+            </TouchableOpacity>
+
+            <ListModal
+              visible={showListModal}
+              setVisible={setShowListModal}
+              movieId={movieId}
+              setShowSuccessModal={setShowSuccessModal}
+              setListContainsMovie={setListContainsMovie}
+            />
+
+            <InfoModal
+              visible={showSuccessModal}
+              setVisible={setShowSuccessModal}
+              listContainsMovie={listContainsMovie}
+            />
           </View>
 
           <Text style={styles.overview}>
@@ -239,7 +269,7 @@ const MovieDetails = ({ navigation, route }) => {
 
           <View style={styles.castTag}>
             <Text style={styles.castText}>Elenco</Text>
-            <View style={styles.castBorder} />
+            {/* <View style={styles.castBorder} /> */}
           </View>
 
           {

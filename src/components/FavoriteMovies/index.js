@@ -3,10 +3,10 @@ import { Container, Name, IconBack, Title, ContainerFavorite} from './styles';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import MoviesFavorites from '../../screens/MoviesFavorites';
-
+import { useNavigation } from '@react-navigation/native';
 //{ route: {params} , navigation } inserir na função da tela do usuário quando tiver a tela do retorno.
-function FavoriteMovies({navigation}) {
-
+function FavoriteMovies() {
+  const navigation = useNavigation();
   const [name, setName] = useState('');
   const [username, setUsername] = useState('');
   
@@ -23,7 +23,7 @@ function FavoriteMovies({navigation}) {
 
     <Container>
       <IconBack
-        onPress={() => navigation.goBack()}
+        onPress={() => navigation.navigate('Profile')}
       >
         <Ionicons name='arrow-back' size={26} color='#000' />
       </IconBack>

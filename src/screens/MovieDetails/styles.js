@@ -137,6 +137,28 @@ const styles = StyleSheet.create({
     fontFamily: 'OpenSans-Regular',
     color: '#fff'
   },
+  containerAddMovie: {
+    alignSelf: 'flex-start',
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginTop: 10,
+    borderRadius: 20,
+    backgroundColor: '#C4C4C4',
+  },
+  btnAddMovie: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    padding: 2,
+    borderRadius: 20,
+    backgroundColor: '#fff',
+  },
+  txtAddMovie: {
+    marginHorizontal: 8,
+    marginVertical: 6,
+    fontFamily: 'OpenSans-Bold',
+    fontSize: 9,
+    color: '#000'
+  },
   overview: {
     marginTop: 160,
     fontFamily: 'OpenSans-Regular',
